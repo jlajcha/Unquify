@@ -1,8 +1,11 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>842</x><y>497</y><w>300</w><h>280</h></coordinates><panel_attributes>Unqfy
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>842</x><y>497</y><w>300</w><h>280</h></coordinates><panel_attributes>Unqfy
 --
 addArtist(artistData)
 addAlbum(artistId, albumData)
 addTrack(albumId, trackData)
+deleteArtist(id)
+deleteAlbum(id)
+deleteTrack(id)
 getArtistById(id)
 getAlbumById(id)
 getTrackById(id)
@@ -16,20 +19,24 @@ lt=&lt;-
 m1=0..n</panel_attributes><additional_attributes>10;10;20;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>297</y><w>210</w><h>120</h></coordinates><panel_attributes>Playlist
 --
 name : string
+id : number
 --
 duration() : number
 hasTrack(aTrack) : boolean
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>317</y><w>190</w><h>50</h></coordinates><panel_attributes>playlists
+deleteTrack(id)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>317</y><w>190</w><h>50</h></coordinates><panel_attributes>playlists?????
 lt=&lt;-
 m1=0..n</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>77</y><w>200</w><h>130</h></coordinates><panel_attributes>Track
 --
 name : string
 duration : number
 genres : list(string)
+id : number
 --</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>82</y><w>210</w><h>110</h></coordinates><panel_attributes>Album
 --
 name : string
 year : number
+id : number
 --
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>202</y><w>200</w><h>110</h></coordinates><panel_attributes>tracks
 lt=&lt;-
@@ -38,7 +45,8 @@ lt=&lt;-
 m1=0..n</panel_attributes><additional_attributes>240;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>452</y><w>210</w><h>150</h></coordinates><panel_attributes>Artist
 --
 name : string
-country : string 
+country : string
+id : number 
 --
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>182</y><w>70</w><h>290</h></coordinates><panel_attributes>albums
 lt=&lt;-
@@ -55,4 +63,8 @@ idPlaylists
 idUsers ????
 --</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1130</x><y>620</y><w>220</w><h>50</h></coordinates><panel_attributes>ids
 lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>200;20;10;20</additional_attributes></element></diagram>
+m1=0..n</panel_attributes><additional_attributes>200;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>540</y><w>400</w><h>50</h></coordinates><panel_attributes>artists
+lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;10;380;30</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>397</y><w>200</w><h>120</h></coordinates><panel_attributes>playlists?????
+lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;10;180;100</additional_attributes></element></diagram>
