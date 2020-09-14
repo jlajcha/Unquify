@@ -2,6 +2,7 @@
 
 const fs = require('fs'); // necesitado para guardar/cargar unqfy
 const unqmod = require('./unqfy'); // importamos el modulo unqfy
+const unqfy = require('./unqfy');
 
 // Retorna una instancia de UNQfy. Si existe filename, recupera la instancia desde el archivo.
 function getUNQfy(filename = 'data.json') {
@@ -15,7 +16,17 @@ function getUNQfy(filename = 'data.json') {
 function saveUNQfy(unqfy, filename = 'data.json') {
   unqfy.save(filename);
 }
-
+function addArtist(name , country){
+  unq = getUNQfy
+  unq.addArtist({name: name, country: country})
+  saveUNQfy(unq)
+   console.log('se guardo el estado de '+ unqfy.artists)
+}
+function getArtist(id){
+  const art = unqfy.getArtist(id)
+  
+  return console.log (art)
+}
 /*
  En esta funcion deberán interpretar los argumentos pasado por linea de comandos
  e implementar los diferentes comandos.

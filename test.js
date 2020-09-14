@@ -16,7 +16,9 @@ function createAndAddAlbum(unqfy, artistId, albumName, albumYear) {
 function createAndAddTrack(unqfy, albumId, trackName, trackDuraction, trackGenres) {
   return unqfy.addTrack(albumId, { name: trackName, duration: trackDuraction, genres: trackGenres });
 }
-
+function getArtistFrom(unqfy,id){
+  return unqfy.getArtistById(id)
+}
 
 describe('Add, remove and filter data', () => {
   let unqfy = null;
@@ -30,9 +32,24 @@ describe('Add, remove and filter data', () => {
 
     assert.equal(artist.name, 'Guns n\' Roses');
     assert.equal(artist.country, 'USA');
+    assert.equal(artist.id,0)
+    console.log(artist)
 
   });
 
+  it('should get a artist by id', () => {
+    const artist1 = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    assert.equal(artist1.id,0)
+    const artistfound = getArtistFrom(unqfy,0)
+    console.log(artist1)
+    console.log(artistfound)
+
+    assert.equal(artist1.name,artistfound.name)
+    assert.equal(artist1.country,artistfound.country)
+
+  });
+
+  
   it('should add an album to an artist', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
