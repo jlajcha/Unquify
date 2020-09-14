@@ -1,9 +1,18 @@
 
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
+const {Artist} = require('./artist.js')
 
 
 class UNQfy {
+  constructor(){
+    this.artists = []
+ //   var idManager = new IdManager()
+//    this.manager = idManager
+
+    this.artistCounter = 0;
+    this.trackCounter = 0;
+  }
 
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -15,9 +24,28 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
+    const id = this.artistCounter++
+    const name = artistData.name
+    const country = artistData.country
+    const newArtist = new Artist(id,name,country)
+    this.artists.push(newArtist)
+    return newArtist
   }
 
 
+  artists(){
+    return this.artists
+  }
+   
+  nextIdForArtist(){
+    this.artistCounter = this.artistCounter++
+    return this.artistCounter
+  }
+  nextIdForTrack(){
+    this.trackCounter = this.trackCounter++
+    return this.trackCounter    
+    }
+ 
   // albumData: objeto JS con los datos necesarios para crear un album
   //   albumData.name (string)
   //   albumData.year (number)
@@ -46,7 +74,11 @@ class UNQfy {
   }
 
   getArtistById(id) {
+    const artistsFound = this.artists.filter((artist)=> artist.id == id)
+    console.log('los artistas disponibles son ' + this.artists)
+    console.log('el artista buscado '+ artistsFound.name)
 
+    return artistsFound[0]
   }
 
   getAlbumById(id) {
@@ -96,7 +128,7 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy];
+    const classes = [UNQfy,Artist];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }
@@ -104,5 +136,6 @@ class UNQfy {
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente
 module.exports = {
   UNQfy: UNQfy,
+  Artist: Artist,
 };
 
