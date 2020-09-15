@@ -2,9 +2,9 @@ class Artist{
     
     constructor(id,name, country){
 
-        this.id = id
+        this.id = id;
         this.name = name;
-        this.country = country
+        this.country = country;
     }
     id(){
         return this.id

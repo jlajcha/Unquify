@@ -75,8 +75,8 @@ class UNQfy {
 
   getArtistById(id) {
     const artistsFound = this.artists.filter((artist)=> artist.id == id)
-    console.log('los artistas disponibles son ' + this.artists)
-    console.log('el artista buscado '+ artistsFound.name)
+    // console.log('los artistas disponibles son ' + this.artists)
+    // console.log('el artista buscado '+ artistsFound.name)
 
     return artistsFound[0]
   }

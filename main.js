@@ -3,6 +3,7 @@
 const fs = require('fs'); // necesitado para guardar/cargar unqfy
 const unqmod = require('./unqfy'); // importamos el modulo unqfy
 const unqfy = require('./unqfy');
+const CommandHandler = require('./commandHandler');
 
 // Retorna una instancia de UNQfy. Si existe filename, recupera la instancia desde el archivo.
 function getUNQfy(filename = 'data.json') {
@@ -26,9 +27,11 @@ function addArtist(name , country){
 }
 
 function getArtist(id){
-  const art = unqfy.getArtistById(id)
+  unq = getUNQfy()
+  const art = unq.getArtistById(id)
   
-  return console.log (art)
+  // return console.log (JSON.stringify(art) )
+  console.log (JSON.stringify(art) )
 }
 
 /*
@@ -63,8 +66,11 @@ function getArtist(id){
 
 function main() {
   // console.log(${process.argv[2]});
-  
-  eval(process.argv[2] + '(' + '"'+process.argv[3] +'"'+ ','+'"'+process.argv[4]+'"' +')')
+  const commandHandler = new CommandHandler(process.argv.slice(2))
+  const command = commandHandler.execute()
+  eval(command)
+  //eval(process.argv[2] + '(' + '"'+process.argv[3] +'"'+ ','+'"'+process.argv[4]+'"' +')')
+  // eval(process.argv[2] + '(' + '"'+process.argv[3] +'"' +')')
   //console.log('arguments: ');
   //process.argv.forEach(argument => console.log(argument));
 }
