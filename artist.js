@@ -16,4 +16,4 @@ class Artist{
         return this.country
     }
 }
-module.exports.Artist = Artist
+module.exports= Artist 

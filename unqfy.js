@@ -1,7 +1,7 @@
 
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
-const {Artist} = require('./artist.js')
+const Artist = require('./artist.js');
 
 
 class UNQfy {
@@ -135,7 +135,6 @@ class UNQfy {
 
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente
 module.exports = {
-  UNQfy: UNQfy,
-  Artist: Artist,
+  UNQfy: UNQfy
 };
 

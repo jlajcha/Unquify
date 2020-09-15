@@ -15,4 +15,4 @@ class IdManager{
     return this.trackCounter    
     }
 }
-module.exports.IdManager = IdManager
+module.exports = IdManager

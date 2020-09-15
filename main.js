@@ -16,17 +16,21 @@ function getUNQfy(filename = 'data.json') {
 function saveUNQfy(unqfy, filename = 'data.json') {
   unqfy.save(filename);
 }
+
 function addArtist(name , country){
-  unq = getUNQfy
-  unq.addArtist({name: name, country: country})
+  unq = getUNQfy()
+  data = {name: name, country: country}
+  artist =unq.addArtist(data)
   saveUNQfy(unq)
-   console.log('se guardo el estado de '+ unqfy.artists)
+  console.log('se guardo el estado de '+ JSON.stringify(data))
 }
+
 function getArtist(id){
-  const art = unqfy.getArtist(id)
+  const art = unqfy.getArtistById(id)
   
   return console.log (art)
 }
+
 /*
  En esta funcion deberán interpretar los argumentos pasado por linea de comandos
  e implementar los diferentes comandos.
@@ -58,8 +62,11 @@ function getArtist(id){
 */
 
 function main() {
-  console.log('arguments: ');
-  process.argv.forEach(argument => console.log(argument));
+  // console.log(${process.argv[2]});
+  
+  eval(process.argv[2] + '(' + '"'+process.argv[3] +'"'+ ','+'"'+process.argv[4]+'"' +')')
+  //console.log('arguments: ');
+  //process.argv.forEach(argument => console.log(argument));
 }
 
 main();
