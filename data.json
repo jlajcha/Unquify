@@ -8,65 +8,21 @@
   "objects": {
     "__00001__": {
       "artists": "__00002__",
-      "artistCounter": 8,
+      "artistCounter": 1,
       "trackCounter": 0
     },
     "__00002__": {
-      "0": "__00003__",
-      "1": "__00004__",
-      "2": "__00005__",
-      "3": "__00006__",
-      "4": "__00007__",
-      "5": "__00008__",
-      "6": "__00009__",
-      "7": "__00010__"
+      "0": "__00003__"
     },
     "__00003__": {
       "id": 0,
       "name": "can",
-      "country": "epico"
-    },
-    "__00004__": {
-      "id": 1,
-      "name": "duki",
-      "country": "ferrari"
-    },
-    "__00005__": {
-      "id": 2,
-      "name": "wos",
-      "country": "pantano"
-    },
-    "__00006__": {
-      "id": 3,
-      "name": "gnr,civilwar"
-    },
-    "__00007__": {
-      "id": 4,
-      "name": "aerosmith,crazy"
-    },
-    "__00008__": {
-      "id": 5,
-      "name": "addArtist,aerosmith,crazy"
-    },
-    "__00009__": {
-      "id": 6,
-      "name": "aerosmith,crazy"
-    },
-    "__00010__": {
-      "id": 7,
-      "name": "aerosmith"
+      "country": "venezuela"
     }
   },
   "types": {
     "__00001__": "UNQfy",
     "__00002__": "Array",
-    "__00003__": "Artist",
-    "__00004__": "Artist",
-    "__00005__": "Artist",
-    "__00006__": "Artist",
-    "__00007__": "Artist",
-    "__00008__": "Artist",
-    "__00009__": "Artist",
-    "__00010__": "Artist"
+    "__00003__": "Artist"
   }
 }

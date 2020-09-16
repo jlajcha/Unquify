@@ -1,38 +1,10 @@
 
 
-const fs = require('fs'); // necesitado para guardar/cargar unqfy
-const unqmod = require('./unqfy'); // importamos el modulo unqfy
-const unqfy = require('./unqfy');
+// const fs = require('fs'); // necesitado para guardar/cargar unqfy
+// const unqmod = require('./unqfy'); // importamos el modulo unqfy
+// const unqfy = require('./unqfy');
+const {getUNQfy, saveUNQfy} = require('./persistenceUNQfy');
 const CommandHandler = require('./commandHandler');
-
-// Retorna una instancia de UNQfy. Si existe filename, recupera la instancia desde el archivo.
-function getUNQfy(filename = 'data.json') {
-  let unqfy = new unqmod.UNQfy();
-  if (fs.existsSync(filename)) {
-    unqfy = unqmod.UNQfy.load(filename);
-  }
-  return unqfy;
-}
-
-function saveUNQfy(unqfy, filename = 'data.json') {
-  unqfy.save(filename);
-}
-
-function addArtist(name , country){
-  unq = getUNQfy()
-  data = {name: name, country: country}
-  artist =unq.addArtist(data)
-  saveUNQfy(unq)
-  console.log('se guardo el estado de '+ JSON.stringify(data))
-}
-
-function getArtist(id){
-  unq = getUNQfy()
-  const art = unq.getArtistById(id)
-  
-  // return console.log (JSON.stringify(art) )
-  console.log (JSON.stringify(art) )
-}
 
 /*
  En esta funcion deberán interpretar los argumentos pasado por linea de comandos
@@ -65,14 +37,8 @@ function getArtist(id){
 */
 
 function main() {
-  // console.log(${process.argv[2]});
   const commandHandler = new CommandHandler(process.argv.slice(2))
-  const command = commandHandler.execute()
-  eval(command)
-  //eval(process.argv[2] + '(' + '"'+process.argv[3] +'"'+ ','+'"'+process.argv[4]+'"' +')')
-  // eval(process.argv[2] + '(' + '"'+process.argv[3] +'"' +')')
-  //console.log('arguments: ');
-  //process.argv.forEach(argument => console.log(argument));
+  commandHandler.execute()  
 }
 
 main();
