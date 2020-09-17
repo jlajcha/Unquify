@@ -2,6 +2,10 @@
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./artist.js');
+const IdManager = require('./idManager.js');
+const Album = require('./album.js');
+const Track = require('./track.js');
+
 
 
 class UNQfy {
@@ -9,10 +13,8 @@ class UNQfy {
     this.artists = []
  //   var idManager = new IdManager()
 //    this.manager = idManager
-
-    this.artistCounter = 0;
-    this.trackCounter = 0;
-  }
+    this.idManager = new IdManager()
+     }
 
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -24,7 +26,7 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
-    const id = this.artistCounter++
+    const id = this.idManager.nextIdForArtist()
     const name = artistData.name
     const country = artistData.country
     const newArtist = new Artist(id,name,country)
@@ -37,28 +39,47 @@ class UNQfy {
     return this.artists
   }
    
-  nextIdForArtist(){
-    this.artistCounter = this.artistCounter++
-    return this.artistCounter
-  }
-  nextIdForTrack(){
-    this.trackCounter = this.trackCounter++
-    return this.trackCounter    
-    }
- 
   // albumData: objeto JS con los datos necesarios para crear un album
   //   albumData.name (string)
   //   albumData.year (number)
   // retorna: el nuevo album creado
+  
+  //"aca ver algún metodo que solo actulice el artista agregando el album. "
+  addAlbumToArtist(artistId,album){
+      
+    for (var i = 0; i < this.artists.length; i++) {
+      var art = this.artists[i]
+      if (art.id == artistId) {
+        art.addAlbum(album); 
+          break;
+      }
+    }
+  }
+
+  addTrackToAlbum(idAlbum,track){
+
+    var album = this.getAlbumById(idAlbum)
+    for (var i = 0; i < this.artists.length; i++) {
+      var art = this.artists[i]  
+      if (art.albums.includes(album)) {
+        art.addTrackToAlbum(idAlbum,track); 
+          break;
+      }
+    }
+    console.log(this.artists)
+  }
+  
   addAlbum(artistId, albumData) {
   /* Crea un album y lo agrega al artista con id artistId.
     El objeto album creado debe tener (al menos):
      - una propiedad name (string)
      - una propiedad year (number)
   */
+    const id = this.idManager.nextIdForAlbum();
+    const newAlbum = new Album(id,albumData.name,albumData.year);
+    this.addAlbumToArtist(artistId,newAlbum);
+    return newAlbum
   }
-
-
   // trackData: objeto JS con los datos necesarios para crear un track
   //   trackData.name (string)
   //   trackData.duration (number)
@@ -71,6 +92,20 @@ class UNQfy {
       - una propiedad duration (number),
       - una propiedad genres (lista de strings)
   */
+    const trackID = this.idManager.nextIdForTrack
+    const newTrack = new Track(trackID,trackData.name,trackData.duration,trackData.genres)
+    this.addTrackToAlbum(albumId,newTrack)
+    return newTrack
+
+  }
+
+
+  getArtistByName(name) {
+    const artistsFound = this.artists.filter((artist)=> artist.name == name)
+    // console.log('los artistas disponibles son ' + this.artists)
+    // console.log('el artista buscado '+ artistsFound.name)
+
+    return artistsFound[0]
   }
 
   getArtistById(id) {
@@ -82,27 +117,63 @@ class UNQfy {
   }
 
   getAlbumById(id) {
-
+    const albumFound = 
+          this.artists.filter(
+                        (artist)=> (artist.albums.filter((album)=> album.id===id)))
+    return albumFound
+        
   }
 
   getTrackById(id) {
-
+    const trackFound = 
+          this.artists.filter(
+                        (artist)=> (artist.albums.filter(
+                                                (album)=> albumtracks.filter((track)=>track.id = id ))))
+    
+    return trackFound
   }
 
   getPlaylistById(id) {
 
   }
+  getArtistTracks(idArtist){
+    return this.getArtistById(idArtist).getTracks
+  }
 
+  allTracksOnApp(){
+    const tracks = this.artists.map((artist)=>artist.getTracks)
+    return tracks
+  }
   // genres: array de generos(strings)
   // retorna: los tracks que contenga alguno de los generos en el parametro genres
+
+
+  allTracksWithGender(){
+    const allTracks = this.allTracksOnApp()
+    return allTracks.filter((track)=>track.genres.length()>0)
+  }
   getTracksMatchingGenres(genres) {
+//ver como hacer esto menos inecificientemente.
+
+    const allTracks = this.allTracksWithGender()
+    console.log('todos los tracks son ' + allTracks)
+    const trackOfGender= new Set
+
+    for (let index = 0; index < genres.length; index++) {
+      const gen = genres[index];
+      trackOfGender.push( allTracks.filter(
+                            (track)=> genres.includes(gen)))
+                      
+    }
+    return trackOfGender
 
   }
 
   // artistName: nombre de artista(string)
   // retorna: los tracks interpredatos por el artista con nombre artistName
   getTracksMatchingArtist(artistName) {
-
+   const artist= this.getArtistByName(artistName)
+   return artist.getTracks
   }
 
 
@@ -128,13 +199,17 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist];
+    const classes = [UNQfy,Artist,IdManager,Album,Track];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }
 
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente
 module.exports = {
-  UNQfy: UNQfy
+  UNQfy: UNQfy,
+  Artist: Artist,
+  IdManager:IdManager,
+  Album,
+  Track,
 };
 

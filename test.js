@@ -37,6 +37,20 @@ describe('Add, remove and filter data', () => {
 
   });
 
+
+  it('should add three artists', () => {
+    const firstArtist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const secondArtist = createAndAddArtist(unqfy, 'Miranda', 'Argentina');
+    const thirdArtist = createAndAddArtist(unqfy, 'ACDC', 'Australia');
+    assert.equal(firstArtist.name, 'Guns n\' Roses');
+    assert.equal(firstArtist.id,0)
+    assert.equal(secondArtist.name, 'Miranda');
+    assert.equal(secondArtist.id,1)
+    assert.equal(thirdArtist.id,2)
+    //console.log(artist)
+
+  });
+
   it('should get a artist by id', () => {
     const artist1 = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     assert.equal(artist1.id,0)
@@ -98,7 +112,8 @@ describe('Add, remove and filter data', () => {
     const t3 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['movie']);
 
     const tracksMatching = unqfy.getTracksMatchingGenres(['pop', 'movie']);
-
+    
+    console.log()
     // assert.equal(tracks.matching.constructor.name, Array);
     assert.isArray(tracksMatching);
     assert.lengthOf(tracksMatching, 4);
