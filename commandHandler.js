@@ -26,7 +26,7 @@ class CommandHandler{
 
                                 const artistAdder = unqfy.addArtist(data);
                                 //despues de las validaciones se puede devolver unicamente el nombre del artista
-                                console.log('se guardo el estado de '+ JSON.stringify(artistAdder));
+                                console.log('se guardo el estado de '+ JSON.stringify(artistAdder.name));
                         }
             },
 
