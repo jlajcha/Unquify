@@ -7,13 +7,13 @@ class Artist{
         this.country = country;
     }
     id(){
-        return this.id
+        return this.id;
     }
     name(){
-        return this.name
+        return this.name;
     }
     country(){
-        return this.country
+        return this.country;
     }
 }
-module.exports= Artist 
+module.exports= Artist; 
