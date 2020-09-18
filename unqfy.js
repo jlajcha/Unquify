@@ -48,7 +48,7 @@ class UNQfy {
   addAlbumToArtist(artistId,album){
       
     for (let i = 0; i < this.artists.length; i++) {
-      let art = this.artists[i];
+      const art = this.artists[i];
       if (art.id === artistId) {
         art.addAlbum(album); 
           break;

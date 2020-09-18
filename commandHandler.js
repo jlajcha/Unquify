@@ -1,5 +1,5 @@
 const {getUNQfy, saveUNQfy} = require('./persistenceUNQfy');
-const unqfy = require('./unqfy');
+//const unqfy = require('./unqfy');
 // const unqfy = require('./unqfy');
 
 class CommandHandler{
@@ -9,13 +9,13 @@ class CommandHandler{
     }
 
     execute(){
-        let unq = getUNQfy();
+        const unq = getUNQfy();
         this.stackOfCommands()[this.command].exec(unq);
-        saveUNQfy(unq)
+        saveUNQfy(unq);
     }
 
     stackOfCommands(){
-        const functionParams = this.paramets
+        const functionParams = this.paramets;
         return {
             addArtist: {
                 exec : function(unqfy){
@@ -24,15 +24,16 @@ class CommandHandler{
                                 country: functionParams[1],
                             };
 
-                                const artistAdder = unqfy.addArtist(data)
-                                console.log('se guardo el estado de '+ JSON.stringify(artistAdder))
+                                const artistAdder = unqfy.addArtist(data);
+                                //despues de las validaciones se puede devolver unicamente el nombre del artista
+                                console.log('se guardo el estado de '+ JSON.stringify(artistAdder));
                         }
             },
 
             getArtistById: {
                 exec: function(unqfy) {
-                            const artist = unqfy.getArtistById(Number(functionParams[0]))
-                            console.log(JSON.stringify(artist) )      
+                            const artist = unqfy.getArtistById(Number(functionParams[0]));
+                            console.log(JSON.stringify(artist) );     
                         }
             }
         };
