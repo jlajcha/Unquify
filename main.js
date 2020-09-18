@@ -37,8 +37,8 @@ const CommandHandler = require('./commandHandler');
 */
 
 function main() {
-  const commandHandler = new CommandHandler(process.argv.slice(2))
-  commandHandler.execute()  
+  const commandHandler = new CommandHandler(process.argv.slice(2));
+  commandHandler.execute();  
 }
 
 main();

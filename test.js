@@ -32,8 +32,8 @@ describe('Add, remove and filter data', () => {
 
     assert.equal(artist.name, 'Guns n\' Roses');
     assert.equal(artist.country, 'USA');
-    assert.equal(artist.id,0)
-    console.log(artist)
+    assert.equal(artist.id,0);
+    console.log(artist);
 
   });
 
@@ -43,23 +43,23 @@ describe('Add, remove and filter data', () => {
     const secondArtist = createAndAddArtist(unqfy, 'Miranda', 'Argentina');
     const thirdArtist = createAndAddArtist(unqfy, 'ACDC', 'Australia');
     assert.equal(firstArtist.name, 'Guns n\' Roses');
-    assert.equal(firstArtist.id,0)
+    assert.equal(firstArtist.id,0);
     assert.equal(secondArtist.name, 'Miranda');
-    assert.equal(secondArtist.id,1)
-    assert.equal(thirdArtist.id,2)
+    assert.equal(secondArtist.id,1);
+    assert.equal(thirdArtist.id,2);
     //console.log(artist)
 
   });
 
   it('should get a artist by id', () => {
     const artist1 = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
-    assert.equal(artist1.id,0)
-    const artistfound = getArtistFrom(unqfy,0)
-    console.log(artist1)
-    console.log(artistfound)
+    assert.equal(artist1.id,0);
+    const artistfound = getArtistFrom(unqfy,0);
+    console.log(artist1);
+    console.log(artistfound);
 
-    assert.equal(artist1.name,artistfound.name)
-    assert.equal(artist1.country,artistfound.country)
+    assert.equal(artist1.name,artistfound.name);
+    assert.equal(artist1.country,artistfound.country);
 
   });
 

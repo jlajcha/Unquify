@@ -9,16 +9,16 @@ class IdManager{
 
     nextIdForArtist(){
     //this.artistCounter = artistCounter+1
-    return this.artistCounter++
+    return this.artistCounter++;
     }
 
     nextIdForTrack(){
     //this.trackCounter = trackCounter++
-    return this.trackCounter++    
+    return this.trackCounter++;    
     }
 
     nextIdForAlbum(){
-    return this.albumCounter++    
+    return this.albumCounter++;    
     }
 }
-module.exports=IdManager
+module.exports=IdManager;

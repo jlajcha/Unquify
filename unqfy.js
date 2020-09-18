@@ -13,7 +13,7 @@ class UNQfy {
     this.artists = []
  //   var idManager = new IdManager()
 //    this.manager = idManager
-    this.idManager = new IdManager()
+    this.idManager = new IdManager();
      }
 
   // artistData: objeto JS con los datos necesarios para crear un artista
@@ -26,17 +26,17 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
-    const id = this.idManager.nextIdForArtist()
-    const name = artistData.name
-    const country = artistData.country
-    const newArtist = new Artist(id,name,country)
-    this.artists.push(newArtist)
-    return newArtist
+    const id = this.idManager.nextIdForArtist();
+    const name = artistData.name;
+    const country = artistData.country;
+    const newArtist = new Artist(id,name,country);
+    this.artists.push(newArtist);
+    return newArtist;
   }
 
 
   artists(){
-    return this.artists
+    return this.artists;
   }
    
   // albumData: objeto JS con los datos necesarios para crear un album
@@ -47,9 +47,9 @@ class UNQfy {
   //"aca ver algún metodo que solo actulice el artista agregando el album. "
   addAlbumToArtist(artistId,album){
       
-    for (var i = 0; i < this.artists.length; i++) {
-      var art = this.artists[i]
-      if (art.id == artistId) {
+    for (let i = 0; i < this.artists.length; i++) {
+      let art = this.artists[i];
+      if (art.id === artistId) {
         art.addAlbum(album); 
           break;
       }
@@ -137,7 +137,7 @@ class UNQfy {
 
   }
   getArtistTracks(idArtist){
-    return this.getArtistById(idArtist).getTracks
+    return this.getArtistById(idArtist).getTracks;
   }
 
   allTracksOnApp(){
@@ -172,8 +172,8 @@ class UNQfy {
   // artistName: nombre de artista(string)
   // retorna: los tracks interpredatos por el artista con nombre artistName
   getTracksMatchingArtist(artistName) {
-   const artist= this.getArtistByName(artistName)
-   return artist.getTracks
+   const artist= this.getArtistByName(artistName);
+   return artist.getTracks;
   }
 
 
