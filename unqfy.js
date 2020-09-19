@@ -58,15 +58,16 @@ class UNQfy {
 
   addTrackToAlbum(idAlbum,track){
 
-    var album = this.getAlbumById(idAlbum)
-    for (var i = 0; i < this.artists.length; i++) {
-      var art = this.artists[i]  
-      if (art.albums.includes(album)) {
+    const album = this.getAlbumById(idAlbum);
+    // console.log('q habria aca'+ JSON.stringify(album))
+    for (let i = 0; i < this.artists.length; i++) {
+      const art = this.artists[i];  
+      // if (art.albums.includes(album)) {
         art.addTrackToAlbum(idAlbum,track); 
-          break;
-      }
+      //     break;
+      // }
     }
-    console.log(this.artists)
+    // console.log(this.artists)
   }
   
   addAlbum(artistId, albumData) {
@@ -77,8 +78,9 @@ class UNQfy {
   */
     const id = this.idManager.nextIdForAlbum();
     const newAlbum = new Album(id,albumData.name,albumData.year);
+    // console.log('esto tiene id'+JSON.stringify(newAlbum))
     this.addAlbumToArtist(artistId,newAlbum);
-    return newAlbum
+    return newAlbum;
   }
   // trackData: objeto JS con los datos necesarios para crear un track
   //   trackData.name (string)
@@ -92,10 +94,11 @@ class UNQfy {
       - una propiedad duration (number),
       - una propiedad genres (lista de strings)
   */
-    const trackID = this.idManager.nextIdForTrack
+    const trackID = this.idManager.nextIdForTrack();
     const newTrack = new Track(trackID,trackData.name,trackData.duration,trackData.genres)
-    this.addTrackToAlbum(albumId,newTrack)
-    return newTrack
+    // console.log('esto tiene id'+JSON.stringify(newTrack))
+    this.addTrackToAlbum(albumId,newTrack);
+    return newTrack;
 
   }
 
@@ -117,10 +120,14 @@ class UNQfy {
   }
 
   getAlbumById(id) {
+    // const albumFound = 
+    //       this.artists.filter(
+    //                     (artist)=> (artist.albums.filter((album)=> album.id===id)))
     const albumFound = 
-          this.artists.filter(
+          this.artists.map(
                         (artist)=> (artist.albums.filter((album)=> album.id===id)))
-    return albumFound
+    // console.log('q tengo aca'+JSON.stringify(albumFound[0]))                        
+    return albumFound[0];
         
   }
 
@@ -128,9 +135,9 @@ class UNQfy {
     const trackFound = 
           this.artists.filter(
                         (artist)=> (artist.albums.filter(
-                                                (album)=> albumtracks.filter((track)=>track.id = id ))))
-    
-    return trackFound
+                                                (album)=> album.filter((track)=>track.id = id ))));
+    console.log('q tengo aca'+JSON.stringify(trackFound))                        
+    return trackFound;
   }
 
   getPlaylistById(id) {
@@ -141,31 +148,25 @@ class UNQfy {
   }
 
   allTracksOnApp(){
-    const tracks = this.artists.map((artist)=>artist.getTracks)
-    return tracks
+    const tracks = this.artists.map((artist)=>artist.getTracks()).flat();
+    // console.log('todos los tracks de unqfy' +JSON.stringify(tracks) );
+    return tracks;
   }
   // genres: array de generos(strings)
   // retorna: los tracks que contenga alguno de los generos en el parametro genres
 
 
-  allTracksWithGender(){
-    const allTracks = this.allTracksOnApp()
-    return allTracks.filter((track)=>track.genres.length()>0)
+  allTracksWithGenders(){
+    const allTracks = this.allTracksOnApp();
+    return allTracks.filter((track)=>track.genres.length>0);
   }
   getTracksMatchingGenres(genres) {
-//ver como hacer esto menos inecificientemente.
+//ver como hacer esto mas eficientemente.
 
-    const allTracks = this.allTracksWithGender()
-    console.log('todos los tracks son ' + allTracks)
-    const trackOfGender= new Set
-
-    for (let index = 0; index < genres.length; index++) {
-      const gen = genres[index];
-      trackOfGender.push( allTracks.filter(
-                            (track)=> genres.includes(gen)))
-                      
-    }
-    return trackOfGender
+    const allTracks = this.allTracksWithGenders();
+    // console.log('todos los tracks son ' + JSON.stringify(allTracks) );
+    // let trackOfGender= [];
+    return allTracks.filter(track=> track.includeAnyGenres(genres));
 
   }
 
@@ -209,7 +210,7 @@ module.exports = {
   UNQfy: UNQfy,
   Artist: Artist,
   IdManager:IdManager,
-  Album,
-  Track,
+  Album: Album,
+  Track: Track,
 };
 

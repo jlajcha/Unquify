@@ -7,13 +7,14 @@ class Album{
         this.tracks = [];
     }
 
- id(){return this.id;}
- name(){return this.name;}
- year(){return this.year;}
- tracks(){return this.tracks;}
+    id(){return this.id;}
+    name(){return this.name;}
+    year(){return this.year;}
+    tracks(){return this.tracks;}
     
     addTrack(newTrack){
-        this.tracks.push(newTrack);
+       this.tracks.push(newTrack);
+    //    console.log('ahora tengo estos tracks'+ JSON.stringify(this.tracks));
     }
 
 }

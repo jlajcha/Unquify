@@ -19,21 +19,23 @@ class Artist{
     albums(){return this.albums}
 
     addAlbum(anAlbum){
-        this.albums.push(anAlbum)
+        this.albums.push(anAlbum);
     }
+
     addTrackToAlbum(idAlbum,track){
-        for (var i = 0; i < this.albums.length; i++) {
-            var album = this.albums[i]  
-            if (album.id ==idAlbum) {
-             album.Album.addTrack(track)
+        for (let i = 0; i < this.albums.length; i++) {
+            const album = this.albums[i];  
+            if (album.id ===idAlbum) {
+             album.addTrack(track);
+            //  console.log('q hay aca ahora'+ JSON.stringify(album.tracks));
             }
         }
     }
     //devuelve todos los tracks de un artista
     getTracks(){
-        const tracks = new Set
-        tracks =  this.albums.map((album)=>album.tracks)
-        return tracks.flat()
+        const tracks = this.albums.map((album)=>album.tracks).flat();
+        // console.log('el artista tiene todos estos tracks' + JSON.stringify(tracks))
+        return tracks;
     }
 }
-module.exports=Artist
+module.exports=Artist;

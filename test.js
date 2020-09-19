@@ -67,7 +67,7 @@ describe('Add, remove and filter data', () => {
   it('should add an album to an artist', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
-
+    console.log('esto tiene album'+ JSON.stringify(album));
     assert.equal(album.name, 'Appetite for Destruction');
     assert.equal(album.year, 1987);
   });
@@ -76,7 +76,8 @@ describe('Add, remove and filter data', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
     const track = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
-
+    // console.log('todo el unqfy'+JSON.stringify(unqfy))
+    // console.log('esto tiene track'+ JSON.stringify(track) );
     assert.equal(track.name, 'Welcome to the jungle');
     assert.strictEqual(track.duration, 200);
     assert.equal(track.genres.includes('rock'), true);
@@ -89,7 +90,7 @@ describe('Add, remove and filter data', () => {
     const album1 = createAndAddAlbum(unqfy, artist1.id, 'Roses Album', 1987);
     const track = createAndAddTrack(unqfy, album1.id, 'Roses track', 200, ['pop', 'movie']);
     const playlist = unqfy.createPlaylist('Roses playlist', ['pop'], 1400);
-
+    // console.log('todo el unqfy'+JSON.stringify(unqfy))
     const results = unqfy.searchByName('Roses');
     assert.deepEqual(results, {
       artists: [artist1],
@@ -104,7 +105,7 @@ describe('Add, remove and filter data', () => {
     const album1 = createAndAddAlbum(unqfy, artist1.id, 'Appetite for Destruction', 1987);
     const t0 = createAndAddTrack(unqfy, album1.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
     const t1 = createAndAddTrack(unqfy, album1.id, 'Sweet Child o\' Mine', 500, ['rock', 'hard rock', 'pop', 'movie']);
-
+    // console.log('todo el unqfy'+JSON.stringify(unqfy))
     const artist2 = createAndAddArtist(unqfy, 'Michael Jackson', 'USA');
     const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
     const t2 = createAndAddTrack(unqfy, album2.id, 'Trhiller', 200, ['pop', 'movie']);
@@ -112,8 +113,8 @@ describe('Add, remove and filter data', () => {
     const t3 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['movie']);
 
     const tracksMatching = unqfy.getTracksMatchingGenres(['pop', 'movie']);
-    
-    console.log()
+    // console.log('los q machean' +JSON.stringify(tracksMatching));
+    // console.log();
     // assert.equal(tracks.matching.constructor.name, Array);
     assert.isArray(tracksMatching);
     assert.lengthOf(tracksMatching, 4);
