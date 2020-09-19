@@ -1,22 +1,22 @@
-const Album = require('./album.js');
+ const Album = require('./album.js');
 
 class Artist{
     
     constructor(id,name, country){
 
-        this.id = id;
-        this.name = name;
-        this.country = country;
-        this.albums = []
+        this._id = id;
+        this._name = name;
+        this._country = country;
+        this._albums = [];
     }
 
-    id(){ return this.id }
+    get id(){ return this._id; }
 
-    name(){ return this.name }
+    get name(){ return this._name; }
     
-    country(){ return this.country }
+    get country(){ return this._country; }
     
-    albums(){return this.albums}
+    get albums(){return this._albums;}
 
     addAlbum(anAlbum){
         this.albums.push(anAlbum);

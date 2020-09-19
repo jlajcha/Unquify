@@ -3,16 +3,16 @@ class Track{
 
 
     constructor(id,name,duration,genres){
-        this.id = id;
-        this.name = name;
-        this.duration = duration;
-        this.genres = genres;       
+        this._id = id;
+        this._name = name;
+        this._duration = duration;
+        this._genres = genres;       
     }
 
-    id(){return this.id;}
-    name(){return this.name;}
-    duration(){return this.duration;}
-    genres(){return this.genres;}
+    get id(){return this._id;}
+    get name(){return this._name;}
+    get duration(){return this._duration;}
+    get genres(){return this._genres;}
 
     includeAnyGenres(listOfGenres){
         return this.genres.some(gen=>listOfGenres.includes(gen));

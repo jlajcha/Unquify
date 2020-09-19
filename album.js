@@ -1,16 +1,16 @@
 class Album{
 
     constructor(id,name,year){
-        this.id = id;
-        this.name = name;
-        this.year = year;
-        this.tracks = [];
+        this._id = id;
+        this._name = name;
+        this._year = year;
+        this._tracks = [];
     }
 
-    id(){return this.id;}
-    name(){return this.name;}
-    year(){return this.year;}
-    tracks(){return this.tracks;}
+    get id(){return this._id;}
+    get name(){return this._name;}
+    get year(){return this._year;}
+    get tracks(){return this._tracks;}
     
     addTrack(newTrack){
        this.tracks.push(newTrack);
