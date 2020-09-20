@@ -194,6 +194,12 @@ class UNQfy {
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
 
+    
+    return //retornar la playlist nueva
+  }
+
+  searchByName(name){
+    //TODO
   }
 
   save(filename) {

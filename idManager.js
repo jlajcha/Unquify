@@ -1,24 +1,31 @@
 class IdManager{
     constructor(){
 
-    this.artistCounter= 0;
-    this.trackCounter= 0;
-    this.albumCounter= 0;
-    
+    this._artistCounter= 0;
+    this._trackCounter= 0;
+    this._albumCounter= 0;
+    this._playListCounter= 0;
+    this._userCounter= 0;
     }
 
     nextIdForArtist(){
-    //this.artistCounter = artistCounter+1
-    return this.artistCounter++;
+    return this._artistCounter++;
     }
 
     nextIdForTrack(){
-    //this.trackCounter = trackCounter++
-    return this.trackCounter++;    
+    return this._trackCounter++;    
     }
 
     nextIdForAlbum(){
-    return this.albumCounter++;    
+    return this._albumCounter++;    
+    }
+
+    nextIdForPlayList(){
+        return this._playListCounter++;
+    }
+
+    nextIdForUser(){
+        return this._userCounter++;
     }
 }
 module.exports=IdManager;

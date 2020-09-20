@@ -17,7 +17,7 @@ function createAndAddTrack(unqfy, albumId, trackName, trackDuraction, trackGenre
   return unqfy.addTrack(albumId, { name: trackName, duration: trackDuraction, genres: trackGenres });
 }
 function getArtistFrom(unqfy,id){
-  return unqfy.getArtistById(id)
+  return unqfy.getArtistById(id);
 }
 
 describe('Add, remove and filter data', () => {
