@@ -1,4 +1,4 @@
- const Album = require('./album.js');
+const Album = require('./album.js');
 
 class Artist{
     

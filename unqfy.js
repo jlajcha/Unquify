@@ -5,6 +5,7 @@ const Artist = require('./artist.js');
 const IdManager = require('./idManager.js');
 const Album = require('./album.js');
 const Track = require('./track.js');
+const PlayListGenerator = require('./playListGenerator');
 
 
 
@@ -12,8 +13,12 @@ class UNQfy {
   constructor(){
     this._artists = [];
     this._idManager = new IdManager();//cuidado de esto no hay getter
+    this._playListGenerator = new PlayListGenerator();
+    this._playLists = [];
      }
 
+
+  get playLists(){return this._playLists;}
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
   //   artistData.country (string)
@@ -193,9 +198,14 @@ class UNQfy {
       * un metodo duration() que retorne la duración de la playlist.
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
+    const idPlayList = this._idManager.nextIdForPlayList();
+    const newPlayList = this._playListGenerator.createPlayList(this, idPlayList, name, genresToInclude, maxDuration);
+    this._playLists.push(newPlayList);
+    return newPlayList;//retornar la playlist nueva
+  }
 
-    
-    return //retornar la playlist nueva
+  playListHasTrack(aTrack){
+    //TODO
   }
 
   searchByName(name){

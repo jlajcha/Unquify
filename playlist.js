@@ -1,13 +1,34 @@
-// -reciben lista de generos y duracion maxima
+// -reciben lista de generos y duracion maxima y name
 // -se deben borrar los tracks de la playList,cuando se borre un 
 // artista,album o track de unqfy
 // -se deben poder eliminar las playList desde unqfy
-// -imprimir artists,albums,tracks
+
 
 class PlayList{
 
-    constructor(id, genres, maxDuration){
-        
+    constructor(id, name, maxDuration, tracks){
+        this._id = id;
+        this._name = name;
+        this._maxDuration = maxDuration;
+        this._tracks = tracks;
+    }
+
+    get id(){return this._id;}
+
+    get name(){return this._name;}
+
+    get maxDuration(){return this._maxDuration;}
+
+    get tracks(){return this._tracks;}
+
+    duration(){
+        const durationOfTracks = this.tracks.map(track => track.duration);
+        const duration = durationOfTracks.reduce((a, b) => a + b, 0);
+        return duration;
+    }
+
+    hasTrack(aTrack){
+        return this.tracks.includes(aTrack);
     }
 }
 
