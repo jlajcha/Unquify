@@ -72,20 +72,14 @@ class UNQfy {
     }
   }
 
-  addTrackToAlbum(idAlbum,track){
-//separar mejor esta busqueda,osea primero preguntar por cada artista si tiene el album,ojo q esto ya se esta haciendo en artist OOOOOOJJJOOOO
-    // const album = this.getAlbumById(idAlbum);
-    // console.log('q habria aca'+ JSON.stringify(album))
-    // album.addTrack(track);
+  addTrackToAlbum(idAlbum,track){    
     for (let i = 0; i < this._artists.length; i++) {
       const art = this.artists[i];  
-      // if (art.albums.includes(album)) {
-        art.addTrackToAlbum(idAlbum,track); 
-        // break;
-      // }
+        art.addTrackToAlbum(idAlbum,track);       
     }
-    // console.log(this.artists)
   }
+
+
   // albumData: objeto JS con los datos necesarios para crear un album
   //   albumData.name (string)
   //   albumData.year (number)
@@ -140,26 +134,15 @@ class UNQfy {
   }
 
   getAlbumById(id) {
-    // const albumFound = 
-    //       this.artists.filter(
-    //                     (artist)=> (artist.albums.filter((album)=> album.id===id)))
     const albumFound = 
           this._artists.map(
-                        (artist)=> (artist.albums.filter((album)=> album.id===id)))
-    // console.log('album con id '+JSON.stringify(albumFound[0]))                        
-    return albumFound[0];
-        
+                        (artist)=> (artist.albums.filter((album)=> album.id===id)));   
+    return albumFound[0];        
   }
 
-  getTrackById(id) {
-    // const trackFound = 
-    //       this.artists.filter(
-    //                     (artist)=> (artist.albums.filter(
-    //                                             (album)=> album.filter((track)=>track.id = id ))));
-    // console.log('q tengo aca'+JSON.stringify(trackFound))                        
+  getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
     const trackFound = allTracks.filter(track =>track.id === id);
-    // console.log('q tengo aca'+JSON.stringify(allTracks))                        
     return trackFound;
   }
   
@@ -167,30 +150,21 @@ class UNQfy {
 
   }
   getArtistTracks(idArtist){
-    // console.log('las canciones de este'+JSON.stringify(this.getArtistById(idArtist).getTracks()))                        
     return this.getArtistById(idArtist).getTracks();
   }
 
   allTracksOnApp(){
     const tracks = this._artists.map((artist)=>artist.getTracks()).flat();
-    // console.log('todos los tracks de unqfy' +JSON.stringify(tracks) );
     return tracks;
   }
-  // genres: array de generos(strings)
-  // retorna: los tracks que contenga alguno de los generos en el parametro genres
 
 
   allTracksWithGenders(){
     const allTracks = this.allTracksOnApp();
-    // console.log('todos los tracks son ' + JSON.stringify(allTracks) );
     return allTracks.filter((track)=>track.genres.length>0);
   }
   getTracksMatchingGenres(genres) {
-//ver como hacer esto mas eficientemente.
-
     const allTracks = this.allTracksWithGenders();
-    // console.log('todos los tracks son ' + JSON.stringify(allTracks) );
-    // let trackOfGender= [];
     return allTracks.filter(track=> track.includeAnyGenres(genres));
 
   }
