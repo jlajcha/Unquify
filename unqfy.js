@@ -6,6 +6,7 @@ const IdManager = require('./idManager.js');
 const Album = require('./album.js');
 const Track = require('./track.js');
 const PlayListGenerator = require('./playListGenerator');
+const User = require('./user');
 
 
 
@@ -15,10 +16,23 @@ class UNQfy {
     this._idManager = new IdManager();//cuidado de esto no hay getter
     this._playListGenerator = new PlayListGenerator();
     this._playLists = [];
+    this._users = [];
      }
 
 
   get playLists(){return this._playLists;}
+
+  get users(){return this._users;}
+
+  addUser(name){
+
+    const id = this._idManager.nextIdForUser();
+    const newUser = new User(id, name);
+    this._users.push(newUser);
+    return newUser;
+  }
+
+
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
   //   artistData.country (string)
@@ -29,6 +43,8 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
+
+  //falta exception cuando se intente agregar un artist con el mismo nombre TODO
     const id = this._idManager.nextIdForArtist();
     const name = artistData.name;
     const country = artistData.country;
@@ -202,10 +218,6 @@ class UNQfy {
     const newPlayList = this._playListGenerator.createPlayList(this, idPlayList, name, genresToInclude, maxDuration);
     this._playLists.push(newPlayList);
     return newPlayList;//retornar la playlist nueva
-  }
-
-  playListHasTrack(aTrack){
-    //TODO
   }
 
   searchByName(name){

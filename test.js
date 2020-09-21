@@ -1,6 +1,7 @@
 /* eslint-env node, mocha */
 
 const assert = require('chai').assert;
+const { use } = require('chai');
 const libunqfy = require('./unqfy');
 
 
@@ -169,7 +170,7 @@ describe('Playlist Creation and properties', () => {
     const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
 
     const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 1400);
-    console.log('q tiene la playlist'+ JSON.stringify(playlist));
+    // console.log('q tiene la playlist'+ JSON.stringify(playlist));
     assert.equal(playlist.name, 'my playlist');
     assert.isAtMost(playlist.duration(), 1400);
     assert.isTrue(playlist.hasTrack(t1));
@@ -203,7 +204,7 @@ describe('Playlist Creation and properties', () => {
     const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
 
     const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 100);
-    console.log('q tiene la playlist'+ JSON.stringify(playlist));
+    // console.log('q tiene la playlist'+ JSON.stringify(playlist));
     assert.equal(playlist.name, 'my playlist');
     assert.isAtMost(playlist.duration(), 1400);
     assert.isFalse(playlist.hasTrack(t1));
@@ -213,4 +214,74 @@ describe('Playlist Creation and properties', () => {
     assert.lengthOf(playlist.tracks, 0);
   });
 
+
+  it('se crea un usuario en unqfy', () =>{
+    const user = unqfy.addUser('juansito');
+    assert.equal(user.id,0);
+    assert.equal(user.name,'juansito');
+    assert.equal(unqfy.users[0],user);
+  });
+
+  it('un usuario escucha una cancion', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+
+    user.listen(t1);
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.timesTrackListened(t1),1);
+  });
+
+  it('un usuario escucha dos canciones diferentes', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+
+    const artist2 = createAndAddArtist(unqfy, 'Michael Jackson', 'USA');
+    const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
+    const t2 = createAndAddTrack(unqfy, album2.id, 'Thriller', 200, ['pop', 'movie']);
+
+    user.listen(t1);
+    user.listen(t2);
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.timesTrackListened(t1),1);
+    assert.equal(user.tracksListened[1],t2);
+    assert.equal(user.tracksListened[1].name,'Thriller');
+    assert.equal(user.timesTrackListened(t2),1);
+  });
+
+  it('un usuario escucha 3 veces la misma cancion', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+
+    user.listen(t1);
+    user.listen(t1);
+    user.listen(t1);
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.timesTrackListened(t1),3);
+  });
+
+  it('un usuario escucha 3 veces la misma cancion pero en su lista de canciones escuchadas figura una sola', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+
+    user.listen(t1);
+    user.listen(t1);
+    user.listen(t1);
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.tracksListened.length,1);
+  });
+
+
+  
 });
