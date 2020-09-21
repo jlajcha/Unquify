@@ -212,6 +212,17 @@ class UNQfy {
     //TODO
   }
 
+  deleteArtistWithId(idArtist){
+    for (let index = 0; index < this.artists.length; index++) {
+      const artist = this.artists[index];
+      if(artist.id == idArtist){
+        console.log(artist)
+        this.artists.splice(index,1);
+      }
+      
+    }
+  }
+
   save(filename) {
     const serializedData = picklify.picklify(this);
     fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2));
@@ -223,6 +234,7 @@ class UNQfy {
     const classes = [UNQfy,Artist,IdManager,Album,Track];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
+
 }
 
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente

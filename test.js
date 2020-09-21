@@ -169,7 +169,7 @@ describe('Playlist Creation and properties', () => {
     const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
 
     const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 1400);
-    console.log('q tiene la playlist'+ JSON.stringify(playlist));
+
     assert.equal(playlist.name, 'my playlist');
     assert.isAtMost(playlist.duration(), 1400);
     assert.isTrue(playlist.hasTrack(t1));
@@ -179,38 +179,17 @@ describe('Playlist Creation and properties', () => {
     assert.lengthOf(playlist.tracks, 4);
   });
 
-  it('se crea playlist con un elemento y es la unica playlist de unqfy', () =>{
-    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
-    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
-    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
-    createAndAddTrack(unqfy, album.id, 'Sweet Child o\' Mine', 500, ['rock', 'hard rock', 'pop', 'movie']);
-    const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 700);
-    // console.log('q tiene la playlist'+ JSON.stringify(playlist));
-    assert.equal(playlist.name, 'my playlist');
-    assert.equal(playlist, unqfy.playLists[0] );
+
+  it('should delete an Artist', () => {
+    const artistFst = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const artistSnd = createAndAddArtist(unqfy, 'Miranda', 'Arg');
+    assert.include(unqfy.artists,artistFst );
+    assert.include(unqfy.artists,artistSnd);
+    unqfy.deleteArtistWithId(0)
+    assert.include(unqfy.artists,artistSnd);
+    assert.notInclude(unqfy.artists,artistFst);
+    assert.lengthOf(unqfy.artists,1);
+    
+      
   });
-
-  it('se crea una playlist que no tiene ninguno de los tracks de todo unqfy por que todos los tracks tienen duration mayor que el maxDuration',() =>{
-    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
-    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
-    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
-    createAndAddTrack(unqfy, album.id, 'Sweet Child o\' Mine', 1500, ['rock', 'hard rock', 'pop', 'movie']);
-
-    const artist2 = createAndAddArtist(unqfy, 'Michael Jackson', 'USA');
-    const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
-    const t2 = createAndAddTrack(unqfy, album2.id, 'Thriller', 200, ['pop', 'movie']);
-    const t3 = createAndAddTrack(unqfy, album2.id, 'Another song', 500, ['pop']);
-    const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
-
-    const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 100);
-    console.log('q tiene la playlist'+ JSON.stringify(playlist));
-    assert.equal(playlist.name, 'my playlist');
-    assert.isAtMost(playlist.duration(), 1400);
-    assert.isFalse(playlist.hasTrack(t1));
-    assert.isFalse(playlist.hasTrack(t2));
-    assert.isFalse(playlist.hasTrack(t3));
-    assert.isFalse(playlist.hasTrack(t4));
-    assert.lengthOf(playlist.tracks, 0);
-  });
-
 });
