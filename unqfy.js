@@ -19,6 +19,7 @@ class UNQfy {
     this._users = [];
      }
 
+  get artists(){return this._artists;}
 
   get playLists(){return this._playLists;}
 
@@ -32,6 +33,16 @@ class UNQfy {
     return newUser;
   }
 
+  userListenTrack(idUser, idTrack){
+    const user = this.getUserById(idUser);
+    const track = this.getTrackById(idTrack);
+
+    user.listen(track);
+  }
+
+  getUserById(idUser){
+    return this.users.find(user => user.id === idUser);
+  }
 
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -54,9 +65,7 @@ class UNQfy {
   }
 
 
-  get artists(){
-    return this._artists;
-  }
+  
    
   
   
@@ -126,11 +135,11 @@ class UNQfy {
   }
 
   getArtistById(id) {
-    const artistsFound = this._artists.filter((artist)=> artist.id === id);
+    const artistsFound = this._artists.find(artist=> artist.id === id);
     // console.log(' artista con id disponible es ' + JSON.stringify(this._artists[0]) )
     // console.log('el artista buscado '+ artistsFound.name)
 
-    return artistsFound[0];
+    return artistsFound;
   }
 
   getAlbumById(id) {
@@ -142,13 +151,14 @@ class UNQfy {
 
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
-    const trackFound = allTracks.filter(track =>track.id === id);
+    const trackFound = allTracks.find(track =>track.id === id);
     return trackFound;
   }
   
   getPlaylistById(id) {
-
+    return this.playLists.find(playlist => playlist.id === id);
   }
+
   getArtistTracks(idArtist){
     return this.getArtistById(idArtist).getTracks();
   }
@@ -191,11 +201,42 @@ class UNQfy {
     const idPlayList = this._idManager.nextIdForPlayList();
     const newPlayList = this._playListGenerator.createPlayList(this, idPlayList, name, genresToInclude, maxDuration);
     this._playLists.push(newPlayList);
-    return newPlayList;//retornar la playlist nueva
+    return newPlayList;
   }
 
+
+  searchArtistsByName(name){
+    return this._artists.filter(artist => artist.name.includes(name));
+  }
+
+  searchAlbumsByName(name){
+    let albums = [];
+    this._artists.forEach(
+                          art => 
+                            albums = albums.concat (art.albums.filter(
+                                          album => album.name.includes(name))));
+    return albums;                                          
+  }
+
+  searchTracksByName(name){
+    const allTracks = this.allTracksOnApp();
+    return allTracks.filter(track => track.name.includes(name));
+  }
+
+  searchPlayListsByName(name){
+    return this._playLists.filter(playlist => playlist.name.includes(name));
+  }
+
+
   searchByName(name){
-    //TODO
+    const resultSearches = {artists: [], albums: [], tracks: [], playlists: []};
+
+    resultSearches.artists = this.searchArtistsByName(name);
+    resultSearches.albums = this.searchAlbumsByName(name);
+    resultSearches.tracks = this.searchTracksByName(name);
+    resultSearches.playlists = this.searchPlayListsByName(name);
+
+    return resultSearches;
   }
 
   save(filename) {

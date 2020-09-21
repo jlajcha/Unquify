@@ -91,7 +91,6 @@ describe('Add, remove and filter data', () => {
     const album1 = createAndAddAlbum(unqfy, artist1.id, 'Roses Album', 1987);
     const track = createAndAddTrack(unqfy, album1.id, 'Roses track', 200, ['pop', 'movie']);
     const playlist = unqfy.createPlaylist('Roses playlist', ['pop'], 1400);
-    // console.log('todo el unqfy'+JSON.stringify(unqfy))
     const results = unqfy.searchByName('Roses');
     assert.deepEqual(results, {
       artists: [artist1],
@@ -203,7 +202,8 @@ describe('Playlist Creation and properties', () => {
     const t3 = createAndAddTrack(unqfy, album2.id, 'Another song', 500, ['pop']);
     const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
 
-    const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 100);
+    unqfy.createPlaylist('my playlist', ['pop', 'rock'], 100);
+    const playlist = unqfy.getPlaylistById(0);
     // console.log('q tiene la playlist'+ JSON.stringify(playlist));
     assert.equal(playlist.name, 'my playlist');
     assert.isAtMost(playlist.duration(), 1400);
@@ -227,8 +227,9 @@ describe('Playlist Creation and properties', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
     const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
-
-    user.listen(t1);
+    
+    unqfy.userListenTrack(user.id, t1.id);
+    
     assert.equal(user.tracksListened[0],t1);
     assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
     assert.equal(user.timesTrackListened(t1),1);
@@ -244,8 +245,9 @@ describe('Playlist Creation and properties', () => {
     const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
     const t2 = createAndAddTrack(unqfy, album2.id, 'Thriller', 200, ['pop', 'movie']);
 
-    user.listen(t1);
-    user.listen(t2);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t2.id);
+
     assert.equal(user.tracksListened[0],t1);
     assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
     assert.equal(user.timesTrackListened(t1),1);
@@ -259,10 +261,11 @@ describe('Playlist Creation and properties', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
     const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+    
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
 
-    user.listen(t1);
-    user.listen(t1);
-    user.listen(t1);
     assert.equal(user.tracksListened[0],t1);
     assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
     assert.equal(user.timesTrackListened(t1),3);
@@ -274,9 +277,10 @@ describe('Playlist Creation and properties', () => {
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
     const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
 
-    user.listen(t1);
-    user.listen(t1);
-    user.listen(t1);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+
     assert.equal(user.tracksListened[0],t1);
     assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
     assert.equal(user.tracksListened.length,1);
