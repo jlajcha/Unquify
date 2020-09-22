@@ -1,6 +1,7 @@
 /* eslint-env node, mocha */
 
 const assert = require('chai').assert;
+const { use } = require('chai');
 const libunqfy = require('./unqfy');
 
 
@@ -90,7 +91,6 @@ describe('Add, remove and filter data', () => {
     const album1 = createAndAddAlbum(unqfy, artist1.id, 'Roses Album', 1987);
     const track = createAndAddTrack(unqfy, album1.id, 'Roses track', 200, ['pop', 'movie']);
     const playlist = unqfy.createPlaylist('Roses playlist', ['pop'], 1400);
-    // console.log('todo el unqfy'+JSON.stringify(unqfy))
     const results = unqfy.searchByName('Roses');
     assert.deepEqual(results, {
       artists: [artist1],
@@ -170,6 +170,7 @@ describe('Playlist Creation and properties', () => {
 
     const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 1400);
 
+    // console.log('q tiene la playlist'+ JSON.stringify(playlist));
     assert.equal(playlist.name, 'my playlist');
     assert.isAtMost(playlist.duration(), 1400);
     assert.isTrue(playlist.hasTrack(t1));
@@ -224,4 +225,115 @@ describe('Playlist Creation and properties', () => {
   it('should delete a track from an Album', () => {
 
   });
+
+  it('se crea playlist con un elemento y es la unica playlist de unqfy', () =>{
+  
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+    createAndAddTrack(unqfy, album.id, 'Sweet Child o\' Mine', 500, ['rock', 'hard rock', 'pop', 'movie']);
+    const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 700);
+    // console.log('q tiene la playlist'+ JSON.stringify(playlist));
+    assert.equal(playlist.name, 'my playlist');
+    assert.equal(playlist, unqfy.playLists[0] );
+  });
+
+  it('se crea una playlist que no tiene ninguno de los tracks de todo unqfy por que todos los tracks tienen duration mayor que el maxDuration',() =>{
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+    createAndAddTrack(unqfy, album.id, 'Sweet Child o\' Mine', 1500, ['rock', 'hard rock', 'pop', 'movie']);
+
+    const artist2 = createAndAddArtist(unqfy, 'Michael Jackson', 'USA');
+    const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
+    const t2 = createAndAddTrack(unqfy, album2.id, 'Thriller', 200, ['pop', 'movie']);
+    const t3 = createAndAddTrack(unqfy, album2.id, 'Another song', 500, ['pop']);
+    const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
+
+    unqfy.createPlaylist('my playlist', ['pop', 'rock'], 100);
+    const playlist = unqfy.getPlaylistById(0);
+    // console.log('q tiene la playlist'+ JSON.stringify(playlist));
+    assert.equal(playlist.name, 'my playlist');
+    assert.isAtMost(playlist.duration(), 1400);
+    assert.isFalse(playlist.hasTrack(t1));
+    assert.isFalse(playlist.hasTrack(t2));
+    assert.isFalse(playlist.hasTrack(t3));
+    assert.isFalse(playlist.hasTrack(t4));
+    assert.lengthOf(playlist.tracks, 0);
+  });
+
+
+  it('se crea un usuario en unqfy', () =>{
+    const user = unqfy.addUser('juansito');
+    assert.equal(user.id,0);
+    assert.equal(user.name,'juansito');
+    assert.equal(unqfy.users[0],user);
+  });
+
+  it('un usuario escucha una cancion', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+    
+    unqfy.userListenTrack(user.id, t1.id);
+    
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.timesTrackListened(t1),1);
+  });
+
+  it('un usuario escucha dos canciones diferentes', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+
+    const artist2 = createAndAddArtist(unqfy, 'Michael Jackson', 'USA');
+    const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
+    const t2 = createAndAddTrack(unqfy, album2.id, 'Thriller', 200, ['pop', 'movie']);
+
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t2.id);
+
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.timesTrackListened(t1),1);
+    assert.equal(user.tracksListened[1],t2);
+    assert.equal(user.tracksListened[1].name,'Thriller');
+    assert.equal(user.timesTrackListened(t2),1);
+  });
+
+  it('un usuario escucha 3 veces la misma cancion', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+    
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.timesTrackListened(t1),3);
+  });
+
+  it('un usuario escucha 3 veces la misma cancion pero en su lista de canciones escuchadas figura una sola', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+
+    assert.equal(user.tracksListened[0],t1);
+    assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
+    assert.equal(user.tracksListened.length,1);
+  });
+
+
+  
 });
