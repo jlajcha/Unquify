@@ -192,4 +192,36 @@ describe('Playlist Creation and properties', () => {
     
       
   });
+
+
+
+  it('should delete an Album', () => {
+    const artistFst = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+
+    const album = createAndAddAlbum(unqfy, artistFst.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
+    const t2 = createAndAddTrack(unqfy, album.id, 'It\'s so easy', 200, ['rock', 'hard rock']);
+
+    const album2 = createAndAddAlbum(unqfy, artistFst.id, 'Use Your Illusion I', 1992);
+    const t3 = createAndAddTrack(unqfy, album2.id, 'Don\'t Cry', 500, ['rock', 'hard rock']);
+
+    assert.include(unqfy.getAlbumById(album.id) );
+
+    unqfy.deleteAlbumWithID(album.id)
+    
+    assert.notInclude(artistFst.albums,album);
+    assert.include(artistFst.albums,album2);
+    
+      
+
+  });
+
+  it('should delete a track from an Album and playlists', () => {
+
+  });
+
+
+  it('should delete a track from an Album', () => {
+
+  });
 });

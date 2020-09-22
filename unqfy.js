@@ -222,6 +222,13 @@ class UNQfy {
       
     }
   }
+  deleteAlbumWithID(idAlbum){
+    //const albumFound = 
+    //      this._artists.forEach
+    //      map(
+    //                    (artist)=> (artist.albums.filter((album)=> album.id===idAlbum)))
+        
+  }
 
   save(filename) {
     const serializedData = picklify.picklify(this);
