@@ -40,9 +40,50 @@ class UNQfy {
     user.listen(track);
   }
 
-  getUserById(idUser){
-    return this.users.find(user => user.id === idUser);
+  getTracksListenByUser(idUser){
+    const user = this.getUserById(idUser);
+    return user.tracksListened;
   }
+
+  getTimesTrackListenedByUser(idUser,idTrack){
+    const user = this.getUserById(idUser);
+    const track = this.getTrackById(idTrack);
+
+    return user.timesTrackListened(track);
+  }
+
+  getUserById(idUser){
+    return this._users.find(user => user.id === idUser);
+  }
+
+  threeMostListenedByArtist(idArtist){
+    let tracksByArtist = this.getArtistTracks(idArtist);
+console.log('tiene cuantos temas'+JSON.stringify(tracksByArtist))
+    tracksByArtist = tracksByArtist.map(track => {
+      return [track, this.timesTrackListened(track)];
+    });
+
+    tracksByArtist = tracksByArtist.sort((trackA, trackB) =>{
+      if(trackA[1] < trackB[1]){
+        return 1;
+      }
+      if(trackA[1] > trackB[1]){
+        return -1;
+      }
+        return 0;
+    });
+
+    return tracksByArtist.slice(0,3).map(track => track[0]);
+
+  }
+
+  timesTrackListened(track){
+    return this._users.reduce(
+      (cant, user) => cant + user.timesTrackListened(track),0
+    );
+  }
+
+
 
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)

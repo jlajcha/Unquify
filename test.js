@@ -313,10 +313,11 @@ describe('Playlist Creation and properties', () => {
     unqfy.userListenTrack(user.id, t1.id);
     unqfy.userListenTrack(user.id, t1.id);
     unqfy.userListenTrack(user.id, t1.id);
+    
 
     assert.equal(user.tracksListened[0],t1);
     assert.equal(user.tracksListened[0].name,'Welcome to the jungle');
-    assert.equal(user.timesTrackListened(t1),3);
+    assert.equal(unqfy.getTimesTrackListenedByUser(user.id,t1.id),3);
   });
 
   it('un usuario escucha 3 veces la misma cancion pero en su lista de canciones escuchadas figura una sola', () =>{
@@ -334,6 +335,41 @@ describe('Playlist Creation and properties', () => {
     assert.equal(user.tracksListened.length,1);
   });
 
+  it('obtengo las canciones escuchadas por un usuario sin repetidos', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
 
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t1.id);
+    const tracksListen = unqfy.getTracksListenByUser(0)[0];
+
+    assert.equal(tracksListen,t1);
+    assert.equal(tracksListen.name,'Welcome to the jungle');
+    assert.equal(unqfy.getTracksListenByUser(0).length,1);
+  });
   
+  it('las 3 canciones mas escuchadas de un artista', () =>{
+    const user = unqfy.addUser('juansito');
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+    const t2 = createAndAddTrack(unqfy, album.id, 'Civil war', 200, ['rock', 'hard rock', 'movie']);
+    const t3 = createAndAddTrack(unqfy, album.id, 'Rocket queen', 200, ['rock', 'hard rock', 'movie']);
+    const t4 = createAndAddTrack(unqfy, album.id, 'one in a million', 200, ['rock', 'hard rock', 'movie']);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t2.id);
+    unqfy.userListenTrack(user.id, t1.id);
+    unqfy.userListenTrack(user.id, t4.id);
+    console.log('cuantas veces escucho'+JSON.stringify(user.timesTrackListened(t3)))
+    console.log('q escucho'+ JSON.stringify(user.tracksListened)) 
+    const topThree = unqfy.threeMostListenedByArtist(artist.id);
+  console.log('tiene el top' + JSON.stringify(topThree))
+    assert.include(topThree,t1);
+    assert.notInclude(topThree,t3);
+    assert.include(topThree,t2);
+  });
+
 });
