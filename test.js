@@ -206,25 +206,43 @@ describe('Playlist Creation and properties', () => {
     const album2 = createAndAddAlbum(unqfy, artistFst.id, 'Use Your Illusion I', 1992);
     const t3 = createAndAddTrack(unqfy, album2.id, 'Don\'t Cry', 500, ['rock', 'hard rock']);
 
-    assert.include(unqfy.getAlbumById(album.id) );
+    assert.include(unqfy.getAlbumById(album.id),album);
 
-    unqfy.deleteAlbumWithID(album.id)
+    unqfy.deleteAlbumWithId(album.id)
     
-    assert.notInclude(artistFst.albums,album);
-    assert.include(artistFst.albums,album2);
-    
-      
+    assert.notInclude(unqfy.getAlbumById(album.id),album);
+    assert.include(artistFst.albums,album2);  
 
   });
 
   it('should delete a track from an Album and playlists', () => {
+    
+    const artistFst = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+
+    const album = createAndAddAlbum(unqfy, artistFst.id, 'Appetite for Destruction', 1987);
+    const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
+    const t2 = createAndAddTrack(unqfy, album.id, 'It\'s so easy', 200, ['rock', 'hard rock']);
+    assert.include(unqfy.getAlbumById(album.id),album);
+
+    const playlist = unqfy.createPlaylist('my playlist', ['rock'], 1400);
+
+    assert.isTrue(playlist.hasTrack(t1));
+    assert.isTrue(playlist.hasTrack(t2));
+
+    unqfy.deleteTrack(t1.id)
+    //ver por que no borra la mierda 
+    console.log('los albunes ' + album.tracks[0].name)
+    console.log('los albunes ' + album.tracks[1].name)
+    console.log('las playlists' + playlist.tracks)
+    
+    assert.isFalse(playlist.hasTrack(t1));
+    assert.isTrue(playlist.hasTrack(t2));
+
+    assert.notInclude(album.tracks,t1);
+    assert.include(album.tracks,t2);  
 
   });
 
-
-  it('should delete a track from an Album', () => {
-
-  });
 
   it('se crea playlist con un elemento y es la unica playlist de unqfy', () =>{
   

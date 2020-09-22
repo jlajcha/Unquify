@@ -21,10 +21,20 @@ timesTrackListened(track){
     return this._tracksListened.reduce(
             (cant, trackListen)=> cant + (track === trackListen ? 1 : 0), 0
         );
+    }
+hasListenedTheTrackWith(anId){
+    return this.timesTrackListened>0
 }
 
-
+deleteTrack(idTrack){
+    for (let index = 0; index < this.tracksListened.length; index++) {
+        const track = this.tracksListened[index];
+        if (track.id == idTrack) {
+            this.tracksListened.splice(index,1);   
+        }
+      }
+    }
 
 }
-//falta poder borrar los tracks en cascada TODO
+
 module.exports= User;

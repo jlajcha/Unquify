@@ -13,9 +13,20 @@ class Album{
     get tracks(){return this._tracks;}
     
     addTrack(newTrack){
-       this.tracks.push(newTrack);
-    //    console.log('ahora tengo estos tracks'+ JSON.stringify(this.tracks));
+        this.tracks.push(newTrack);
     }
 
+    isTrackIncluded(idTrack){
+        return  this.tracks.some(track => track.id ==idTrack)
+    }
+
+    deleteTrack(idTrack){
+        for (let index = 0; index < this.tracks.length; index++) {
+            const album = this.tracks[index]
+            if(track.id == idTrack){
+                this.tracks.splice(index,1);   
+            }
+        };
+    }
 }
 module.exports=Album;

@@ -34,8 +34,40 @@ class Artist{
     //devuelve todos los tracks de un artista
     getTracks(){
         const tracks = this.albums.map((album)=>album.tracks).flat();
-        // console.log('el artista tiene todos estos tracks' + JSON.stringify(tracks))
         return tracks;
+    }
+
+    isOwnerOfTrack(idTrack){
+        const newT = []
+        this.getTracks().forEach(track => {
+            if (track.id ===idTrack){
+                newT.push(track)
+            }
+        });
+        return newT.length==0
+    }
+    getAlbumBy(id){
+         return this.albums.filter((album)=>album.id == id)
+    }
+
+    isAlbumRelatedTo(idAlbum){
+        return this.albums.some(album=>album.id ==idAlbum)
+    }
+    delteAlbum(idAlbum){
+        for (let index = 0; index < this.albums.length; index++) {
+            const album = this.albums[index]
+            if(album.id ==idAlbum){
+                this.albums.splice(index,1);
+            }
+        };
+    }
+    deleteTrack(idTrack){
+        for (let index = 0; index < this.albums.length; index++) {
+            const album = this.albums[index]
+            if(album.isTrackIncluded(idTrack)){
+                album.deleteTrack(idTrack)
+            }
+        };
     }
 }
 module.exports=Artist;

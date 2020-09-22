@@ -30,6 +30,19 @@ class PlayList{
     hasTrack(aTrack){
         return this.tracks.includes(aTrack);
     }
+    isTrackIncluded(anId){
+        return this.tracks.some(track=> track.id == anId)
+    }
+    
+    deleteTrack(idTrack){
+        for (let index = 0; index < this.tracks.length; index++) {
+            const track = this.tracks[index]
+            if(track.id == idTrack){
+                this.tracks.splice(index,1);
+            }
+        };
+    }
+
 }
 //falta poder borrar los tracks en cascada TODO
 module.exports = PlayList;
