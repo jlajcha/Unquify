@@ -222,6 +222,7 @@ describe('Playlist Creation and properties', () => {
     const album = createAndAddAlbum(unqfy, artistFst.id, 'Appetite for Destruction', 1987);
     const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
     const t2 = createAndAddTrack(unqfy, album.id, 'It\'s so easy', 200, ['rock', 'hard rock']);
+    
     assert.include(unqfy.getAlbumById(album.id),album);
 
     const playlist = unqfy.createPlaylist('my playlist', ['rock'], 1400);
@@ -231,15 +232,14 @@ describe('Playlist Creation and properties', () => {
 
     unqfy.deleteTrack(t1.id)
     //ver por que no borra la mierda 
-    console.log('los albunes ' + album.tracks[0].name)
-    console.log('los albunes ' + album.tracks[1].name)
-    console.log('las playlists' + playlist.tracks)
     
+    console.log('tiene el primero' + artistFst.isOwnerOfTrack(t1.id))
+    console.log('tiene el segundo' + artistFst.isOwnerOfTrack(t2.id))
     assert.isFalse(playlist.hasTrack(t1));
     assert.isTrue(playlist.hasTrack(t2));
 
-    assert.notInclude(album.tracks,t1);
-    assert.include(album.tracks,t2);  
+    assert.isFalse(artistFst.isOwnerOfTrack(t1.id));
+    assert.isTrue(artistFst.isOwnerOfTrack(t2.id));  
 
   });
 

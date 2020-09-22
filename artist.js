@@ -44,7 +44,7 @@ class Artist{
                 newT.push(track)
             }
         });
-        return newT.length==0
+        return !(newT.length==0)
     }
     getAlbumBy(id){
          return this.albums.filter((album)=>album.id == id)
@@ -53,6 +53,7 @@ class Artist{
     isAlbumRelatedTo(idAlbum){
         return this.albums.some(album=>album.id ==idAlbum)
     }
+
     delteAlbum(idAlbum){
         for (let index = 0; index < this.albums.length; index++) {
             const album = this.albums[index]

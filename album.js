@@ -22,7 +22,7 @@ class Album{
 
     deleteTrack(idTrack){
         for (let index = 0; index < this.tracks.length; index++) {
-            const album = this.tracks[index]
+            const track = this.tracks[index]
             if(track.id == idTrack){
                 this.tracks.splice(index,1);   
             }
