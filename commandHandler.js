@@ -47,13 +47,13 @@ class CommandHandler{
              
             addAlbum: {
                 exec : function(unqfy){
-                            const idArtist = functionParams[0]
+                            const idArtist = Number(functionParams[0]);
                             const data = {
                                 name: functionParams[1],
                                 year: functionParams[2],
                                  };
 
-                                const albumAdder = unqfy.addAlbum(idArtist,data)
+                                const albumAdder = unqfy.addAlbum(idArtist,data);
                                 console.log('Se guardo correctamente el album '+ JSON.stringify(albumAdder.name));
                         }
                     
@@ -65,6 +65,7 @@ class CommandHandler{
                             console.log('El album ' + JSON.stringify(album) );     
                         }
             },
+
             addTrack: {
                 exec : function(unqfy){
                             const albumId = functionParams[0]

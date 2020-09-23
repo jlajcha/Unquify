@@ -1,4 +1,5 @@
-node main.js addTrack  "1" "Just another story" "200" ["funk","pop"]node main.js addArtist "canserbero" "Venezuela"
+# node main.js addTrack  "1" "Just another story" "200" ["funk","pop"]
+node main.js addArtist "canserbero" "Venezuela"
 node main.js addArtist "gnr" "USA"
 node main.js addArtist "bon jovi" "USA"
 node main.js addArtist "tiago" "Argentina"
@@ -26,5 +27,7 @@ node main.js addTrack  0 "The kid" "100" ["funk","rock"]
 node main.js addTrack  1 "Half the man" "250" ["pop"]
 node main.js addTrack  1 "Just another story" "200" ["cumbia","pop"]
 node main.js addTrack  2 "Space cowboy" "200" ["cumbia","pop"]
+
+node main.js getAlbumById 1
 
 
