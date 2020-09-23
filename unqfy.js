@@ -7,6 +7,7 @@ const Album = require('./album.js');
 const Track = require('./track.js');
 const PlayListGenerator = require('./playListGenerator');
 const User = require('./user');
+const PlayList = require('./playlist.js');
 
 
 
@@ -67,16 +68,13 @@ class UNQfy {
 
   
    
-  
-  
-  //"aca ver algún metodo que solo actulice el artista agregando el album. "
+
   addAlbumToArtist(artistId,album){
       
     for (let i = 0; i < this._artists.length; i++) {
       const art = this._artists[i];
       if (art.id === artistId) {
         art.addAlbum(album); 
-        break;
       }
     }
   }
@@ -125,6 +123,10 @@ class UNQfy {
 
   }
 
+  deleteArtist(idArtistData){
+    
+    this.deleteArtistWithId(idArtistData.id)
+  }
 
   getArtistByName(name) {
     const artistsFound = this._artists.filter((artist)=> artist.name === name);
@@ -144,9 +146,9 @@ class UNQfy {
 
   getAlbumById(id) {
     const albumFound = 
-          this._artists.map(
-                        (artist)=> (artist.albums.filter((album)=> album.id===id)));   
-    return albumFound[0];        
+          this._artists.find(
+                        (artist)=> (artist.isAlbumRelatedTo(id)));   
+    return albumFound;
   }
 
   getTrackById(id) {                       
@@ -423,7 +425,7 @@ deleteAlbumWithId(idAlbum){
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track, User];
+    const classes = [UNQfy,Artist,IdManager,Album,Track, User, PlayListGenerator, PlayList];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
@@ -437,5 +439,7 @@ module.exports = {
   Album: Album,
   Track: Track,
   User: User,
+  PlayListGenerator: PlayListGenerator,
+  PlayList: PlayList,
 };
 

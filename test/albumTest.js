@@ -31,11 +31,12 @@ describe('Add, remove and filter data', () => {
         const album2 = createAndAddAlbum(unqfy, artistFst.id, 'Use Your Illusion I', 1992);
         const t3 = createAndAddTrack(unqfy, album2.id, 'Don\'t Cry', 500, ['rock', 'hard rock']);
     
-        assert.include(unqfy.getAlbumById(album.id),album);
-    
+        assert.equal(unqfy.getAlbumById(album.id).id,album.id);
+
+        assert.isTrue(artistFst.isAlbumRelatedTo(0));
         unqfy.deleteAlbumWithId(album.id)
         
-        assert.notInclude(unqfy.getAlbumById(album.id),album);
+        assert.isFalse(artistFst.isAlbumRelatedTo(0));
         assert.include(artistFst.albums,album2);  
     
       });
@@ -56,10 +57,10 @@ describe('Add, remove and filter data', () => {
         updateAlbumYear(unqfy, album.id,1999)
         
         assert.equal(album.name, 'Use Your Illusion I');
+      
         assert.equal(album.year, 1999);
         assert.equal(album.id,0);
-      });
-      
+      });   
 
       
 });    

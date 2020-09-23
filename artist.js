@@ -20,12 +20,12 @@ class Artist{
 
 
     addAlbum(anAlbum){
-        this.albums.push(anAlbum);
+        this._albums.push(anAlbum);
     }
 
     addTrackToAlbum(idAlbum,track){
-        for (let i = 0; i < this.albums.length; i++) {
-            const album = this.albums[i];  
+        for (let i = 0; i < this._albums.length; i++) {
+            const album = this._albums[i];  
             if (album.id ===idAlbum) {
              album.addTrack(track);
             //  console.log('q hay aca ahora'+ JSON.stringify(album.tracks));
