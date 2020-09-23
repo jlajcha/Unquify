@@ -5,7 +5,6 @@ class PlayListGenerator{
 
     createPlayList(unqfy, id, name, genresToInclude, maxDuration){
         const tracksWithGenres = unqfy.getTracksMatchingGenres(genresToInclude);
-        // console.log('trae los generos'+JSON.stringify(tracksWithGenres))
         const tracks = [];
         let durationOfPlayList = 0;
         let preAdd = 0;

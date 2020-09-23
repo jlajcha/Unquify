@@ -31,7 +31,7 @@ class PlayList{
         return this.tracks.includes(aTrack);
     }
     isTrackIncluded(anId){
-        return this.tracks.some(track=> track.id == anId)
+        return this.tracks.some(track=> track.id === anId);
     }
     
     deleteTrack(idTrack){
@@ -40,19 +40,19 @@ class PlayList{
             if(track.id === idTrack){
                 this.tracks.splice(index,1);
             }
-        };
+        }
     }
     updateTrackName(idTrack,name){
         this._tracks.forEach(track => {
             if ( track.id === idTrack){
-                track.changeName(name)
+                track.changeName(name);
             }
         });
     }
     updateTrackDuration(idTrack,duration){
         this._tracks.forEach(track => {
             if ( track.id === idTrack){
-                track.changeDuration(duration)
+                track.changeDuration(duration);
             }
         });
     }

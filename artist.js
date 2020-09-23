@@ -53,7 +53,7 @@ class Artist{
                 newT.push(track)
             }
         });
-        return !(newT.length==0)
+        return !(newT.length===0)
     }
     getAlbumBy(id){
          return this.albums.filter((album)=>album.id === id)
@@ -86,7 +86,7 @@ class Artist{
 
     updateAlbumName(idAlbum, aName){
         this.albums.forEach(album => {
-            if(album.id ==idAlbum){
+            if(album.id ===idAlbum){
                 album.changeName(aName)
           }
         });

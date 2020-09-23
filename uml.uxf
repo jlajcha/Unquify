@@ -1,6 +1,18 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>741</x><y>430</y><w>300</w><h>280</h></coordinates><panel_attributes>Unqfy
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>592</x><y>410</y><w>300</w><h>560</h></coordinates><panel_attributes>Unqfy
 --
-addArtist(artistData)
+addUser(String):User
+userListenTrack(int, int)
+getTracksListenByUser(int):Array&lt;Track&gt;
+getTimesTrackListenedByUser(int,int):int
+getUserById(int)User
+threeMostListenedByArtist(int):Array&lt;Track&gt;
+timesTrackListened(Track):int
+artistExist(String):boolean
+addAlbumToArtist(int,Album)
+addTrackToAlbum(int,Track)
+
+
+addArtist(artistData):Artist
 addAlbum(artistId, albumData)
 addTrack(albumId, trackData)
 deleteArtist(id)
@@ -13,57 +25,102 @@ getTrackById(id)
 getPlaylistById(id)
 getTracksMatchingGenres(genres)
 getTracksMatchingArtist(artistName)
-createPlaylist(name, genresToInclude, maxDuration)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>719</x><y>230</y><w>210</w><h>70</h></coordinates><panel_attributes>User
+createPlaylist(name, genresToInclude, maxDuration)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>590</x><y>220</y><w>210</w><h>70</h></coordinates><panel_attributes>User
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>849</x><y>300</y><w>60</w><h>140</h></coordinates><panel_attributes>users
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>670</x><y>290</y><w>90</w><h>140</h></coordinates><panel_attributes>users
 lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>10;10;20;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>349</x><y>230</y><w>210</w><h>120</h></coordinates><panel_attributes>Playlist
+m1=0..n</panel_attributes><additional_attributes>60;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>180</y><w>210</w><h>170</h></coordinates><panel_attributes>Playlist
 --
+id: int
 name : string
-id : number
+maxDuration: int
 --
-duration() : number
-hasTrack(aTrack) : boolean
-deleteTrack(id)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>649</x><y>10</y><w>200</w><h>130</h></coordinates><panel_attributes>Track
+duration() : int
+hasTrack(Track) : boolean
+isTrackIncluded(int):boolean
+deleteTrack(int)
+updateTrackName(int,String)
+updateTrackDuration(int,int)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>0</y><w>250</w><h>150</h></coordinates><panel_attributes>Track
 --
-name : string
-duration : number
-genres : list(string)
-id : number
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>209</x><y>15</y><w>210</w><h>110</h></coordinates><panel_attributes>Album
+id:int
+name : String
+duration :int
+genres : Array&lt;String&gt;
 --
+includeAnyGenres(Array&lt;String&gt;):boolean
+changeName(String)
+changeDuration(int)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>5</y><w>210</w><h>200</h></coordinates><panel_attributes>Album
+--
+id: number
 name : string
 year : number
-id : number
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>469</x><y>135</y><w>200</w><h>110</h></coordinates><panel_attributes>tracks
+hasTheTrack(Track):boolean
+addTrack(Track)
+isTrackIncluded(int):boolean
+deleteTrack(int)
+changeName(string)
+changeYear(int)
+updateTrackName(int,string)
+updateTrackDuration(int,int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>145</y><w>170</w><h>50</h></coordinates><panel_attributes>tracks
 lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>180;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>409</x><y>35</y><w>260</w><h>50</h></coordinates><panel_attributes>tracks
+m1=0..n</panel_attributes><additional_attributes>150;10;10;30</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>25</y><w>340</w><h>50</h></coordinates><panel_attributes>tracks
 lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>240;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>159</x><y>385</y><w>210</w><h>150</h></coordinates><panel_attributes>Artist
+m1=0..n</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>375</y><w>210</w><h>310</h></coordinates><panel_attributes>Artist
 --
+id : number 
 name : string
 country : string
-id : number 
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>279</x><y>115</y><w>70</w><h>290</h></coordinates><panel_attributes>albums
+hasTheAlbum(Album):boolean
+addAlbum(Album)
+addTrackToAlbum(int,Track)
+getTracks():Array&lt;Track&gt;
+isOwnerOfTrack(int):boolean
+getAlbumBy(int):Array&lt;Album&gt;
+isAlbumRelatedTo(int):boolean
+deleteAlbum(int)
+deleteTrack(int)
+changeName(String)
+changeCountry(String)
+updateAlbumName(int,String)
+updateAlbumYear(int,int)
+updateTrackName(int,String)
+updateTrackDuration(int,int)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>70</x><y>195</y><w>110</w><h>200</h></coordinates><panel_attributes>albums
 lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>10;10;10;270</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1269</x><y>35</y><w>210</w><h>70</h></coordinates><panel_attributes>Register
+m1=0..n</panel_attributes><additional_attributes>10;10;90;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1100</x><y>483</y><w>210</w><h>190</h></coordinates><panel_attributes>IdManager
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1269</x><y>205</y><w>210</w><h>70</h></coordinates><panel_attributes>Registrator
+artistCounter
+trackCounter
+albumCounter
+playListCounter
+userCounter
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1229</x><y>493</y><w>210</w><h>160</h></coordinates><panel_attributes>IdManager
+nextIdForArtist():int
+nextIdForTrack():int
+nextIdForAlbum():int
+nextIdForPlayList():int
+nextIdForUser():int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>880</x><y>393</y><w>240</w><h>190</h></coordinates><panel_attributes>idManager
+lt=&lt;-
+m1=0..1</panel_attributes><additional_attributes>220;170;10;17</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>393</y><w>380</w><h>100</h></coordinates><panel_attributes>artists
+lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;80;360;17</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>340</y><w>180</w><h>90</h></coordinates><panel_attributes>playlists
+lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;10;160;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>770</y><w>210</w><h>140</h></coordinates><panel_attributes>CommandHandler
 --
-idArtists
-idAlbums
-idTracks
-idPlaylists
-idUsers 
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1029</x><y>553</y><w>220</w><h>50</h></coordinates><panel_attributes>ids
-lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>200;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>359</x><y>473</y><w>400</w><h>50</h></coordinates><panel_attributes>artists
-lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>10;10;380;30</additional_attributes></element><element><id>Relation</id><coordinates><x>559</x><y>330</y><w>200</w><h>120</h></coordinates><panel_attributes>playlists
-lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>10;10;180;100</additional_attributes></element><element><id>Relation</id><coordinates><x>1359</x><y>100</y><w>30</w><h>120</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>919</x><y>250</y><w>360</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>340;10;10;20</additional_attributes></element></diagram>
+execute()
+stackOfCommands()
+insufficientArguments(int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>130</y><w>320</w><h>70</h></coordinates><panel_attributes>PlayListGenerator
+--
+createPlayList(Unqfy, int, String, Array&lt;String&gt;,int):PlayList</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>800</y><w>210</w><h>90</h></coordinates><panel_attributes>Printer
+--
+printEntity(message, entity)
+printMessage(message)
+printException(exception)
+printArray(message, array)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>840</y><w>120</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..1</panel_attributes><additional_attributes>100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>860</x><y>196</y><w>110</w><h>230</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..1</panel_attributes><additional_attributes>80;10;10;210</additional_attributes></element></diagram>

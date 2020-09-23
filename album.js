@@ -28,7 +28,7 @@ class Album{
     }
 
     isTrackIncluded(idTrack){
-        return  this.tracks.some(track => track.id ==idTrack)
+        return  this.tracks.some(track => track.id ===idTrack)
     }
 
     deleteTrack(idTrack){

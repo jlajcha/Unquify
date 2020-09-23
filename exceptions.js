@@ -1,9 +1,9 @@
 class ExistException extends Error{
     constructor(name, ...entity){
         if(entity.length === 1){
-            super('Ya existe el ${entity[0]} con nombre ${name}');            
+            super(`Ya existe el ${entity[0]} con nombre ${name}`);            
         }else{
-            super('Ya existe el ${entity[0]} con nombre ${name} para el ${entity[1]} con id ${entity[2]}')
+            super(`Ya existe el ${entity[0]} con nombre ${name} para el ${entity[1]} con id ${entity[2]}`)
         }
     }
 }
@@ -31,7 +31,7 @@ class ExistTrackInAlbumException extends ExistException{
 
 class NoExistEntityException extends Error{
     constructor(id, entity){
-        super('No existe el ${entity} con id ${id}');
+        super(`No existe el ${entity} con id ${id}`);
     }
 }
 
