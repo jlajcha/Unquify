@@ -265,17 +265,19 @@ class UNQfy {
   }
 
   deleteTrack(idTrack){
+    const track = this.getTrackById(idTrack)
+
     this.deleteTrackOnArtist(idTrack);
     this.deleteTrackOnPlaylist(idTrack);
-    this.deleteTrackOnUsers(idTrack)
+    this.deleteTrackOnUsers(track);
 }
 
-deleteTrackOnUsers(idTrack) {
+deleteTrackOnUsers(aTrack) {
   for (let index = 0; index < this.users.length; index++) {
-    
-    const user = this.users[index];
-    if (user.hasListenedTheTrackWith(idTrack)) {
-      user.deleteTrack(idTrack);
+        const user = this.users[index];
+    console.log('este antes de borrar' + JSON.stringify(user))
+      if (user.hasListenedTheTrackWith(aTrack)) {
+      user.deleteTrack(aTrack);
     }
   }
 }
@@ -306,7 +308,7 @@ deleteTrackOnUsers(idTrack) {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track];
+    const classes = [UNQfy,Artist,IdManager,Album,Track, User];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
@@ -319,5 +321,6 @@ module.exports = {
   IdManager:IdManager,
   Album: Album,
   Track: Track,
+  User: User,
 };
 

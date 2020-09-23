@@ -22,15 +22,17 @@ timesTrackListened(track){
             (cant, trackListen)=> cant + (track === trackListen ? 1 : 0), 0
         );
     }
-hasListenedTheTrackWith(anId){
-    return this.timesTrackListened>0
+hasListenedTheTrackWith(aTrack){
+    
+    return this.timesTrackListened(aTrack) > 0
 }
 
-deleteTrack(idTrack){
-    for (let index = 0; index < this.tracksListened.length; index++) {
-        const track = this.tracksListened[index];
-        if (track.id == idTrack) {
-            this.tracksListened.splice(index,1);   
+deleteTrack(aTrack){
+    for (let index = 0; index < this._tracksListened.length; index++) {
+        const track = this._tracksListened[index];
+
+        if (track.id === aTrack.id) {
+            this._tracksListened.splice(index,1);   
         }
       }
     }
