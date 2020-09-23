@@ -37,12 +37,24 @@ class PlayList{
     deleteTrack(idTrack){
         for (let index = 0; index < this.tracks.length; index++) {
             const track = this.tracks[index]
-            if(track.id == idTrack){
+            if(track.id === idTrack){
                 this.tracks.splice(index,1);
             }
         };
     }
-
+    updateTrackName(idTrack,name){
+        this._tracks.forEach(track => {
+            if ( track.id === idTrack){
+                track.changeName(name)
+            }
+        });
+    }
+    updateTrackDuration(idTrack,duration){
+        this._tracks.forEach(track => {
+            if ( track.id === idTrack){
+                track.changeDuration(duration)
+            }
+        });
+    }
 }
-//falta poder borrar los tracks en cascada TODO
 module.exports = PlayList;

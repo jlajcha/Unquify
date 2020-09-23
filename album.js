@@ -28,5 +28,26 @@ class Album{
             }
         };
     }
+    changeName(aName){
+        this._name = aName
+    }
+    changeYear(aYear){
+        this._year = aYear
+    }
+    updateTrackName(idTrack,newName){
+        this._tracks.forEach(track => {
+            if(track.id == idTrack){
+            track.changeName(newName)
+            }
+        });
+    }
+
+    updateTrackDuration(idTrack,duration){
+        this._tracks.forEach(track => {
+            if(track.id == idTrack){
+            track.changeDuration(duration)
+            }
+        });
+    }
 }
 module.exports=Album;

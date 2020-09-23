@@ -3,6 +3,7 @@
 const assert = require('chai').assert;
 const { use } = require('chai');
 const libunqfy = require('../unqfy');
+const unqfy = require('../unqfy');
 
 
 describe('Add, remove and filter data', () => {
@@ -59,7 +60,36 @@ describe('Add, remove and filter data', () => {
     assert.lengthOf(unqfy.artists,1);   
   });
 
+
+
+it('modify an Artist changinig its name and country', () => {
+  const artistFst = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    
+  assert.equal(artistFst.name, 'Guns n\' Roses');
+  assert.equal(artistFst.country, 'USA');
+  assert.equal(artistFst.id,0);
+
+  updateArtistName(unqfy,artistFst.id,'AC/DC')
+  updateArtistNationality(unqfy, artistFst.id,'Australia')
+  
+  assert.equal(artistFst.name, 'AC/DC');
+
+  assert.equal(artistFst.country, 'Australia');
+  assert.equal(artistFst.id,0);
+});
+
 });  
+
+
+function updateArtistName(unqfy,id , artistName) {
+  const artist = unqfy.updateArtistName(id, artistName);
+  return artist;
+}
+
+function updateArtistNationality(unqfy,id ,country) {
+  const artist = unqfy.updateArtistNationality(id, country);
+  return artist;
+}
 
 function createAndAddArtist(unqfy, artistName, country) {
     const artist = unqfy.addArtist({ name: artistName, country: country });

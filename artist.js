@@ -18,6 +18,7 @@ class Artist{
     
     get albums(){return this._albums;}
 
+
     addAlbum(anAlbum){
         this.albums.push(anAlbum);
     }
@@ -70,5 +71,44 @@ class Artist{
             }
         };
     }
+
+    changeName(newName){this._name = newName}
+
+    changeCountry(newCountry){this._country = newCountry}
+
+    updateAlbumName(idAlbum, aName){
+        this.albums.forEach(album => {
+            if(album.id ==idAlbum){
+                album.changeName(aName)
+          };  
+        });
+
+    }
+    updateAlbumYear(idAlbum,year){
+        this.albums.forEach(album => {
+            if(album.id ==idAlbum){
+                album.changeYear(year)
+            }
+        });
+    }
+
+    updateTrackName(idTrack,newName){
+        this.albums.forEach(album => {
+            if(album.isTrackIncluded(idTrack)){
+                album.updateTrackName(idTrack,newName)
+          };  
+        });
+
+    }
+
+    updateTrackDuration(idTrack,duration){
+
+        this._albums.forEach(album => {
+            if(album.isTrackIncluded(idTrack)){
+                album.updateTrackDuration(idTrack,duration)
+          };  
+        });
+    }
 }
+
 module.exports=Artist;

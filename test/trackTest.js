@@ -92,19 +92,39 @@ it('should add a track to an album', () => {
   
     assert.isFalse(playlist.hasTrack(t1));
     assert.isTrue(playlist.hasTrack(t2));
-
     assert.isFalse(artistFst.isOwnerOfTrack(t1.id));
     assert.isTrue(artistFst.isOwnerOfTrack(t2.id));  
-    
     assert.equal(user.timesTrackListened(t1),0)
     assert.isTrue(user.hasListenedTheTrackWith(t2))
   });
 
+  it('update a track name and duration', () => {
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const track = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
+
+    assert.equal(track.name, 'Welcome to the jungle');
+    assert.strictEqual(track.duration, 200);
+
+    updateTrackName(unqfy, track.id, 'Done for me')
+    updateTrackDuration(unqfy, track.id, 100)
+
+    assert.equal(track.name, 'Done for me');
+    assert.equal(track.duration, 100);
+    
+  });
+
+
 
 });
+function updateTrackDuration(unqfy, trackId, duration) {
+  return unqfy.updateTrackDuration(trackId,duration);
+}
 
 
-
+function updateTrackName(unqfy, trackId, newName) {
+  return unqfy.updateTrackName(trackId,newName);
+}
 
 
 function createAndAddAlbum(unqfy, artistId, albumName, albumYear) {

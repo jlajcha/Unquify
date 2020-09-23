@@ -39,8 +39,41 @@ describe('Add, remove and filter data', () => {
         assert.include(artistFst.albums,album2);  
     
       });
+   
+  
+      it('modify an album changinig its name and year', () => {
+        const artistFst = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+        
+        const album = createAndAddAlbum(unqfy, artistFst.id, 'Appetite for Destruction', 1987);
+        const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
+        const t2 = createAndAddTrack(unqfy, album.id, 'It\'s so easy', 200, ['rock', 'hard rock']);
+      
+        assert.equal(album.name, 'Appetite for Destruction');
+        assert.equal(album.year, 1987);
+        assert.equal(album.id,0);
+      
+        updateAlbumName(unqfy,album.id,'Use Your Illusion I')
+        updateAlbumYear(unqfy, album.id,1999)
+        
+        assert.equal(album.name, 'Use Your Illusion I');
+        assert.equal(album.year, 1999);
+        assert.equal(album.id,0);
+      });
+      
 
+      
 });    
+
+      
+function updateAlbumName(unqfy,id , aName) {
+  const artist = unqfy.updateAlbumName(id, aName);
+  return artist;
+}
+
+function updateAlbumYear(unqfy,id ,year) {
+  const artist = unqfy.updateAlbumYear(id, year);
+  return artist;
+}
 
 function createAndAddAlbum(unqfy, artistId, albumName, albumYear) {
     return unqfy.addAlbum(artistId, { name: albumName, year: albumYear });

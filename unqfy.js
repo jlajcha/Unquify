@@ -243,7 +243,120 @@ class UNQfy {
     return resultSearches;
   }
 
-  deleteArtistWithId(idArtist){
+  updateArtistName(id, newName){
+    for (let index = 0; index < this.artists.length; index++) {
+        const artist = this.artists[index];
+        if(artist.id === id){
+          artist.changeName(newName)
+        }
+      }
+  }
+  updateArtistNationality(id, newCountry){
+    for (let index = 0; index < this.artists.length; index++) {
+        const artist = this.artists[index];
+        if(artist.id === id){
+          artist.changeCountry(newCountry)
+        }
+      }
+  }
+
+  updateAlbumName(idAlbum, aName){ 
+      for (let index = 0; index < this.artists.length; index++) {
+        const artist = this.artists[index];
+        if(artist.isAlbumRelatedTo(idAlbum)){
+          artist.updateAlbumName(idAlbum,aName)
+        }
+        
+      }
+       
+  }
+
+  updateAlbumYear(idAlbum, year){ 
+    for (let index = 0; index < this.artists.length; index++) {
+      const artist = this.artists[index];
+      if(artist.isAlbumRelatedTo(idAlbum)){
+        artist.updateAlbumYear(idAlbum,year)
+      }
+      
+    }
+     
+}
+
+updateTrackName(idTrack, newName) {
+  const track = this.getTrackById(idTrack)
+
+  this.updateTrackNameOnArtist(idTrack,newName);
+  this.updateTrackNameOnPlaylist(idTrack,newName);
+  this.updateTrackNameOnUsers(track,newName);
+
+}
+
+
+updateTrackNameOnUsers(aTrack, newName) {
+  for (let index = 0; index < this.users.length; index++) {
+      const user = this.users[index];
+      if (user.hasListenedTheTrackWith(aTrack)) {
+        user.updateTrackName(aTrack,newName);
+  }
+}
+}
+
+updateTrackNameOnArtist(idTrack, newName) {
+
+  for (let index = 0; index < this.artists.length; index++) {
+    const artist = this.artists[index];
+    if (artist.isOwnerOfTrack(idTrack)) {
+      artist.updateTrackName(idTrack,newName);
+    }
+  }
+}
+
+updateTrackNameOnPlaylist(idTrack, newName) {
+  for (let i = 0; i < this.playLists.length; i++) {
+    const playlist = this.playLists[i];
+    if (playlist.isTrackIncluded(idTrack)) {
+      playlist.updateTrackName(idTrack,newName);
+    }
+  }
+}
+
+updateTrackDuration(idTrack, duration) {
+  const track = this.getTrackById(idTrack)
+
+  this.updateTrackDurationOnArtist(idTrack,duration);
+  this.updateTrackDurationOnPlaylist(idTrack,duration);
+  this.updateTrackDurationOnUsers(track,duration);
+}
+
+
+
+
+updateTrackDurationOnUsers(aTrack, duration) {
+  this._users.forEach(user => {
+    if (user.hasListenedTheTrackWith(aTrack)) {
+      user.updateTrackDuration(aTrack,duration);
+    }  
+  });
+}
+
+updateTrackDurationOnArtist(idTrack, duration) {
+  this._artists.forEach(artist => {
+      if (artist.isOwnerOfTrack(idTrack)) {
+        artist.updateTrackDuration(idTrack,duration);
+          }
+        });
+  }
+
+
+updateTrackDurationOnPlaylist(idTrack, duration) {
+  this._playLists.forEach(playlist => {
+    if (playlist.isTrackIncluded(idTrack)) {
+      playlist.updateTrackDuration(idTrack,duration);
+    }
+  });     
+}
+
+deleteArtistWithId(idArtist){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.id == idArtist){
@@ -254,7 +367,7 @@ class UNQfy {
     }
   }
 
-  deleteAlbumWithId(idAlbum){
+deleteAlbumWithId(idAlbum){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.isAlbumRelatedTo(idAlbum)){
@@ -272,15 +385,16 @@ class UNQfy {
     this.deleteTrackOnUsers(track);
 }
 
-deleteTrackOnUsers(aTrack) {
-  for (let index = 0; index < this.users.length; index++) {
+  deleteTrackOnUsers(aTrack) {
+    for (let index = 0; index < this.users.length; index++) {
         const user = this.users[index];
-    console.log('este antes de borrar' + JSON.stringify(user))
-      if (user.hasListenedTheTrackWith(aTrack)) {
-      user.deleteTrack(aTrack);
+        console.log('este antes de borrar' + JSON.stringify(user))
+        if (user.hasListenedTheTrackWith(aTrack)) {
+          user.deleteTrack(aTrack);
     }
   }
 }
+
 
   deleteTrackOnArtist(idTrack) {
     for (let index = 0; index < this.artists.length; index++) {
@@ -299,6 +413,7 @@ deleteTrackOnUsers(aTrack) {
       }
     }
   }
+
 
   save(filename) {
     const serializedData = picklify.picklify(this);

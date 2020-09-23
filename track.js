@@ -17,5 +17,12 @@ class Track{
     includeAnyGenres(listOfGenres){
         return this.genres.some(gen=>listOfGenres.includes(gen));
     }
+    changeName(aName){
+        this._name = aName
+    }
+
+    changeDuration(duration){
+        this._duration = duration
+    }
 }
 module.exports=Track;

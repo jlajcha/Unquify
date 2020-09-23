@@ -37,6 +37,21 @@ deleteTrack(aTrack){
       }
     }
 
+ updateTrackName(aTrack,newName){
+    this._tracksListened.forEach(track => {
+            if (track.id === aTrack.id) {
+                track.changeName(newName)   
+            }
+        });
+    }
+
+ updateTrackDuration(aTrack,duration){
+       this._tracksListened.forEach(track => {
+                if (track.id === aTrack.id) {
+                    track.changeDuration(duration)   
+                }
+            });
+        }
 }
 
 module.exports= User;
