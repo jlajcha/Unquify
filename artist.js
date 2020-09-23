@@ -1,4 +1,5 @@
 const Album = require('./album.js');
+const {ExistAlbumOfArtist} = require('./exceptions.js');
 
 class Artist{
     
@@ -18,9 +19,17 @@ class Artist{
     
     get albums(){return this._albums;}
 
+    hasTheAlbum(anAlbum){
+        return this._albums.some(
+            album => album.name === anAlbum.name
+        );
+    }
 
     addAlbum(anAlbum){
-        this._albums.push(anAlbum);
+        if(this.hasTheAlbum(anAlbum)){
+            throw new ExistAlbumOfArtist(anAlbum.name, this._id);
+        }
+        this.albums.push(anAlbum);
     }
 
     addTrackToAlbum(idAlbum,track){
@@ -28,7 +37,6 @@ class Artist{
             const album = this._albums[i];  
             if (album.id ===idAlbum) {
              album.addTrack(track);
-            //  console.log('q hay aca ahora'+ JSON.stringify(album.tracks));
             }
         }
     }
@@ -55,13 +63,13 @@ class Artist{
         return this.albums.some(album=>album.id ==idAlbum)
     }
 
-    delteAlbum(idAlbum){
+    deleteAlbum(idAlbum){
         for (let index = 0; index < this.albums.length; index++) {
             const album = this.albums[index]
             if(album.id ==idAlbum){
                 this.albums.splice(index,1);
             }
-        };
+        }
     }
     deleteTrack(idTrack){
         for (let index = 0; index < this.albums.length; index++) {
@@ -69,7 +77,7 @@ class Artist{
             if(album.isTrackIncluded(idTrack)){
                 album.deleteTrack(idTrack)
             }
-        };
+        }
     }
 
     changeName(newName){this._name = newName}
@@ -80,7 +88,7 @@ class Artist{
         this.albums.forEach(album => {
             if(album.id ==idAlbum){
                 album.changeName(aName)
-          };  
+          }
         });
 
     }
@@ -95,8 +103,8 @@ class Artist{
     updateTrackName(idTrack,newName){
         this.albums.forEach(album => {
             if(album.isTrackIncluded(idTrack)){
-                album.updateTrackName(idTrack,newName)
-          };  
+                album.updateTrackName(idTrack,newName);
+          }  
         });
 
     }
@@ -105,8 +113,8 @@ class Artist{
 
         this._albums.forEach(album => {
             if(album.isTrackIncluded(idTrack)){
-                album.updateTrackDuration(idTrack,duration)
-          };  
+                album.updateTrackDuration(idTrack,duration);
+          }  
         });
     }
 }

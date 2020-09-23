@@ -8,6 +8,13 @@ const Track = require('./track.js');
 const PlayListGenerator = require('./playListGenerator');
 const User = require('./user');
 const PlayList = require('./playlist.js');
+const {ExistArtistException,
+       NoExistArtistException,
+       NoExistAlbumException,
+       NoExistTrackException,
+       NoExistPlayListException,
+       NoExistUserException,
+       NoFindArtistException} = require('./exceptions.js');
 
 
 
@@ -41,9 +48,52 @@ class UNQfy {
     user.listen(track);
   }
 
-  getUserById(idUser){
-    return this.users.find(user => user.id === idUser);
+  getTracksListenByUser(idUser){
+    const user = this.getUserById(idUser);
+    return user.tracksListened;
   }
+
+  getTimesTrackListenedByUser(idUser,idTrack){
+    const user = this.getUserById(idUser);
+    const track = this.getTrackById(idTrack);
+
+    return user.timesTrackListened(track);
+  }
+
+  getUserById(idUser){
+    const user = this._users.find(user => user.id === idUser);
+    if(user === undefined){
+      throw new NoExistUserException(idUser);
+    }
+    return user;
+  }
+
+  threeMostListenedByArtist(idArtist){
+    let tracksByArtist = this.getArtistTracks(idArtist);
+    tracksByArtist = tracksByArtist.map(track => {
+      return [track, this.timesTrackListened(track)];
+    });
+
+    tracksByArtist = tracksByArtist.sort((trackA, trackB) =>{
+      if(trackA[1] < trackB[1]){
+        return 1;
+      }
+      if(trackA[1] > trackB[1]){
+        return -1;
+      }
+        return 0;
+    });
+
+    return tracksByArtist.slice(0,3).map(track => track[0]);
+  }
+
+  timesTrackListened(track){
+    return this._users.reduce(
+      (cant, user) => cant + user.timesTrackListened(track),0
+    );
+  }
+
+
 
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -55,22 +105,23 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
-
-  //falta exception cuando se intente agregar un artist con el mismo nombre TODO
-    const id = this._idManager.nextIdForArtist();
     const name = artistData.name;
+  if(this.artistExist(name) !== undefined){
+    throw new ExistArtistException(name);
+  }
+    const id = this._idManager.nextIdForArtist();
     const country = artistData.country;
     const newArtist = new Artist(id,name,country);
     this._artists.push(newArtist);
     return newArtist;
   }
 
-
+  artistExist(name){
+    return this._artists.find((artist)=> artist.name === name);
+  }
   
-   
 
-  addAlbumToArtist(artistId,album){
-      
+  addAlbumToArtist(artistId,album){      
     for (let i = 0; i < this._artists.length; i++) {
       const art = this._artists[i];
       if (art.id === artistId) {
@@ -117,7 +168,6 @@ class UNQfy {
   */
     const trackID = this._idManager.nextIdForTrack();
     const newTrack = new Track(trackID,trackData.name,trackData.duration,trackData.genres);
-    // console.log('esto tiene id'+JSON.stringify(newTrack))
     this.addTrackToAlbum(albumId,newTrack);
     return newTrack;
 
@@ -129,36 +179,44 @@ class UNQfy {
   }
 
   getArtistByName(name) {
-    const artistsFound = this._artists.filter((artist)=> artist.name === name);
-    // console.log(' artista con name es ' + JSON.stringify(artistsFound[0].name) );
-    // console.log('el artista buscado '+ artistsFound.name)
-
-    return artistsFound[0];
+    const artistFound = this._artists.find((artist)=> artist.name === name);
+    if(artistFound === undefined){
+      throw new NoFindArtistException(name);
+    }
+    return artistFound;
   }
 
   getArtistById(id) {
     const artistsFound = this._artists.find(artist=> artist.id === id);
-    // console.log(' artista con id disponible es ' + JSON.stringify(this._artists[0]) )
-    // console.log('el artista buscado '+ artistsFound.name)
-
+    if(artistsFound === undefined){
+      throw new NoExistArtistException(id);
+    }
     return artistsFound;
   }
 
   getAlbumById(id) {
-    const albumFound = 
-          this._artists.find(
-                        (artist)=> (artist.isAlbumRelatedTo(id)));   
-    return albumFound;
+    const albumFound = this._artists.find((artist)=> (artist.isAlbumRelatedTo(id)));   
+    if(albumFound === undefined){
+      throw new NoExistAlbumException(id);
+    }  
+    return albumFound;        
   }
 
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
     const trackFound = allTracks.find(track =>track.id === id);
+    if(trackFound === undefined){
+      throw new NoExistTrackException(id);
+    }
     return trackFound;
   }
   
   getPlaylistById(id) {
-    return this.playLists.find(playlist => playlist.id === id);
+    const playlistFound = this.playLists.find(playlist => playlist.id === id);
+    if(playlistFound === undefined){
+      throw new NoExistPlayListException(id);
+    }
+    return playlistFound;
   }
 
   getArtistTracks(idArtist){
@@ -205,11 +263,12 @@ class UNQfy {
     this._playLists.push(newPlayList);
     return newPlayList;
   }
-  getTracksMatchingArtist(aName){
-    const artists = this.searchArtistsByName(aName)
-    const artist = artists[0]
-    return artist.getTracks()
-  }
+
+  // getTracksMatchingArtist(aName){
+  //   const artists = this.searchArtistsByName(aName)
+  //   const artist = artists[0]
+  //   return artist.getTracks()
+  // }
 
   searchArtistsByName(name){
     return this._artists.filter(artist => artist.name.includes(name));
@@ -425,7 +484,7 @@ deleteAlbumWithId(idAlbum){
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track, User, PlayListGenerator, PlayList];
+    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayListGenerator,User,ExistArtistException,NoExistArtistException,NoExistAlbumException,NoExistTrackException,NoExistPlayListException,NoExistUserException,NoFindArtistException];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
@@ -441,5 +500,12 @@ module.exports = {
   User: User,
   PlayListGenerator: PlayListGenerator,
   PlayList: PlayList,
+  ExistArtistException: ExistArtistException,
+  NoExistArtistException: NoExistArtistException,
+  NoExistAlbumException: NoExistAlbumException,
+  NoExistTrackException: NoExistTrackException,
+  NoExistPlayListException: NoExistPlayListException,
+  NoExistUserException: NoExistUserException,
+  NoFindArtistException: NoFindArtistException
 };
 
