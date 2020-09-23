@@ -84,7 +84,7 @@ describe('User behaviour', () => {
         assert.equal(user.tracksListened.length,1);
       });
     
-    });
+});
     
 function createAndAddAlbum(unqfy, artistId, albumName, albumYear) {
     return unqfy.addAlbum(artistId, { name: albumName, year: albumYear });

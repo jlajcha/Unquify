@@ -68,15 +68,15 @@ class CommandHandler{
 
             addTrack: {
                 exec : function(unqfy){
-                            const albumId = functionParams[0]
+                            const albumId = Number(functionParams[0]);
                             const data = {
                                 name: functionParams[1],
                                 duration: functionParams[2],
                                 genres: functionParams[3]
                                  };
 
-                                const trackAdder = unqfy.addAlbum(albumId,data)
-                                console.log('Se guardo correctamente la canción '+ JSON.stringify(trackAdder.name));
+                                const trackAdder = unqfy.addTrack(albumId,data)
+                                console.log('Se guardo correctamente la canción '+ JSON.stringify(trackAdder));
                         }
                     
                     },

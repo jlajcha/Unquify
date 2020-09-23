@@ -56,11 +56,11 @@ class Artist{
         return !(newT.length==0)
     }
     getAlbumBy(id){
-         return this.albums.filter((album)=>album.id == id)
+         return this.albums.filter((album)=>album.id === id)
     }
 
     isAlbumRelatedTo(idAlbum){
-        return this.albums.some(album=>album.id ==idAlbum)
+        return this.albums.some(album=>album.id ===idAlbum)
     }
 
     deleteAlbum(idAlbum){

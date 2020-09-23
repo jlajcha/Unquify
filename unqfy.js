@@ -195,11 +195,11 @@ class UNQfy {
   }
 
   getAlbumById(id) {
-    const albumFound = this._artists.find((artist)=> (artist.isAlbumRelatedTo(id)));   
-    if(albumFound === undefined){
+    const artistWithAlbum = this._artists.find((artist)=> (artist.isAlbumRelatedTo(id)));   
+    if(artistWithAlbum === undefined){
       throw new NoExistAlbumException(id);
     }  
-    return albumFound;        
+    return artistWithAlbum.getAlbumBy(id)[0];        
   }
 
   getTrackById(id) {                       
@@ -243,7 +243,7 @@ class UNQfy {
   // retorna: los tracks interpredatos por el artista con nombre artistName
   getTracksMatchingArtist(artistName) {
    const artist= this.getArtistByName(artistName);
-   return artist.getTracks;
+   return artist.getTracks();
   }
 
 
@@ -432,7 +432,7 @@ deleteAlbumWithId(idAlbum){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.isAlbumRelatedTo(idAlbum)){
-        artist.delteAlbum(idAlbum)
+        artist.deleteAlbum(idAlbum)
       }
       
     }
