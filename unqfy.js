@@ -7,6 +7,13 @@ const Album = require('./album.js');
 const Track = require('./track.js');
 const PlayListGenerator = require('./playListGenerator');
 const User = require('./user');
+const {ExistArtistException,
+       NoExistArtistException,
+       NoExistAlbumException,
+       NoExistTrackException,
+       NoExistPlayListException,
+       NoExistUserException,
+       NoFindArtistException} = require('./exceptions.js');
 
 
 
@@ -53,12 +60,15 @@ class UNQfy {
   }
 
   getUserById(idUser){
-    return this._users.find(user => user.id === idUser);
+    const user = this._users.find(user => user.id === idUser);
+    if(user === undefined){
+      throw new NoExistUserException(idUser);
+    }
+    return user;
   }
 
   threeMostListenedByArtist(idArtist){
     let tracksByArtist = this.getArtistTracks(idArtist);
-console.log('tiene cuantos temas'+JSON.stringify(tracksByArtist))
     tracksByArtist = tracksByArtist.map(track => {
       return [track, this.timesTrackListened(track)];
     });
@@ -74,7 +84,6 @@ console.log('tiene cuantos temas'+JSON.stringify(tracksByArtist))
     });
 
     return tracksByArtist.slice(0,3).map(track => track[0]);
-
   }
 
   timesTrackListened(track){
@@ -95,24 +104,23 @@ console.log('tiene cuantos temas'+JSON.stringify(tracksByArtist))
     - una propiedad name (string)
     - una propiedad country (string)
   */
-
-  //falta exception cuando se intente agregar un artist con el mismo nombre TODO
-    const id = this._idManager.nextIdForArtist();
     const name = artistData.name;
+  if(this.artistExist(name) !== undefined){
+    throw new ExistArtistException(name);
+  }
+    const id = this._idManager.nextIdForArtist();
     const country = artistData.country;
     const newArtist = new Artist(id,name,country);
     this._artists.push(newArtist);
     return newArtist;
   }
 
+  artistExist(name){
+    return this._artists.find((artist)=> artist.name === name);
+  }
+  
 
-  
-   
-  
-  
-  //"aca ver algún metodo que solo actulice el artista agregando el album. "
-  addAlbumToArtist(artistId,album){
-      
+  addAlbumToArtist(artistId,album){      
     for (let i = 0; i < this._artists.length; i++) {
       const art = this._artists[i];
       if (art.id === artistId) {
@@ -160,7 +168,6 @@ console.log('tiene cuantos temas'+JSON.stringify(tracksByArtist))
   */
     const trackID = this._idManager.nextIdForTrack();
     const newTrack = new Track(trackID,trackData.name,trackData.duration,trackData.genres);
-    // console.log('esto tiene id'+JSON.stringify(newTrack))
     this.addTrackToAlbum(albumId,newTrack);
     return newTrack;
 
@@ -168,36 +175,46 @@ console.log('tiene cuantos temas'+JSON.stringify(tracksByArtist))
 
 
   getArtistByName(name) {
-    const artistsFound = this._artists.filter((artist)=> artist.name === name);
-    // console.log(' artista con name es ' + JSON.stringify(artistsFound[0].name) );
-    // console.log('el artista buscado '+ artistsFound.name)
-
-    return artistsFound[0];
+    const artistFound = this._artists.find((artist)=> artist.name === name);
+    if(artistFound === undefined){
+      throw new NoFindArtistException(name);
+    }
+    return artistFound;
   }
 
   getArtistById(id) {
     const artistsFound = this._artists.find(artist=> artist.id === id);
-    // console.log(' artista con id disponible es ' + JSON.stringify(this._artists[0]) )
-    // console.log('el artista buscado '+ artistsFound.name)
-
+    if(artistsFound === undefined){
+      throw new NoExistArtistException(id);
+    }
     return artistsFound;
   }
 
   getAlbumById(id) {
     const albumFound = 
           this._artists.map(
-                        (artist)=> (artist.albums.filter((album)=> album.id===id)));   
+                        (artist)=> (artist.albums.filter((album)=> album.id===id))); 
+    if(albumFound[0] === undefined){
+      throw new NoExistAlbumException(id);
+    }  
     return albumFound[0];        
   }
 
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
     const trackFound = allTracks.find(track =>track.id === id);
+    if(trackFound === undefined){
+      throw new NoExistTrackException(id);
+    }
     return trackFound;
   }
   
   getPlaylistById(id) {
-    return this.playLists.find(playlist => playlist.id === id);
+    const playlistFound = this.playLists.find(playlist => playlist.id === id);
+    if(playlistFound === undefined){
+      throw new NoExistPlayListException(id);
+    }
+    return playlistFound;
   }
 
   getArtistTracks(idArtist){
@@ -306,7 +323,7 @@ console.log('tiene cuantos temas'+JSON.stringify(tracksByArtist))
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track];
+    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayListGenerator,User,ExistArtistException,NoExistArtistException,NoExistAlbumException,NoExistTrackException,NoExistPlayListException,NoExistUserException,NoFindArtistException];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
@@ -319,5 +336,14 @@ module.exports = {
   IdManager:IdManager,
   Album: Album,
   Track: Track,
+  PlayListGenerator: PlayListGenerator,
+  User: User,
+  ExistArtistException: ExistArtistException,
+  NoExistArtistException: NoExistArtistException,
+  NoExistAlbumException: NoExistAlbumException,
+  NoExistTrackException: NoExistTrackException,
+  NoExistPlayListException: NoExistPlayListException,
+  NoExistUserException: NoExistUserException,
+  NoFindArtistException: NoFindArtistException
 };
 

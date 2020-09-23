@@ -1,3 +1,5 @@
+const {ExistTrackInAlbumException} = require('./exceptions.js');
+
 class Album{
 
     constructor(id,name,year){
@@ -12,9 +14,17 @@ class Album{
     get year(){return this._year;}
     get tracks(){return this._tracks;}
     
+    hasTheTrack(aTrack){
+        return this._tracks.some(
+            track => track.name === aTrack.name
+        );
+    }
+    
     addTrack(newTrack){
-       this.tracks.push(newTrack);
-    //    console.log('ahora tengo estos tracks'+ JSON.stringify(this.tracks));
+       if(this.hasTheTrack(newTrack)){
+           throw new ExistTrackInAlbumException(newTrack.name, this._id);
+       } 
+       this.tracks.push(newTrack);    
     }
 
 }

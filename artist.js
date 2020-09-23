@@ -1,4 +1,5 @@
 const Album = require('./album.js');
+const {ExistAlbumOfArtist} = require('./exceptions.js');
 
 class Artist{
     
@@ -18,7 +19,16 @@ class Artist{
     
     get albums(){return this._albums;}
 
+    hasTheAlbum(anAlbum){
+        return this._albums.some(
+            album => album.name === anAlbum.name
+        );
+    }
+
     addAlbum(anAlbum){
+        if(this.hasTheAlbum(anAlbum)){
+            throw new ExistAlbumOfArtist(anAlbum.name, this._id);
+        }
         this.albums.push(anAlbum);
     }
 
@@ -27,14 +37,12 @@ class Artist{
             const album = this.albums[i];  
             if (album.id ===idAlbum) {
              album.addTrack(track);
-            //  console.log('q hay aca ahora'+ JSON.stringify(album.tracks));
             }
         }
     }
     //devuelve todos los tracks de un artista
     getTracks(){
         const tracks = this.albums.map((album)=>album.tracks).flat();
-        // console.log('el artista tiene todos estos tracks' + JSON.stringify(tracks))
         return tracks;
     }
 }

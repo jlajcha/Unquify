@@ -3,7 +3,16 @@
 const assert = require('chai').assert;
 const { use } = require('chai');
 const libunqfy = require('./unqfy');
-
+const {ExistArtistException,
+  ExistTrackInAlbumException,
+  ExistAlbumOfArtist,
+  NoExistArtistException,
+  NoExistAlbumException,
+  NoExistTrackException,
+  NoExistPlayListException,
+  NoExistUserException,
+  NoFindArtistException,
+  MissingArguments} = require('./exceptions.js');
 
 function createAndAddArtist(unqfy, artistName, country) {
   const artist = unqfy.addArtist({ name: artistName, country: country });
@@ -64,6 +73,11 @@ describe('Add, remove and filter data', () => {
 
   });
 
+  it('se intenta agregar un artista con un nombre que ya existe en unqfy levanta una exception', () =>{
+    createAndAddArtist(unqfy,'juansito', 'argentina');
+    const exception = () =>createAndAddArtist(unqfy,'juansito', 'argentina');
+    assert.throws(exception, ExistArtistException);
+  });
   
   it('should add an album to an artist', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
@@ -71,6 +85,13 @@ describe('Add, remove and filter data', () => {
     // console.log('esto tiene album'+ JSON.stringify(album));
     assert.equal(album.name, 'Appetite for Destruction');
     assert.equal(album.year, 1987);
+  });
+
+  it('se intenta agregar un album con un nombre que ya existe en el artista levanta una exception', () =>{
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const exception = () => createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    assert.throws(exception, ExistAlbumOfArtist);
   });
 
   it('should add a track to an album', () => {
@@ -85,6 +106,15 @@ describe('Add, remove and filter data', () => {
     assert.equal(track.genres.includes('hard rock'), true);
     assert.lengthOf(track.genres, 2);
   });
+  it('se intenta agregar un track con un nombre que ya existe en el album levanta una exception',() =>{
+    const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+    const track = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
+    const exception = () => createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
+    assert.throws(exception, ExistTrackInAlbumException);
+  });
+  
+
 
   it('should find different things by name', () => {
     const artist1 = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
@@ -363,13 +393,14 @@ describe('Playlist Creation and properties', () => {
     unqfy.userListenTrack(user.id, t2.id);
     unqfy.userListenTrack(user.id, t1.id);
     unqfy.userListenTrack(user.id, t4.id);
-    console.log('cuantas veces escucho'+JSON.stringify(user.timesTrackListened(t3)))
-    console.log('q escucho'+ JSON.stringify(user.tracksListened)) 
     const topThree = unqfy.threeMostListenedByArtist(artist.id);
-  console.log('tiene el top' + JSON.stringify(topThree))
+  
     assert.include(topThree,t1);
     assert.notInclude(topThree,t3);
     assert.include(topThree,t2);
+    assert.include(topThree,t4);
   });
+
+  
 
 });
