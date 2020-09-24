@@ -15,7 +15,8 @@ class Track{
     get genres(){return this._genres;}
 
     includeAnyGenres(listOfGenres){
-        return this.genres.some(gen=>listOfGenres.includes(gen));
+         const bool =  this._genres.some((gen)=>listOfGenres.includes(gen));
+         return bool
     }
     changeName(aName){
         this._name = aName

@@ -26,10 +26,28 @@ node main.js addAlbum  1 "Cariño reptil" "2020"
 
 node main.js addTrack  0 "Just another story" 200 ["funk","pop"]
 node main.js addTrack  0 "The kid" 100 ["funk","rock"]
-node main.js addTrack  0 "Half the man" 250 ["pop"]
+node main.js addTrack  0 "Half the Cariño" 250 ["pop"]
 node main.js addTrack  0 "Justs another story" 200 ["cumbia","pop"]
 # node main.js addTrack  2 "Space cowboy" 200 ["cumbia","pop"]
 
 # node main.js getAlbumById 1
 node main.js getAlbumById 0
 
+node main.js deleteTrack 2 
+
+node main.js addUser "Juan Perez "
+node main.js addUser "Maria La del Barrio "
+node main.js getUserById 0
+node main.js userListenTrack 1 3 
+
+node main.js threeMostListenedByArtist 2 
+node main.js getArtistTracks 0 
+node main.js getTracksMatchingGenres ["pop" , "rock"]
+
+node main.js createPlaylist "K-POP" ["pop" ,"trap"] 300
+node main.js createPlaylist "Cumbias" ["cumbia" ,"cuarteto"] 500
+node main.js createPlaylist "heavy" ["rock" ] 300
+
+node main.js searchByName "rose"
+node main.js
+node main.js
