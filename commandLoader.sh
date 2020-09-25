@@ -33,9 +33,6 @@ node main.js addTrack  0 "Space cowboy" 200 ["cumbia","pop"]
 # node main.js getAlbumById 1
 # node main.js getAlbumById 0
 
-#delete de track
-#node main.js deleteTrack 2 
-
 node main.js addUser "Juan Perez "
 node main.js addUser "Maria La del Barrio "
 node main.js getUserById 0
@@ -45,7 +42,7 @@ node main.js threeMostListenedByArtist 2
 node main.js getArtistTracks 0 
 node main.js getTracksMatchingGenres ["pop" , "rock"]
 
-node main.js createPlaylist "K-POP" ["pop" ,"trap"] 300
+#node main.js createPlaylist "K-POP" ["pop" ,"trap"] 300
 #node main.js createPlaylist "Cumbias" ["pop" ,"cuarteto"] 500
 #node main.js createPlaylist "heavy" ["rock" ] 300
 
@@ -62,3 +59,12 @@ node main.js getTracksMatchingArtist "gnr"
 #node main.js updateArtistName 2 "juan"
 #node main.js updateArtistNationality 1 "usa"
 #node main.js updateAlbumName 1 "PRETTYMUCH"
+#node main.js updateAlbumYear 1 "2019"
+#node main.js updateTrackName 1 "Roses"
+#node main.js updateTrackDuration 1 "100"
+
+
+#deletes
+#node main.js deleteAlbumWithId 1 
+#node main.js deleteTrack 2 
+#node main.js deleteArtist 2 

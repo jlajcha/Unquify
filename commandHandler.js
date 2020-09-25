@@ -280,29 +280,28 @@ class CommandHandler{
                 paramsRequired: 1
             },
 
-//revisar da type error por un forEach a donde no entra
             updateArtistName: {
                 exec : function(unqfy){
                     try{
-                        const id = functionParams[0]
+                        const id = Number(functionParams[0])
                         const newName = functionParams[1]
                          unqfy.updateArtistName(id , newName) 
-                        printer.printArray(`Se ha modificado el nombre del artista con id ` +functionParams[0] + 'por el nombre ' + functionParams[1])
+                        printer.printMessage('Se ha modificado el nombre del artista con id ' + id + 'por el nombre ' + newName)
                     }catch(exception){
                         printer.printException(exception);
                     }
                 },
                 paramsRequired: 2
             },
-//idem anterior 
+
 
            updateArtistNationality: {
                 exec : function(unqfy){
                     try{
-                        const id = functionParams[0]
+                        const id = Number(functionParams[0])
                         const newCountry = functionParams[1]
                          unqfy.updateArtistNationality(id , newCountry) 
-                        printer.printArray(`Se ha modificado el nombre del artista con id ` +functionParams[0] + ' con el nuevo pais  ' + functionParams[1])
+                        printer.printMessage(`Se ha modificado el nombre del artista con id ` + id  + ' con el nuevo pais  ' + newCountry)
                     }catch(exception){
                         printer.printException(exception);
                     }
@@ -313,16 +312,71 @@ class CommandHandler{
             updateAlbumName: {
             exec : function(unqfy){
                 try{
-                    const id = functionParams[0]
-                    const newCountry = functionParams[1]
-                     unqfy.updateAlbumName(id , newCountry) 
-                    printer.printArray(`Se ha modificado el nombre del album con id ` +functionParams[0] + ' con el nuevo nombre es ' + functionParams[1])
+                    const id = Number(functionParams[0])
+                    const newName = functionParams[1]
+                     unqfy.updateAlbumName(id , newName) 
+                    printer.printMessage(`Se ha modificado el nombre del album con id ` + id  + ' con el nuevo nombre es ' + newName )
                 }catch(exception){
                     printer.printException(exception);
                 }
             },
             paramsRequired: 2
+        },
+        updateAlbumYear: {
+            exec : function(unqfy){
+                try{
+                    const id = Number(functionParams[0])
+                    const newYear = functionParams[1]
+                     unqfy.updateAlbumYear(id , newYear) 
+                    printer.printMessage(`Se ha modificado el nombre del album con id ` + id  + ' con el nuevo año ' + newYear )
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 2
+        },
+
+
+        updateTrackName: {
+            exec : function(unqfy){
+                try{
+                    const id = Number(functionParams[0])
+                    const newName = functionParams[1]
+                     unqfy.updateTrackName(id , newName) 
+                    printer.printMessage(`Se ha modificado la canción con id ` + id  + ' con el nuevo nombre ' + newName )
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 2
+        },
+
+
+        updateTrackDuration: {
+            exec : function(unqfy){
+                try{
+                    const id = Number(functionParams[0])
+                    const duration = functionParams[1]
+                     unqfy.updateTrackDuration(id , duration) 
+                    printer.printMessage(`Se ha modificado la canción con id ` + id  + ' con la nueva duración ' + duration )
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 2
+        },
+
+        deleteAlbumWithId: {
+            exec : function(unqfy){
+                        const id = Number(functionParams[0]);
+                        const deletedtrack = unqfy.deleteAlbumWithId(id);                         
+                        printer.printMessage(`Se eliminó correctamente el album con id ${id}`);
+            },
+            paramsRequired: 1
         }
+
+
+
             
         };
 

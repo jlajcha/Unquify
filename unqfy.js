@@ -33,7 +33,6 @@ class UNQfy {
 
   get users(){return this._users;}
 
-  // hecho en commandHandler
   addUser(name){
 
     const id = this._idManager.nextIdForUser();
@@ -42,7 +41,6 @@ class UNQfy {
     return newUser;
   }
 
-  // hecho en commandHandler
   userListenTrack(idUser, idTrack){
     const user = this.getUserById(idUser);
     const track = this.getTrackById(idTrack);
@@ -62,7 +60,6 @@ class UNQfy {
     return user.timesTrackListened(track);
   }
 
-  // hecho en commandHandler
   getUserById(idUser){
     const user = this._users.find(user => user.id === idUser);
     if(user === undefined){
@@ -71,7 +68,6 @@ class UNQfy {
     return user;
   }
 
-  // hecho en commandHandler
   threeMostListenedByArtist(idArtist){
     let tracksByArtist = this.getArtistTracks(idArtist);
     tracksByArtist = tracksByArtist.map(track => {
@@ -97,8 +93,6 @@ class UNQfy {
     );
   }
 
-
-// hecho en commandHandler
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
   //   artistData.country (string)
@@ -119,12 +113,12 @@ class UNQfy {
     this._artists.push(newArtist);
     return newArtist;
   }
-//No va en commandHandler
+
   artistExist(name){
     return this._artists.find((artist)=> artist.name === name);
   }
   
-//No va en commandHandler
+
   addAlbumToArtist(artistId,album){      
     for (let i = 0; i < this._artists.length; i++) {
       const art = this._artists[i];
@@ -133,7 +127,7 @@ class UNQfy {
       }
     }
   }
-//No va en commandHandler
+
   addTrackToAlbum(idAlbum,track){    
     for (let i = 0; i < this._artists.length; i++) {
       const art = this.artists[i];  
@@ -182,7 +176,7 @@ class UNQfy {
   deleteArtist(idArtistData){    
     this.deleteArtistWithId(idArtistData.id)
   }
-// hecho en commandHandler
+
   getArtistByName(name) {
     const artistFound = this._artists.find((artist)=> artist.name === name);
     if(artistFound === undefined){
@@ -190,7 +184,7 @@ class UNQfy {
     }
     return artistFound;
   }
-// hecho en commandHandler
+
   getArtistById(id) {
     const artistsFound = this._artists.find(artist=> artist.id === id);
     if(artistsFound === undefined){
@@ -198,7 +192,7 @@ class UNQfy {
     }
     return artistsFound;
   }
-// hecho en commandHandler
+
   getAlbumById(id) {
     const artistWithAlbum = this._artists.find((artist)=> (artist.isAlbumRelatedTo(id)));   
     if(artistWithAlbum === undefined){
@@ -206,16 +200,16 @@ class UNQfy {
     }  
     return artistWithAlbum.getAlbumBy(id)[0];        
   }
-// hecho en commandHandler
+
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
-    const trackFound = allTracks.find(track =>track.id === id);
+    const trackFound = allTracks.find(track =>track._id === id);
     if(trackFound === undefined){
       throw new NoExistTrackException(id);
     }
     return trackFound;
   }
-  // hecho en commandHandler
+
   getPlaylistById(id) {
     const playlistFound = this._playLists.find(playlist => playlist.id === id);
     if(playlistFound === undefined){
@@ -224,31 +218,26 @@ class UNQfy {
     return playlistFound;
   }
 
-  // hecho en commandHandler
   getArtistTracks(idArtist){
     return this.getArtistById(idArtist).getTracks();
   }
 
-//No va en commandHandler
   allTracksOnApp(){
     const tracks = this._artists.map((artist)=>artist.getTracks()).flat();
     return tracks;
   }
 
-//No va en commandHandler
   allTracksWithGenders(){
     const allTracks = this.allTracksOnApp();
     return allTracks.filter((track)=>track.genres.length>0);
   }
 
-// hecho en commandHandler
   getTracksMatchingGenres(genres) {
     const allTracks = this.allTracksWithGenders();
     return allTracks.filter(track=> track.includeAnyGenres(genres));
 
   }
 
-// hecho en commandHandler
   // artistName: nombre de artista(string)
   // retorna: los tracks interpredatos por el artista con nombre artistName
   getTracksMatchingArtist(artistName) {
@@ -280,12 +269,10 @@ class UNQfy {
   //   return artist.getTracks()
   // }
 
-  // hecho en commandHandler
   searchArtistsByName(name){
     return this._artists.filter(artist => artist.name.includes(name));
   }
 
-  // hecho en commandHandler
   searchAlbumsByName(name){
     let albums = [];
     this._artists.forEach(
@@ -295,18 +282,15 @@ class UNQfy {
     return albums;                                          
   }
 
-  // hecho en commandHandler
   searchTracksByName(name){
     const allTracks = this.allTracksOnApp();
     return allTracks.filter(track => track.name.includes(name));
   }
 
-  // hecho en commandHandler
   searchPlayListsByName(name){
     return this._playLists.filter(playlist => playlist.name.includes(name));
   }
 
-// hecho en commandHandler
   searchByName(name){
     const resultSearches = {artists: [], albums: [], tracks: [], playlists: []};
 
@@ -318,7 +302,6 @@ class UNQfy {
     return resultSearches;
   }
 
-//
   updateArtistName(id, newName){
     for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
@@ -327,7 +310,8 @@ class UNQfy {
         }
       }
   }
-  updateArtistNationality(id, newCountry){
+
+updateArtistNationality(id, newCountry){
     for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.id === id){
@@ -336,7 +320,7 @@ class UNQfy {
       }
   }
 
-  updateAlbumName(idAlbum, aName){ 
+updateAlbumName(idAlbum, aName){ 
       for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.isAlbumRelatedTo(idAlbum)){
@@ -347,7 +331,7 @@ class UNQfy {
        
   }
 
-  updateAlbumYear(idAlbum, year){ 
+updateAlbumYear(idAlbum, year){ 
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.isAlbumRelatedTo(idAlbum)){
@@ -367,7 +351,6 @@ updateTrackName(idTrack, newName) {
 
 }
 
-//no commandHandler
 updateTrackNameOnUsers(aTrack, newName) {
   for (let index = 0; index < this.users.length; index++) {
       const user = this.users[index];
@@ -377,7 +360,6 @@ updateTrackNameOnUsers(aTrack, newName) {
 }
 }
 
-//no commandHandler
 updateTrackNameOnArtist(idTrack, newName) {
 
   for (let index = 0; index < this.artists.length; index++) {
@@ -388,7 +370,6 @@ updateTrackNameOnArtist(idTrack, newName) {
   }
 }
 
-//no commandHandler
 updateTrackNameOnPlaylist(idTrack, newName) {
   for (let i = 0; i < this.playLists.length; i++) {
     const playlist = this.playLists[i];
@@ -398,7 +379,6 @@ updateTrackNameOnPlaylist(idTrack, newName) {
   }
 }
 
-
 updateTrackDuration(idTrack, duration) {
   const track = this.getTrackById(idTrack)
 
@@ -407,8 +387,6 @@ updateTrackDuration(idTrack, duration) {
   this.updateTrackDurationOnUsers(track,duration);
 }
 
-
-//no commandHandler
 updateTrackDurationOnUsers(aTrack, duration) {
   this._users.forEach(user => {
     if (user.hasListenedTheTrackWith(aTrack)) {
@@ -417,7 +395,7 @@ updateTrackDurationOnUsers(aTrack, duration) {
   });
 }
 
-//no commandHandler
+
 updateTrackDurationOnArtist(idTrack, duration) {
   this._artists.forEach(artist => {
       if (artist.isOwnerOfTrack(idTrack)) {
@@ -426,7 +404,6 @@ updateTrackDurationOnArtist(idTrack, duration) {
         });
   }
 
-//no commandHandler
 updateTrackDurationOnPlaylist(idTrack, duration) {
   this._playLists.forEach(playlist => {
     if (playlist.isTrackIncluded(idTrack)) {
@@ -434,7 +411,7 @@ updateTrackDurationOnPlaylist(idTrack, duration) {
     }
   });     
 }
-// hecho en commandHandler
+
 deleteArtistWithId(idArtist){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
@@ -456,9 +433,7 @@ deleteAlbumWithId(idAlbum){
     }
   }
 
-
-// hecho en commandHandler
-  deleteTrack(idTrack){
+deleteTrack(idTrack){
     const track = this.getTrackById(idTrack)
 
     this.deleteTrackOnArtist(idTrack);
@@ -466,8 +441,7 @@ deleteAlbumWithId(idAlbum){
     this.deleteTrackOnUsers(track);
 }
 
-//no commandHandler
-  deleteTrackOnUsers(aTrack) {
+ deleteTrackOnUsers(aTrack) {
     for (let index = 0; index < this.users.length; index++) {
         const user = this.users[index];
         if (user.hasListenedTheTrackWith(aTrack)) {
@@ -476,7 +450,6 @@ deleteAlbumWithId(idAlbum){
   }
 }
 
-//no commandHandler
   deleteTrackOnArtist(idTrack) {
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
@@ -486,7 +459,6 @@ deleteAlbumWithId(idAlbum){
     }
   }
 
-//no commandHandler
   deleteTrackOnPlaylist(idTrack) {
     for (let i = 0; i < this.playLists.length; i++) {
       const playlist = this.playLists[i];

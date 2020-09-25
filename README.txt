@@ -55,6 +55,16 @@ Ejecucion de comando
 				 Ejemplo: 	' node main.js getAlbumById 1 '
 
 
+
+
+			* deleteAlbumWithId, elimina un album relacionado al id pasado por parámetro. El id debe ser 
+				tipo numero.
+
+				Estructura: ' node main.js deleteAlbumWithId id '
+				Ejemplo: 	' node main.js deleteAlbumWithId 3 '
+
+
+
 			* addTrack, agrega una cancion a un album específico. Recibe como parámetro el id del album a
 				 donde pertenece (idAlbum) con tipo numero, nombre de la cancion ( nombreCancion) con tipo string, duracion con tipo string y una lista de generos(["genero"]) , donde cada genero es un string  
 
@@ -181,3 +191,37 @@ Ejecucion de comando
 				Ejemplo: 	' node main.js updateAlbumName 1 "PRETTYMUCH" '
 
 			
+
+			* updateAlbumYear, modifica el año del album relacionado al id, al año pasado por parámetro
+				
+				Estructura: ' node main.js updateAlbumYear idAlbum "nuevoAño" '
+				Ejemplo: 	' node main.js updateAlbumYear 1 "2019" '
+
+			
+
+			* updateAlbumYear, modifica el año del album relacionado al id, al año pasado por parámetro
+				
+				Estructura: ' node main.js updateAlbumYear idAlbum "nuevoAño" '
+				Ejemplo: 	' node main.js updateAlbumYear 1 "2019" '
+
+
+
+
+			* updateTrackName, modifica el nombre de la canción relacionado al id, al nombre pasado 
+				por parámetro
+				
+				Estructura: ' node main.js updateTrackName idCancion "nuevoNombre" '
+				Ejemplo: 	' node main.js updateTrackName 1 "Roses" '
+
+
+			* updateTrackDuration, modifica la duración de la canción relacionado al id, a la duración pasada
+				por parámetro
+				
+				Estructura: ' node main.js updateTrackDuration idCancion "nuevoNombre" '
+				Ejemplo: 	' node main.js updateTrackDuration 1 "100" '
+		
+
+#node main.js
+
+
+

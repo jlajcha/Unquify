@@ -117,8 +117,8 @@
     },
     "__00027__": {
       "_id": 1,
-      "_name": "The kid",
-      "_duration": 100,
+      "_name": "Roses",
+      "_duration": "200",
       "_genres": "[funk,rock]"
     },
     "__00028__": {
