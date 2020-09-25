@@ -278,8 +278,52 @@ class CommandHandler{
                     }
                 },
                 paramsRequired: 1
-            }
+            },
 
+//revisar da type error por un forEach a donde no entra
+            updateArtistName: {
+                exec : function(unqfy){
+                    try{
+                        const id = functionParams[0]
+                        const newName = functionParams[1]
+                         unqfy.updateArtistName(id , newName) 
+                        printer.printArray(`Se ha modificado el nombre del artista con id ` +functionParams[0] + 'por el nombre ' + functionParams[1])
+                    }catch(exception){
+                        printer.printException(exception);
+                    }
+                },
+                paramsRequired: 2
+            },
+//idem anterior 
+
+           updateArtistNationality: {
+                exec : function(unqfy){
+                    try{
+                        const id = functionParams[0]
+                        const newCountry = functionParams[1]
+                         unqfy.updateArtistNationality(id , newCountry) 
+                        printer.printArray(`Se ha modificado el nombre del artista con id ` +functionParams[0] + ' con el nuevo pais  ' + functionParams[1])
+                    }catch(exception){
+                        printer.printException(exception);
+                    }
+                },
+                paramsRequired: 2
+            },
+
+            updateAlbumName: {
+            exec : function(unqfy){
+                try{
+                    const id = functionParams[0]
+                    const newCountry = functionParams[1]
+                     unqfy.updateAlbumName(id , newCountry) 
+                    printer.printArray(`Se ha modificado el nombre del album con id ` +functionParams[0] + ' con el nuevo nombre es ' + functionParams[1])
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 2
+        }
+            
         };
 
     }

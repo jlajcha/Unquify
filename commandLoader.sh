@@ -26,20 +26,15 @@ node main.js addAlbum  1 "Cariño reptil" "2020"
 
 node main.js addTrack  0 "Just another story" 200 ["funk","pop"]
 node main.js addTrack  0 "The kid" 100 ["funk","rock"]
-<<<<<<< HEAD
-node main.js addTrack  0 "Half the Cariño" 250 ["pop"]
-node main.js addTrack  0 "Justs another story" 200 ["cumbia","pop"]
-# node main.js addTrack  2 "Space cowboy" 200 ["cumbia","pop"]
-=======
 node main.js addTrack  0 "Half the man" 250 ["pop"]
 # node main.js addTrack  0 "Justs another story" 200 ["cumbia","pop"]
 node main.js addTrack  0 "Space cowboy" 200 ["cumbia","pop"]
->>>>>>> origin/mat
 
 # node main.js getAlbumById 1
 # node main.js getAlbumById 0
 
-node main.js deleteTrack 2 
+#delete de track
+#node main.js deleteTrack 2 
 
 node main.js addUser "Juan Perez "
 node main.js addUser "Maria La del Barrio "
@@ -51,9 +46,19 @@ node main.js getArtistTracks 0
 node main.js getTracksMatchingGenres ["pop" , "rock"]
 
 node main.js createPlaylist "K-POP" ["pop" ,"trap"] 300
-node main.js createPlaylist "Cumbias" ["cumbia" ,"cuarteto"] 500
-node main.js createPlaylist "heavy" ["rock" ] 300
+#node main.js createPlaylist "Cumbias" ["pop" ,"cuarteto"] 500
+#node main.js createPlaylist "heavy" ["rock" ] 300
 
 node main.js searchByName "rose"
-node main.js
-node main.js
+node main.js searchArtistsByName "canser"
+node main.js searchAlbumsByName "Cariño"
+node main.js searchTracksByName "Half"
+node main.js searchPlayListsByName "K-POP"
+node main.js getTracksMatchingArtist "gnr"
+
+
+
+#updates 
+#node main.js updateArtistName 2 "juan"
+#node main.js updateArtistNationality 1 "usa"
+#node main.js updateAlbumName 1 "PRETTYMUCH"

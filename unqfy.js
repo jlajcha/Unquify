@@ -269,6 +269,7 @@ class UNQfy {
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
     const idPlayList = this._idManager.nextIdForPlayList();
+    console.log('estoy es lo que le llega al create ' + 'nombre :' + name+ 'generos a incluir: '+ genresToInclude + 'duracion' + duration)
     const newPlayList = this._playListGenerator.createPlayList(this, idPlayList, name, genresToInclude, maxDuration);
     this._playLists.push(newPlayList);
     return newPlayList;
@@ -318,6 +319,7 @@ class UNQfy {
     return resultSearches;
   }
 
+//
   updateArtistName(id, newName){
     for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
@@ -366,7 +368,7 @@ updateTrackName(idTrack, newName) {
 
 }
 
-
+//no commandHandler
 updateTrackNameOnUsers(aTrack, newName) {
   for (let index = 0; index < this.users.length; index++) {
       const user = this.users[index];
@@ -376,6 +378,7 @@ updateTrackNameOnUsers(aTrack, newName) {
 }
 }
 
+//no commandHandler
 updateTrackNameOnArtist(idTrack, newName) {
 
   for (let index = 0; index < this.artists.length; index++) {
@@ -386,6 +389,7 @@ updateTrackNameOnArtist(idTrack, newName) {
   }
 }
 
+//no commandHandler
 updateTrackNameOnPlaylist(idTrack, newName) {
   for (let i = 0; i < this.playLists.length; i++) {
     const playlist = this.playLists[i];
@@ -394,6 +398,7 @@ updateTrackNameOnPlaylist(idTrack, newName) {
     }
   }
 }
+
 
 updateTrackDuration(idTrack, duration) {
   const track = this.getTrackById(idTrack)
@@ -404,8 +409,7 @@ updateTrackDuration(idTrack, duration) {
 }
 
 
-
-
+//no commandHandler
 updateTrackDurationOnUsers(aTrack, duration) {
   this._users.forEach(user => {
     if (user.hasListenedTheTrackWith(aTrack)) {
@@ -414,6 +418,7 @@ updateTrackDurationOnUsers(aTrack, duration) {
   });
 }
 
+//no commandHandler
 updateTrackDurationOnArtist(idTrack, duration) {
   this._artists.forEach(artist => {
       if (artist.isOwnerOfTrack(idTrack)) {
@@ -422,7 +427,7 @@ updateTrackDurationOnArtist(idTrack, duration) {
         });
   }
 
-
+//no commandHandler
 updateTrackDurationOnPlaylist(idTrack, duration) {
   this._playLists.forEach(playlist => {
     if (playlist.isTrackIncluded(idTrack)) {
@@ -452,6 +457,7 @@ deleteAlbumWithId(idAlbum){
     }
   }
 
+
 // hecho en commandHandler
   deleteTrack(idTrack){
     const track = this.getTrackById(idTrack)
@@ -461,6 +467,7 @@ deleteAlbumWithId(idAlbum){
     this.deleteTrackOnUsers(track);
 }
 
+//no commandHandler
   deleteTrackOnUsers(aTrack) {
     for (let index = 0; index < this.users.length; index++) {
         const user = this.users[index];
@@ -470,7 +477,7 @@ deleteAlbumWithId(idAlbum){
   }
 }
 
-
+//no commandHandler
   deleteTrackOnArtist(idTrack) {
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
@@ -480,6 +487,7 @@ deleteAlbumWithId(idAlbum){
     }
   }
 
+//no commandHandler
   deleteTrackOnPlaylist(idTrack) {
     for (let i = 0; i < this.playLists.length; i++) {
       const playlist = this.playLists[i];

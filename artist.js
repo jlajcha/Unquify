@@ -85,7 +85,7 @@ class Artist{
     changeCountry(newCountry){this._country = newCountry}
 
     updateAlbumName(idAlbum, aName){
-        this.albums.forEach(album => {
+        this._albums.forEach(album => {
             if(album.id ===idAlbum){
                 album.changeName(aName)
           }
@@ -93,7 +93,7 @@ class Artist{
 
     }
     updateAlbumYear(idAlbum,year){
-        this.albums.forEach(album => {
+        this._albums.forEach(album => {
             if(album.id ===idAlbum){
                 album.changeYear(year)
             }
@@ -101,7 +101,7 @@ class Artist{
     }
 
     updateTrackName(idTrack,newName){
-        this.albums.forEach(album => {
+        this._albums.forEach(album => {
             if(album.isTrackIncluded(idTrack)){
                 album.updateTrackName(idTrack,newName);
           }  

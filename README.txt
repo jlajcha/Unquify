@@ -123,3 +123,61 @@ Ejecucion de comando
 				Estructura: ' node main.js searchByName "palabra" '
 				Ejemplo: 	' node main.js searchByName "rose" '
 
+
+			* searchArtistsByName, retorna todos los artistas que coincidan de manera total o parcial con la palabra ingresada por parámetro.
+				
+				Estructura: ' node main.js searchArtistsByName "nombreArtista" '
+				Ejemplo: 	' node main.js searchArtistsByName "rose" '
+
+
+			* searchAlbumsByName, retorna todos los albumnes que coincidan de manera total o parcial con la palabra ingresada por parámetro.
+				
+				Estructura: ' node main.js searchAlbumsByName "nombreAlbum" '
+				Ejemplo: 	' node main.js searchAlbumsByName "Cariño" '
+
+
+			* searchTracksByName, retorna todas las canciones que coincidan de manera total o parcial con 
+				la palabra ingresada por parámetro.
+				
+				Estructura: ' node main.js searchTracksByName "nombreCancion" '
+				Ejemplo: 	' node main.js searchTracksByName "Half" '
+
+
+			* searchPlayListsByName, retorna todas las playlists que coincidan de manera total o parcial con 
+				la palabra ingresada por parámetro.
+				
+				Estructura: ' node main.js searchPlayListsByName "nombrePlaylist" '
+				Ejemplo: 	' node main.js searchPlayListsByName "K-POP" '
+
+
+
+			* getTracksMatchingArtist, retorna todas las canciones relacionadas a un artista. Recibe 
+				por parámetro el nombre del artista
+				
+				Estructura: ' node main.js getTracksMatchingArtist "nombreArtista" '
+				Ejemplo: 	' node main.js getTracksMatchingArtist "gnr" '
+
+
+
+			* updateArtistName, modifica el nombre del artista relacionado al id, al nombre pasado por parámetro
+				
+				Estructura: ' node main.js updateArtistName idArtista "nombreArtista" '
+				Ejemplo: 	' node main.js updateArtistName 2 "juan" '
+
+
+
+			* updateArtistNationality, modifica el pais de nacionalidad  del artista relacionado al id 
+				de artista 
+
+				
+				Estructura: ' node main.js updateArtistNationality idArtista "nombrePais" '
+				Ejemplo: 	' node main.js updateArtistNationality 2 "Argentina" '
+
+			
+
+			* updateAlbumName, modifica el nombre del album relacionado al id, al nombre pasado por parámetro
+				
+				Estructura: ' node main.js updateAlbumName idAlbum "nombreAlbum" '
+				Ejemplo: 	' node main.js updateAlbumName 1 "PRETTYMUCH" '
+
+			
