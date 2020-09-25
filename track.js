@@ -15,7 +15,7 @@ class Track{
     get genres(){return this._genres;}
 
     includeAnyGenres(listOfGenres){
-        return this.genres.some(gen=>listOfGenres.includes(gen));
+        return listOfGenres.some(gen=>this._genres.includes(gen));
     }
     changeName(aName){
         this._name = aName

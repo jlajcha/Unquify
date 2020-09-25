@@ -78,7 +78,7 @@ class NoFindArtistException extends Error{
 
 class MissingArguments extends Error{
     constructor(id){
-        super('Argumentos insuficientes para la ejecucion del comando "${id}"');
+        super(`Argumentos insuficientes para la ejecucion del comando "${id}"`);
         this.name = 'MissingArguments';
     }
 }
