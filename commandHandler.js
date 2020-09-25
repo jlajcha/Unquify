@@ -117,7 +117,7 @@ class CommandHandler{
                 },
                 paramsRequired: 1
             },
-//probar
+
             getPlayListById: {
                 exec : function(unqfy){
                     try{
@@ -222,7 +222,7 @@ class CommandHandler{
                 },
                 paramsRequired: 1
             },
-//probar
+
             createPlaylist: {
                 exec : function(unqfy){
                     printer.printEntity('Playlist creada',unqfy.createPlaylist(functionParams[0],functionParams.slice(2),Number(functionParams[1])));
@@ -261,7 +261,7 @@ class CommandHandler{
                 },
                 paramsRequired: 1
             },
-//probar
+
             searchPlayListsByName: {
                 exec : function(unqfy){
                     printer.printArray('PlayLists encontradas', unqfy.searchPlayListsByName(functionParams[0]));
