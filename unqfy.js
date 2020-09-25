@@ -454,7 +454,7 @@ deleteAlbumWithId(idAlbum){
 
 // hecho en commandHandler
   deleteTrack(idTrack){
-    const track = this.getTrackById(idTrack)
+    const track = this.getTrackById(idTrack);
 
     this.deleteTrackOnArtist(idTrack);
     this.deleteTrackOnPlaylist(idTrack);
