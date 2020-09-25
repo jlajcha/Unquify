@@ -94,7 +94,7 @@ class Artist{
     }
     updateAlbumYear(idAlbum,year){
         this.albums.forEach(album => {
-            if(album.id ==idAlbum){
+            if(album.id ===idAlbum){
                 album.changeYear(year)
             }
         });

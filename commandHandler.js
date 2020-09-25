@@ -2,7 +2,7 @@ const {getUNQfy, saveUNQfy} = require('./persistenceUNQfy');
 //const unqfy = require('./unqfy');
 // const unqfy = require('./unqfy');
 const Printer = require('./printer.js');
-const MissingArguments = require('./exceptions.js')
+const {MissingArguments} = require('./exceptions.js');
 
 class CommandHandler{
     constructor(commandAndArgs){
@@ -13,8 +13,8 @@ class CommandHandler{
 
     execute(){
         try{
-            this.insufficientArguments(this.stackOfCommands()[this.command].paramsRequired)
-            const unq = getUNQfy();
+            this.insufficientArguments(this.stackOfCommands()[this.command].paramsRequired);
+            const unq = getUNQfy();            
             this.stackOfCommands()[this.command].exec(unq);
             saveUNQfy(unq);
         }catch(exception){
@@ -73,13 +73,25 @@ class CommandHandler{
                                  };
                                  try{                                  
                                     const albumAdder = unqfy.addAlbum(idArtist,data);
-                                    printer.printMessage(`Se agrego el album con nombre ${albumAdder.name}`)
+                                    printer.printMessage(`Se agrego el album con nombre ${albumAdder.name}`);
                                  }catch(exception){
-                                    printer.printException(exception)
+                                    printer.printException(exception);
                                  }
                         },
                     paramsRequired: 3
                 },
+
+            getArtistByName: {
+                exec : function(unqfy){
+                    try{
+                        const artist = unqfy.getArtistByName(functionParams[0]);
+                        printer.printEntity(`Artist con id ${functionParams[0]}`, artist)
+                    }catch(exception){
+                        printer.printException(exception);
+                    }
+                },
+                paramsRequired: 1
+            },             
                     
             getAlbumById: {
                 exec: function(unqfy) {
@@ -91,6 +103,31 @@ class CommandHandler{
                         }                            
                         },
                     paramsRequired: 1
+            },
+
+            getTrackById: {
+                exec : function(unqfy){
+                    try{
+                        const track = unqfy.getTrackById(Number(functionParams[0]));
+                        printer.printEntity(`Track con id ${functionParams[0]}`, track);
+                    }catch(exception){
+                        printer.printException(exception);
+                    }
+                    
+                },
+                paramsRequired: 1
+            },
+//probar
+            getPlayListById: {
+                exec : function(unqfy){
+                    try{
+                        const playlist = unqfy.getPlayListById(Number(functionParams[0]));
+                        printer.printEntity(`Playlist con id ${functionParams[0]}`, playlist);
+                    }catch(exception){
+                        printer.printException(exception);
+                    }
+                },
+                paramsRequired: 1
             },
 
             addTrack: {
@@ -114,7 +151,7 @@ class CommandHandler{
             deleteTrack: {
                 exec : function(unqfy){
                             const id = Number(functionParams[0]);
-                            const deletedtrack = unqfy.deleteArtistWithId(id)                         
+                            const deletedtrack = unqfy.deleteTrack(id);                         
                             printer.printMessage(`Se eliminó correctamente el track con id ${id}`);
                 },
                 paramsRequired: 1
@@ -179,15 +216,16 @@ class CommandHandler{
 
             getTracksMatchingGenres: {
                 exec : function(unqfy){
-                    const tracksWithGenres = unqfy.getTracksMatchingGenres([functionParams[0]]);
-                    printer.printArray(`Los tracks por genero son ${functionParams[0]}`, unqfy.getTracksMatchingGenres(functionParams[0]));
+                    console.log('tracks'+ JSON.stringify(functionParams.slice(0)));
+                    const tracksWithGenres = unqfy.getTracksMatchingGenres(functionParams);
+                    printer.printArray(`Los tracks por genero son ${functionParams.slice(0)}`, unqfy.getTracksMatchingGenres(functionParams));
                 },
                 paramsRequired: 1
             },
-
+//probar
             createPlaylist: {
                 exec : function(unqfy){
-                    printer.printEntity('Playlist creada',unqfy.createPlaylist(functionParams[0],functionParams[1],Number(functionParams[2])))
+                    printer.printEntity('Playlist creada',unqfy.createPlaylist(functionParams[0],functionParams.slice(2),Number(functionParams[1])));
                 },
                 paramsRequired: 3
             },
@@ -201,8 +239,46 @@ class CommandHandler{
                     printer.printArray('Playlists encontradas', resultSearches.playlists)
                 },
                 paramsRequired: 1
-            }
+            },
 
+            searchArtistsByName: {
+                exec : function(unqfy){
+                    printer.printArray('Artistas encontrados', unqfy.searchArtistsByName(functionParams[0]));
+                },
+                paramsRequired: 1
+            },
+
+            searchAlbumsByName: {
+                exec : function(unqfy){
+                    printer.printArray('Albums encontrados', unqfy.searchAlbumsByName(functionParams[0]));
+                },
+                paramsRequired: 1
+            },
+
+            searchTracksByName: {
+                exec : function(unqfy){
+                    printer.printArray('Tracks encontrados', unqfy.searchTracksByName(functionParams[0]));
+                },
+                paramsRequired: 1
+            },
+//probar
+            searchPlayListsByName: {
+                exec : function(unqfy){
+                    printer.printArray('PlayLists encontradas', unqfy.searchPlayListsByName(functionParams[0]));
+                },
+                paramsRequired: 1
+            },
+
+            getTracksMatchingArtist: {
+                exec : function(unqfy){
+                    try{
+                        printer.printArray(`Tracks del artista con nombre ${functionParams[0]}`, unqfy.getTracksMatchingArtist(functionParams[0]))
+                    }catch(exception){
+                        printer.printException(exception);
+                    }
+                },
+                paramsRequired: 1
+            }
 
         };
 
@@ -210,7 +286,7 @@ class CommandHandler{
 
     insufficientArguments(quantity){
         if(this.paramets.length < quantity){
-            throw new MissingArguments(this.command)
+            throw new MissingArguments(this.command);
         }
     }
 

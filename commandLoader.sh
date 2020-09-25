@@ -26,12 +26,18 @@ node main.js addAlbum  1 "Cariño reptil" "2020"
 
 node main.js addTrack  0 "Just another story" 200 ["funk","pop"]
 node main.js addTrack  0 "The kid" 100 ["funk","rock"]
+<<<<<<< HEAD
 node main.js addTrack  0 "Half the Cariño" 250 ["pop"]
 node main.js addTrack  0 "Justs another story" 200 ["cumbia","pop"]
 # node main.js addTrack  2 "Space cowboy" 200 ["cumbia","pop"]
+=======
+node main.js addTrack  0 "Half the man" 250 ["pop"]
+# node main.js addTrack  0 "Justs another story" 200 ["cumbia","pop"]
+node main.js addTrack  0 "Space cowboy" 200 ["cumbia","pop"]
+>>>>>>> origin/mat
 
 # node main.js getAlbumById 1
-node main.js getAlbumById 0
+# node main.js getAlbumById 0
 
 node main.js deleteTrack 2 
 
