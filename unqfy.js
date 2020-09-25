@@ -269,7 +269,6 @@ class UNQfy {
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
     const idPlayList = this._idManager.nextIdForPlayList();
-    console.log('estoy es lo que le llega al create ' + 'nombre :' + name+ 'generos a incluir: '+ genresToInclude + 'duracion' + duration)
     const newPlayList = this._playListGenerator.createPlayList(this, idPlayList, name, genresToInclude, maxDuration);
     this._playLists.push(newPlayList);
     return newPlayList;
