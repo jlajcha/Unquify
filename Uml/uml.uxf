@@ -140,7 +140,7 @@ m1=0..n</panel_attributes><additional_attributes>10;10;160;70</additional_attrib
 --
 execute()
 stackOfCommands()
-insufficientArguments(int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>250</y><w>320</w><h>70</h></coordinates><panel_attributes>PlayListGenerator
+insufficientArguments(int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>820</x><y>150</y><w>330</w><h>70</h></coordinates><panel_attributes>PlayListGenerator
 --
 createPlayList(Unqfy, int, String, Array&lt;String&gt;,int):PlayList</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>920</y><w>210</w><h>90</h></coordinates><panel_attributes>Printer
 --
@@ -149,7 +149,7 @@ printMessage(message)
 printException(exception)
 printArray(message, array)
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>960</y><w>120</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..1</panel_attributes><additional_attributes>100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>860</x><y>316</y><w>110</w><h>230</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..1</panel_attributes><additional_attributes>80;10;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>270</y><w>110</w><h>110</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..1</panel_attributes><additional_attributes>100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>216</y><w>80</w><h>330</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..1</panel_attributes><additional_attributes>10;10;60;310</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>270</y><w>110</w><h>110</h></coordinates><panel_attributes>lt=&lt;-
 m1=0..n
 tracksListened</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element></diagram>

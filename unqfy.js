@@ -263,12 +263,6 @@ class UNQfy {
     return newPlayList;
   }
 
-  // getTracksMatchingArtist(aName){
-  //   const artists = this.searchArtistsByName(aName)
-  //   const artist = artists[0]
-  //   return artist.getTracks()
-  // }
-
   searchArtistsByName(name){
     return this._artists.filter(artist => artist.name.includes(name));
   }
@@ -478,7 +472,7 @@ deleteAlbumWithId(idAlbum){
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayListGenerator,User,ExistArtistException,NoExistArtistException,NoExistAlbumException,NoExistTrackException,NoExistPlayListException,NoExistUserException,NoFindArtistException];
+    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayList,PlayListGenerator,User];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 

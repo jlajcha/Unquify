@@ -3,7 +3,7 @@ class ExistException extends Error{
         if(entity.length === 1){
             super(`Ya existe el ${entity[0]} con nombre ${name}`);            
         }else{
-            super(`Ya existe el ${entity[0]} con nombre ${name} para el ${entity[1]} con id ${entity[2]}`)
+            super(`Ya existe el ${entity[0]} con nombre ${name} para el ${entity[1]} con id ${entity[2]}`);
         }
     }
 }
