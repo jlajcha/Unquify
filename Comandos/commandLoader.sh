@@ -1,4 +1,6 @@
 
+cd ..
+
 node main.js addUser "juli"
 node main.js addUser "mati"
 
