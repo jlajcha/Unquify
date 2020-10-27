@@ -56,5 +56,14 @@ class PlayList{
             }
         });
     }
+
+    toJSON(){
+        return {
+            id: this.id,
+            name: this.name,
+            duration: this.duration(),
+            tracks: this.tracks.map(track => track.toJSON())
+        };
+    }
 }
 module.exports = PlayList;

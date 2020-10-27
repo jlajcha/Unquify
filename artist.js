@@ -117,6 +117,15 @@ class Artist{
           }  
         });
     }
+
+    toJSON(){
+        return {
+            id: this.id,
+            name: this.name,
+            country: this.country,
+            albums: this.albums.map(album => album.toJSON())
+        };
+    }
 }
 
 module.exports=Artist;
