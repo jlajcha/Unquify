@@ -15,6 +15,8 @@ const {ExistArtistException,
        NoExistPlayListException,
        NoExistUserException,
        NoFindArtistException} = require('./exceptions.js');
+const SpotifyManager = require('./Api/spotifyManager');
+
 
 
 
@@ -25,6 +27,7 @@ class UNQfy {
     this._playListGenerator = new PlayListGenerator();
     this._playLists = [];
     this._users = [];
+    this._spotifyManager = new SpotifyManager();
      }
 
   get artists(){return this._artists;}
@@ -428,7 +431,7 @@ deleteAlbumWithId(idAlbum){
   }
 
 // hecho en commandHandler
-  deleteTrack(idTrack){
+deleteTrack(idTrack){
     const track = this.getTrackById(idTrack);
 
     this.deleteTrackOnArtist(idTrack);
@@ -445,14 +448,14 @@ deleteAlbumWithId(idAlbum){
   }
 }
 
-  deleteTrackOnArtist(idTrack) {
+deleteTrackOnArtist(idTrack) {
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if (artist.isOwnerOfTrack(idTrack)) {
         artist.deleteTrack(idTrack);
       }
     }
-  }
+}
 
   deleteTrackOnPlaylist(idTrack) {
     for (let i = 0; i < this.playLists.length; i++) {
@@ -461,6 +464,15 @@ deleteAlbumWithId(idAlbum){
         playlist.deleteTrack(idTrack);
       }
     }
+  }
+////////
+  getAlbumsForArtist(artistName) {
+    const artistFound = this.getArtistByName(artistName);
+    return artistFound.albums;
+  }
+
+  populateAlbumsForArtist(artistName) {
+    this._spotifyManager.populateAlbumsForArtist(this, this.getArtistByName(artistName));
   }
 
 
@@ -472,7 +484,7 @@ deleteAlbumWithId(idAlbum){
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayList,PlayListGenerator,User];
+    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayList,PlayListGenerator,User,SpotifyManager];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
