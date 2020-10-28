@@ -1,0 +1,52 @@
+{
+  "rootObjects": [
+    {
+      "id": "__00001__",
+      "name": null
+    }
+  ],
+  "objects": {
+    "__00001__": {
+      "_artists": "__00002__",
+      "_idManager": "__00003__",
+      "_playListGenerator": "__00004__",
+      "_playLists": "__00005__",
+      "_users": "__00006__",
+      "_spotifyManager": "__00007__"
+    },
+    "__00002__": {
+      "0": "__00008__"
+    },
+    "__00003__": {
+      "_artistCounter": 1,
+      "_trackCounter": 0,
+      "_albumCounter": 0,
+      "_playListCounter": 0,
+      "_userCounter": 0
+    },
+    "__00004__": {},
+    "__00005__": {},
+    "__00006__": {},
+    "__00007__": {
+      "_authorizationToken": "BQCCqcKYhueMiKDNyzqTC5g6YK33Qb7c4nYQiiWBkPqIrMZseBkIvtgUq-ONz_CLBH5S3CuizWVyyAr2jhIvXlG81IZaIMaDRKwk7GG3v5SWaydM92HBo1neOj26dVIkx4ihIjdbozyDjhxvPMHE9li_jrEGzHEz2ZNb8EA3JY3Iw_HoUw"
+    },
+    "__00008__": {
+      "_id": 0,
+      "_name": "dua lipa",
+      "_country": "USA",
+      "_albums": "__00009__"
+    },
+    "__00009__": {}
+  },
+  "types": {
+    "__00001__": "UNQfy",
+    "__00002__": "Array",
+    "__00003__": "IdManager",
+    "__00004__": "PlayListGenerator",
+    "__00005__": "Array",
+    "__00006__": "Array",
+    "__00007__": "SpotifyManager",
+    "__00008__": "Artist",
+    "__00009__": "Array"
+  }
+}
