@@ -478,7 +478,7 @@ deleteTrackOnArtist(idTrack) {
 
   save(filename) {
     const serializedData = picklify.picklify(this);
-    fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2));
+    fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2),{encoding: 'utf-8'});
   }
 
   static load(filename) {

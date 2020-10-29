@@ -11,7 +11,7 @@ class CommandHandler{
         this._printer = new Printer();
     }
 
-    execute(){
+    execute(){        
         try{
             this.insufficientArguments(this.stackOfCommands()[this.command].paramsRequired);
             const unq = getUNQfy();            

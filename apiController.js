@@ -4,9 +4,9 @@ const app = express();
 
 const {
     artists
-} = require('./apiUnqfy');
+} = require('./Api/apiUnqfy');
 
-const port = 8080;
+const port = process.env.Port || 8080;
 
 app.use(bodyParser.json());
 
