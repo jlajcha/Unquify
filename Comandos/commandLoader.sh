@@ -22,7 +22,7 @@ node main.js addArtist "pearl jam" "USA"
 
 # node main.js addTrack  0 "Just another story" 200 ["funk","pop"]
 # node main.js addTrack  0 "The kid" 100 ["funk","rock"]
-# node main.js addTrack  0 "Half the man" 250 ["pop"]
+# node main.js addTrack  0 "Physical" 250 ["pop"] 
 # node main.js addTrack  0 "Justs another story" 200 ["cumbia","pop"]
 # node main.js addTrack  0 "Space cowboy" 200 ["cumbia","pop"]
 

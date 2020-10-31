@@ -61,7 +61,7 @@ class PlayList{
 updateTrackLyrics(idTrack,lyrics){
     this._tracks.forEach(track => {
         if ( track.id === idTrack){
-            track.lyrics(lyrics);
+            track.changeLyrics(lyrics);
         }
     });
 }

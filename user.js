@@ -57,7 +57,7 @@ get tracksListened(){return [...new Set(this._tracksListened)];}
 updateTrackLyrics(aTrack,lyrics){
     this._tracksListened.forEach(track => {
              if (track.id === aTrack.id) {
-                 track.lyrics(lyrics);   
+                 track.changeLyrics(lyrics);   
              }
      });
  }

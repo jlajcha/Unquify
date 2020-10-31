@@ -208,10 +208,10 @@ class UNQfy {
 
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
-    // console.log("el id de garcha es : " + id )
+     console.log("el id de garcha es : " + JSON.stringify(id ))
     // console.log(allTracks)
 
-    const trackFound = allTracks.find(track => track._id.toString() === id.toString());
+    const trackFound = allTracks.find(track => track._id.toString() == id.toString());
     if(trackFound === undefined){
       throw new NoExistTrackException(id);
     }
@@ -417,8 +417,11 @@ updateTrackDurationOnPlaylist(idTrack, duration) {
 
 ///////
 updateTrackLyrics(idTrack, lyrics) {
+  
   const track = this.getTrackById(idTrack)
 
+  console.log("cuando entra a unquify " + JSON.stringify(track))
+  console.log("cuando entra a unquify con lyric" + lyrics)
   this.updateTrackLyricsOnArtist(idTrack,lyrics);
   this.updateTrackLyricsOnPlaylist(idTrack,lyrics);
   this.updateTrackLyricsOnUsers(track,lyrics);
@@ -517,7 +520,9 @@ deleteTrackOnArtist(idTrack) {
 
   getLyrics(trackId) {
      const track = this.getTrackById(trackId)
-     if(track.lyrics === ''){
+     console.log("el track que encontró " + JSON.stringify(track._lyrics= undefined ))
+     if(track._lyrics == '' || track._lyrics == undefined){
+       console.log("entro aca por que no tieen lyrics")
       this._musicXMatchManager.getLyrics(this,track);
      }
      return console.log(track)

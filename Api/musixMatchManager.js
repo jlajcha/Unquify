@@ -42,38 +42,47 @@ getLyrics(unquify,aTrack){
         uri: BASE_URL + '/track.search',
         qs: {
             apikey:  this._authorizationToken,
-            q_track: aTrack.name,
+            //q_track: aTrack.name,
+            q_track:'Stairway to heaven'
          },
         json: true // Automatically parses the JSON string in the response
         };
   //primero buscar por el nombre el el track en la api
-    rp.get(
-    options
-    ).then((response) => {
-    var header = response.message.header;
-    var body = response.message.body;
-    if (header.status_code !== 200){
-       throw new Error('status code != 200');
-   }
-   //no estoy segura que le puedo preguntar a lo que me devuelve
-   console.log(body.track_list[0])
-    return body.track_list[0].track_id
+    rp.get( options )
+        .then((response) => {
+                var header = response.message.header;
+                var body = response.message.body;
+                if (header.status_code !== 200){
+                throw new Error('status code != 200');
+            }
+        const trackIDFound = body.track_list[0].track.track_id
+        
+        console.log("a ver que le devuelve el primer get " + JSON.stringify(trackIDFound))
+    
+            console.log()
+            var lyrics_options = {
+                uri: BASE_URL + '/track.lyrics.get',
+                qs: {
+                    apikey:  this._authorizationToken,
+                    track_id: trackIDFound
+                },
+                json: true // Automatically parses the JSON string in the response
+                };
+            rp.get( lyrics_options).then((lyric)=>{
+                    console.log("la cancion encontrada  " )
+                    console.log( JSON.stringify(lyric.message.body.lyrics.lyrics_body))
+                    const newLyric = lyric.message.body.lyrics.lyrics_body
+                    unquify.updateTrackLyrics(aTrack.id,newLyric)
 
+                })       
+      //      }
+        //    else{
+              //  unquify.updateTrackLyrics(aTrack._id,"tu vieja a que ver pasa")
+          //  }
+    const trackupdated = unquify.getTrackById(aTrack.id)
+    console.log("el nuevo updatedeado es : " + JSON.stringify(trackupdated) )
+    return trackupdated
 //buscar por id  el track para pedirle la lyrics 
-}).then((lyrics_id)=>{
-    var lyrics_options = {
-        uri: BASE_URL + '/track.lyrics.get',
-        qs: {
-            apikey:  this._authorizationToken,
-            track_id: lyrics_id,
-         },
-        json: true // Automatically parses the JSON string in the response
-        };
-        rp.get( lyrics_options).then((lyric)=>{
-            unquify.updateTrackLyrics(aTrack.id,lyric)
-
-        })       
-
 })
 .catch((error) => {
    console.log('algo salio mal', error);
