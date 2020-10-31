@@ -60,7 +60,17 @@ class Album{
             }
         });
     }
+////////
 
+updateTrackLyrics(idTrack,lyrics){
+    this._tracks.forEach(track => {
+        if(track.id == idTrack){
+        track.lyrics(lyrics)
+        }
+    });
+}
+
+////////
     toJSON(){
         return {
             id: this.id,

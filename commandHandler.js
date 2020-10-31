@@ -398,8 +398,18 @@ class CommandHandler{
                 }
             },
             paramsRequired: 1
-        }
+        },
 
+        getLyrics: {
+            exec : function(unqfy){
+                try{
+                    unqfy.getLyrics(functionParams[0]);
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 1
+        },
             
         };
 

@@ -12,18 +12,20 @@
       "_playListGenerator": "__00004__",
       "_playLists": "__00005__",
       "_users": "__00006__",
-      "_spotifyManager": "__00007__"
+      "_spotifyManager": "__00007__",
+      "_musicXMatchManager": "__00008__"
     },
     "__00002__": {
-      "0": "__00008__",
-      "1": "__00009__",
-      "2": "__00010__",
-      "3": "__00011__"
+      "0": "__00009__",
+      "1": "__00010__",
+      "2": "__00011__",
+      "3": "__00012__",
+      "4": "__00013__"
     },
     "__00003__": {
-      "_artistCounter": 4,
-      "_trackCounter": 0,
-      "_albumCounter": 0,
+      "_artistCounter": 5,
+      "_trackCounter": 4,
+      "_albumCounter": 1,
       "_playListCounter": 0,
       "_userCounter": 0
     },
@@ -34,33 +36,77 @@
       "_authorizationToken": "BQCCqcKYhueMiKDNyzqTC5g6YK33Qb7c4nYQiiWBkPqIrMZseBkIvtgUq-ONz_CLBH5S3CuizWVyyAr2jhIvXlG81IZaIMaDRKwk7GG3v5SWaydM92HBo1neOj26dVIkx4ihIjdbozyDjhxvPMHE9li_jrEGzHEz2ZNb8EA3JY3Iw_HoUw"
     },
     "__00008__": {
+      "_authorizationToken": "e628abb5a54c83628dc85f1784a07174"
+    },
+    "__00009__": {
       "_id": 0,
       "_name": "cazzu",
       "_country": "USA",
-      "_albums": "__00012__"
+      "_albums": "__00014__"
     },
-    "__00009__": {
+    "__00010__": {
       "_id": 1,
       "_name": "can",
       "_country": "USA",
-      "_albums": "__00013__"
+      "_albums": "__00015__"
     },
-    "__00010__": {
+    "__00011__": {
       "_id": 2,
       "_name": "dua lipa",
       "_country": "USA",
-      "_albums": "__00014__"
+      "_albums": "__00016__"
     },
-    "__00011__": {
+    "__00012__": {
       "_id": 3,
       "_name": "wos",
       "_country": "USA",
-      "_albums": "__00015__"
+      "_albums": "__00017__"
     },
-    "__00012__": {},
-    "__00013__": {},
-    "__00014__": {},
-    "__00015__": {}
+    "__00013__": {
+      "_id": 4,
+      "_name": "canserbero",
+      "_country": "Venezuela",
+      "_albums": "__00018__"
+    },
+    "__00014__": {
+      "0": "__00019__"
+    },
+    "__00015__": {},
+    "__00016__": {},
+    "__00017__": {},
+    "__00018__": {},
+    "__00019__": {
+      "_id": 0,
+      "_name": "Vida y Muerte",
+      "_year": 2020,
+      "_tracks": "__00020__"
+    },
+    "__00020__": {
+      "0": "__00021__",
+      "1": "__00022__",
+      "2": "__00023__"
+    },
+    "__00021__": {
+      "_id": 0,
+      "_name": "Just another story",
+      "_duration": 200,
+      "_genres": "[funk,pop]",
+      "_lyrics": ""
+    },
+    "__00022__": {
+      "_id": 1,
+      "_name": "The kid",
+      "_duration": 100,
+      "_genres": "[funk,rock]",
+      "_lyrics": ""
+    },
+    "__00023__": {
+      "_id": 2,
+      "_name": "Half the man",
+      "_duration": 250,
+      "_genres": "[pop]",
+      "_lyrics": ""
+    }
   },
   "types": {
     "__00001__": "UNQfy",
@@ -70,13 +116,21 @@
     "__00005__": "Array",
     "__00006__": "Array",
     "__00007__": "SpotifyManager",
-    "__00008__": "Artist",
+    "__00008__": "MusixMatchManager",
     "__00009__": "Artist",
     "__00010__": "Artist",
     "__00011__": "Artist",
-    "__00012__": "Array",
-    "__00013__": "Array",
+    "__00012__": "Artist",
+    "__00013__": "Artist",
     "__00014__": "Array",
-    "__00015__": "Array"
+    "__00015__": "Array",
+    "__00016__": "Array",
+    "__00017__": "Array",
+    "__00018__": "Array",
+    "__00019__": "Album",
+    "__00020__": "Array",
+    "__00021__": "Track",
+    "__00022__": "Track",
+    "__00023__": "Track"
   }
 }

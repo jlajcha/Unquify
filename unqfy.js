@@ -16,6 +16,7 @@ const {ExistArtistException,
        NoExistUserException,
        NoFindArtistException} = require('./exceptions.js');
 const SpotifyManager = require('./Api/spotifyManager');
+const MusicXMatchManager = require('./Api/musixMatchManager')
 
 
 
@@ -28,6 +29,7 @@ class UNQfy {
     this._playLists = [];
     this._users = [];
     this._spotifyManager = new SpotifyManager();
+    this._musicXMatchManager = new MusicXMatchManager();
      }
 
   get artists(){return this._artists;}
@@ -206,10 +208,14 @@ class UNQfy {
 
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
-    const trackFound = allTracks.find(track =>track._id === id);
+    // console.log("el id de garcha es : " + id )
+    // console.log(allTracks)
+
+    const trackFound = allTracks.find(track => track._id.toString() === id.toString());
     if(trackFound === undefined){
       throw new NoExistTrackException(id);
     }
+    console.log(trackFound)
     return trackFound;
   }
 
@@ -409,6 +415,40 @@ updateTrackDurationOnPlaylist(idTrack, duration) {
   });     
 }
 
+///////
+updateTrackLyrics(idTrack, lyrics) {
+  const track = this.getTrackById(idTrack)
+
+  this.updateTrackLyricsOnArtist(idTrack,lyrics);
+  this.updateTrackLyricsOnPlaylist(idTrack,lyrics);
+  this.updateTrackLyricsOnUsers(track,lyrics);
+}
+
+updateTrackLyricsOnArtist(idTrack, lyrics) {
+  this._artists.forEach(artist => {
+      if (artist.isOwnerOfTrack(idTrack)) {
+        artist.updateTrackLyrics(idTrack,lyrics);
+          }
+        });
+  }
+
+updateTrackLyricsOnPlaylist(idTrack, lyrics) {
+  this._playLists.forEach(playlist => {
+    if (playlist.isTrackIncluded(idTrack)) {
+      playlist.updateTrackLyrics(idTrack,lyrics);
+    }
+  });     
+}
+
+updateTrackLyricsOnUsers(aTrack, lyrics) {
+  this._users.forEach(user => {
+    if (user.hasListenedTheTrackWith(aTrack)) {
+      user.updateTrackLyrics(aTrack,lyrics);
+    }  
+  });
+}
+
+/////
 deleteArtistWithId(idArtist){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
@@ -475,6 +515,17 @@ deleteTrackOnArtist(idTrack) {
     this._spotifyManager.populateAlbumsForArtist(this, this.getArtistByName(artistName));
   }
 
+  getLyrics(trackId) {
+     const track = this.getTrackById(trackId)
+     if(track.lyrics === ''){
+      this._musicXMatchManager.getLyrics(this,track);
+     }
+     return console.log(track)
+    //primero ver si ya existe la lyric, sino ir a buscar a musicMatch. puede que me falte parsearlo
+    //a json o a algo que pueda exportarlo
+    //no estoy segura si estoy persistiendo lo que traigo.
+    
+  }
 
   save(filename) {
     const serializedData = picklify.picklify(this);
@@ -484,7 +535,7 @@ deleteTrackOnArtist(idTrack) {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayList,PlayListGenerator,User,SpotifyManager];
+    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayList,PlayListGenerator,User,SpotifyManager,MusicXMatchManager];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 

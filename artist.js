@@ -118,6 +118,18 @@ class Artist{
         });
     }
 
+///////////////
+
+updateTrackLyrics(idTrack,lyrics){
+
+    this._albums.forEach(album => {
+        if(album.isTrackIncluded(idTrack)){
+            album.updateTrackLyrics(idTrack,lyrics);
+      }  
+    });
+}
+
+//////////////////
     toJSON(){
         return {
             id: this.id,

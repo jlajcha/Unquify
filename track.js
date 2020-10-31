@@ -17,7 +17,7 @@ class Track{
     get lyrics(){return this._lyrics;}
 
 //ver si es necesario o se lo paso por constructor    
-    set lyrics(lyrics){
+    lyrics(lyrics){
         return this._lyrics = lyrics;
     }
 
