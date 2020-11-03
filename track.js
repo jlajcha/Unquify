@@ -18,7 +18,7 @@ class Track{
 
 //ver si es necesario o se lo paso por constructor    
     changeLyrics(lyrics){
-        return this._lyrics = lyrics;
+         this._lyrics = lyrics;
     }
 
     includeAnyGenres(listOfGenres){

@@ -17,7 +17,9 @@ const {ExistArtistException,
        NoFindArtistException} = require('./exceptions.js');
 const SpotifyManager = require('./Api/spotifyManager');
 const MusicXMatchManager = require('./Api/musixMatchManager')
-
+const requestPromise = require('request-promise');
+const { request } = require('http');
+const { SSL_OP_NETSCAPE_CA_DN_BUG } = require('constants');
 
 
 
@@ -153,7 +155,6 @@ class UNQfy {
   */
     const id = this._idManager.nextIdForAlbum();
     const newAlbum = new Album(id,albumData.name,albumData.year);
-    // console.log('esto tiene id'+JSON.stringify(newAlbum))
     this.addAlbumToArtist(artistId,newAlbum);
     return newAlbum;
   }
@@ -208,14 +209,11 @@ class UNQfy {
 
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
-     console.log("el id de garcha es : " + JSON.stringify(id ))
-    // console.log(allTracks)
 
     const trackFound = allTracks.find(track => track._id.toString() == id.toString());
     if(trackFound === undefined){
       throw new NoExistTrackException(id);
     }
-    console.log(trackFound)
     return trackFound;
   }
 
@@ -270,6 +268,19 @@ class UNQfy {
     const newPlayList = this._playListGenerator.createPlayList(this, idPlayList, name, genresToInclude, maxDuration);
     this._playLists.push(newPlayList);
     return newPlayList;
+  }
+  //constructor(id, name, maxDuration, tracks){
+
+  createPlaylistWithTracksRelated(aName,aListOfTracks){ 
+    const idPlayList = this._idManager.nextIdForPlayList();
+      
+    const durations = aListOfTracks.map((track)=> track.duration)
+    const maxDuration = durations.reduce((a,b)=>a+b) 
+    const newPlayList =new PlayList(idPlayList, aName, maxDuration,aListOfTracks);
+   
+    this._playLists.push(newPlayList);
+    
+    return newPlayList
   }
 
   searchArtistsByName(name){
@@ -420,11 +431,11 @@ updateTrackLyrics(idTrack, lyrics) {
   
   const track = this.getTrackById(idTrack)
 
-  console.log("cuando entra a unquify " + JSON.stringify(track))
-  console.log("cuando entra a unquify con lyric" + lyrics)
   this.updateTrackLyricsOnArtist(idTrack,lyrics);
   this.updateTrackLyricsOnPlaylist(idTrack,lyrics);
   this.updateTrackLyricsOnUsers(track,lyrics);
+  const track2 = this.getTrackById(idTrack)
+  
 }
 
 updateTrackLyricsOnArtist(idTrack, lyrics) {
@@ -519,16 +530,9 @@ deleteTrackOnArtist(idTrack) {
   }
 
   getLyrics(trackId) {
-     const track = this.getTrackById(trackId)
-     console.log("el track que encontró " + JSON.stringify(track._lyrics= undefined ))
-     if(track._lyrics == '' || track._lyrics == undefined){
-       console.log("entro aca por que no tieen lyrics")
-      this._musicXMatchManager.getLyrics(this,track);
-     }
-     return console.log(track)
-    //primero ver si ya existe la lyric, sino ir a buscar a musicMatch. puede que me falte parsearlo
-    //a json o a algo que pueda exportarlo
-    //no estoy segura si estoy persistiendo lo que traigo.
+     var track = this.getTrackById(trackId)
+      return this._musicXMatchManager.getLyrics(this,track)
+      
     
   }
 

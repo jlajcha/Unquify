@@ -24,13 +24,17 @@
     },
     "__00003__": {
       "_artistCounter": 5,
-      "_trackCounter": 5,
+      "_trackCounter": 9,
       "_albumCounter": 1,
-      "_playListCounter": 0,
+      "_playListCounter": 3,
       "_userCounter": 0
     },
     "__00004__": {},
-    "__00005__": {},
+    "__00005__": {
+      "0": "__00014__",
+      "1": "__00015__",
+      "2": "__00016__"
+    },
     "__00006__": {},
     "__00007__": {
       "_authorizationToken": "BQCCqcKYhueMiKDNyzqTC5g6YK33Qb7c4nYQiiWBkPqIrMZseBkIvtgUq-ONz_CLBH5S3CuizWVyyAr2jhIvXlG81IZaIMaDRKwk7GG3v5SWaydM92HBo1neOj26dVIkx4ihIjdbozyDjhxvPMHE9li_jrEGzHEz2ZNb8EA3JY3Iw_HoUw"
@@ -42,77 +46,123 @@
       "_id": 0,
       "_name": "cazzu",
       "_country": "USA",
-      "_albums": "__00014__"
+      "_albums": "__00017__"
     },
     "__00010__": {
       "_id": 1,
       "_name": "can",
       "_country": "USA",
-      "_albums": "__00015__"
+      "_albums": "__00018__"
     },
     "__00011__": {
       "_id": 2,
       "_name": "dua lipa",
       "_country": "USA",
-      "_albums": "__00016__"
+      "_albums": "__00019__"
     },
     "__00012__": {
       "_id": 3,
       "_name": "wos",
       "_country": "USA",
-      "_albums": "__00017__"
+      "_albums": "__00020__"
     },
     "__00013__": {
       "_id": 4,
       "_name": "canserbero",
       "_country": "Venezuela",
-      "_albums": "__00018__"
+      "_albums": "__00021__"
     },
     "__00014__": {
-      "0": "__00019__"
+      "_id": 0,
+      "_name": "Cumbias",
+      "_maxDuration": null,
+      "_tracks": "__00022__"
     },
-    "__00015__": {},
-    "__00016__": {},
-    "__00017__": {},
+    "__00015__": {
+      "_id": 1,
+      "_name": "Pop",
+      "_maxDuration": null,
+      "_tracks": "__00023__"
+    },
+    "__00016__": {
+      "_id": 2,
+      "_name": "Pop",
+      "_maxDuration": null,
+      "_tracks": "__00024__"
+    },
+    "__00017__": {
+      "0": "__00025__"
+    },
     "__00018__": {},
-    "__00019__": {
+    "__00019__": {},
+    "__00020__": {},
+    "__00021__": {},
+    "__00022__": {},
+    "__00023__": {},
+    "__00024__": {},
+    "__00025__": {
       "_id": 0,
       "_name": "Vida y Muerte",
       "_year": 2020,
-      "_tracks": "__00020__"
+      "_tracks": "__00026__"
     },
-    "__00020__": {
-      "0": "__00021__",
-      "1": "__00022__",
-      "2": "__00023__",
-      "3": "__00024__"
+    "__00026__": {
+      "0": "__00027__",
+      "1": "__00028__",
+      "2": "__00029__",
+      "3": "__00030__",
+      "4": "__00031__",
+      "5": "__00032__",
+      "6": "__00033__"
     },
-    "__00021__": {
+    "__00027__": {
       "_id": 0,
       "_name": "Just another story",
       "_duration": 200,
       "_genres": "[funk,pop]",
-      "_lyrics": ""
+      "_lyrics": "n"
     },
-    "__00022__": {
+    "__00028__": {
       "_id": 1,
       "_name": "The kid",
       "_duration": 100,
       "_genres": "[funk,rock]",
-      "_lyrics": ""
+      "_lyrics": "No hay canciones disponibles en MusixMatch"
     },
-    "__00023__": {
+    "__00029__": {
       "_id": 2,
       "_name": "Half the man",
       "_duration": 250,
       "_genres": "[pop]",
-      "_lyrics": ""
+      "_lyrics": "No hay canciones disponibles en MusixMatch"
     },
-    "__00024__": {
+    "__00030__": {
       "_id": 4,
       "_name": "Physical",
       "_duration": 250,
-      "_genres": "[pop]"
+      "_genres": "[pop]",
+      "_lyrics": "No hay canciones disponibles en MusixMatch"
+    },
+    "__00031__": {
+      "_id": 5,
+      "_name": "Stairway to heaven",
+      "_duration": 200,
+      "_genres": "[rock,pop]",
+      "_lyrics": "There's a lady who's sure all that glitters is gold\nAnd she's buying a stairway to heaven\nWhen she gets there she knows, if the STORES\nAre all closed\nWith a word she can get what she came for\nOoh, ooh, and she's buying a stairway to heaven\n\nThere's a SIGN\nOn the wall but she WANTS TO\nBe sure\n'Cause you KNOW\nSometimes words have two meanings\nIn a tree by the brook, there's a songbird who sings\nSometimes all of our thoughts are misgiven\nOoh, it makes me wonder\nOoh, it makes me wonder\n\nThere's a feeling I get when I look to the west\n...\n\n******* This Lyrics is NOT for Commercial use *******\n(1409620759327)"
+    },
+    "__00032__": {
+      "_id": 6,
+      "_name": "Let It Be",
+      "_duration": 200,
+      "_genres": "[pop]",
+      "_lyrics": "When I find myself in times of trouble\nMother Mary comes to me\nSpeaking words of wisdom\nLet it be\n\nAnd in my hour of darkness\nShe is standing right in front of me\nSpeaking words of wisdom\nLet it be\n\nLet it be, let it be\nLet it be, let it be\nWhisper words of wisdom\nLet it be\n\nWhen all the broken hearted people\nLiving in the world agree\nThere will be an answer\nLet it be\n\nFor though they may be parted there is\n...\n\n******* This Lyrics is NOT for Commercial use *******\n(1409620759327)"
+    },
+    "__00033__": {
+      "_id": 7,
+      "_name": "Hey Jude",
+      "_duration": 200,
+      "_genres": "[pop]",
+      "_lyrics": "Hey Jude, don't make it bad\nTake a sad song and make it better\nRemember to let her into your heart\nThen you can start to make it better\n\nHey Jude, don't be afraid\nYou were made to go out and get her\nThe minute you let her under your skin\nThen you begin to make it better\n\nAnd anytime you feel the pain, hey Jude, refrain\nDon't carry the world upon your shoulders\nFor well you know that it's a fool who plays it cool\nBy making his world a little colder\nNah nah nah nah nah nah nah nah nah\n\n...\n\n******* This Lyrics is NOT for Commercial use *******\n(1409620759327)"
     }
   },
   "types": {
@@ -129,16 +179,25 @@
     "__00011__": "Artist",
     "__00012__": "Artist",
     "__00013__": "Artist",
-    "__00014__": "Array",
-    "__00015__": "Array",
-    "__00016__": "Array",
+    "__00014__": "PlayList",
+    "__00015__": "PlayList",
+    "__00016__": "PlayList",
     "__00017__": "Array",
     "__00018__": "Array",
-    "__00019__": "Album",
+    "__00019__": "Array",
     "__00020__": "Array",
-    "__00021__": "Track",
-    "__00022__": "Track",
-    "__00023__": "Track",
-    "__00024__": "Track"
+    "__00021__": "Array",
+    "__00022__": "Array",
+    "__00023__": "Array",
+    "__00024__": "Array",
+    "__00025__": "Album",
+    "__00026__": "Array",
+    "__00027__": "Track",
+    "__00028__": "Track",
+    "__00029__": "Track",
+    "__00030__": "Track",
+    "__00031__": "Track",
+    "__00032__": "Track",
+    "__00033__": "Track"
   }
 }

@@ -22,9 +22,13 @@ node main.js addArtist "pearl jam" "USA"
 
 # node main.js addTrack  0 "Just another story" 200 ["funk","pop"]
 # node main.js addTrack  0 "The kid" 100 ["funk","rock"]
-# node main.js addTrack  0 "Physical" 250 ["pop"] 
-# node main.js addTrack  0 "Justs another story" 200 ["cumbia","pop"]
-# node main.js addTrack  0 "Space cowboy" 200 ["cumbia","pop"]
+# 
+ #por aca son los que tienen lyrics
+# node main.js addTrack  0 "Stairway to heaven" 200 ["rock","pop"]
+# node main.js addTrack  0 "Hey Jude" 200 ["pop"]
+# node main.js addTrack  0 "Let It Be" 200 ["pop"]
+
+
 
 # node main.js addTrack 1 "civil war" 200 ["rock","metal"]
 # node main.js addTrack 1 "welcome to the jungle" 500 ["rock","metal"]

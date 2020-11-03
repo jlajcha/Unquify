@@ -64,8 +64,9 @@ class Album{
 
 updateTrackLyrics(idTrack,lyrics){
     this._tracks.forEach(track => {
+        
         if(track.id == idTrack){
-        track.changeLyrics(lyrics)
+            track.changeLyrics(lyrics)
         }
     });
 }
