@@ -2,7 +2,14 @@ const {getUNQfy, saveUNQfy} = require('../persistenceUNQfy');
 const express = require('express');
 
 
-const { NoExistPlayListException,NoExistTrackException } = require('../exceptions.js');
+const { NoExistPlayListException,
+    NoExistTrackException,
+    ExistArtistException,
+    NoExistArtistException,
+    ExistAlbumOfArtist,
+    NoExistAlbumException,
+    NoExistUserException
+ } = require('../exceptions.js');
 // const unqfy = require('../unqfy');
 
 const artists = express.Router();
@@ -20,13 +27,23 @@ artists.route('/artists')
         const data = req.body;
         let artistRes;
         if(data.name === undefined || data.country === undefined){
-            //hacer exception handler
+            res.status(400);
+            res.json({
+                status: 400,
+                errorCode: "BAD_REQUEST"
+            });
             return;
         }
         try{
             artistRes = unqfy.addArtist(data);
         }catch(err){
-            //hacer exception handler
+            if(err instanceof ExistArtistException){
+                res.status(409);
+                res.json({
+                    status: 409,
+                    errorCode: "RESOURCE_ALREADY_EXISTS"
+                });
+            }
             return;
         }
     saveUNQfy(unqfy);
@@ -43,7 +60,7 @@ artists.route('/artists')
 
     res.status(200);
     res.json(artistsSearch.map(artist => artist.toJSON()));    
-})
+});
 
 artists.route('/artists/:artistId')
 .get((req, res) => {
@@ -52,7 +69,13 @@ artists.route('/artists/:artistId')
     try{
         searchArtist = unqfy.getArtistById(artistId);
     }catch(err){
-        //hacer exception handler
+        if(err instanceof NoExistArtistException){
+            res.status(404);
+            res.json({
+                status: 404,
+                errorCode: "RESOURCE_NOT_FOUND"
+            });
+        }
         return;
     }    
 
@@ -66,7 +89,11 @@ artists.route('/artists/:artistId')
     const artistId = parseInt(req.params.artistId);
     let artistRes;
         if(data.name === undefined || data.country === undefined){
-            //hacer exception handler
+            res.status(400);
+            res.json({
+                status: 400,
+                errorCode: "BAD_REQUEST"
+            });
             return;
         }
         try{
@@ -74,7 +101,13 @@ artists.route('/artists/:artistId')
             unqfy.updateArtistNationality(artistId, data.country);
             artistRes = unqfy.getArtistById(artistId);
         }catch(err){
-            //hacer exception handler
+            if(err instanceof NoExistArtistException){
+                res.status(404);
+                res.json({
+                    status: 404,
+                    errorCode: "RESOURCE_NOT_FOUND"
+                });
+            }
             return;
         }
     saveUNQfy(unqfy);
@@ -90,7 +123,7 @@ artists.route('/artists/:artistId')
     unqfy = getUNQfy();
     res.status(204);
     res.send({success: 'true'});
-})
+});
 
 //endpoints albums
 albums.route('/albums')
@@ -98,13 +131,24 @@ albums.route('/albums')
         const data = req.body;
         let albumRes;
         if(data.artistId === undefined || data.name === undefined || data.year === undefined){
-            //hacer exception handler
+            res.status(400);
+            res.json({
+                status: 400,
+                errorCode: "BAD_REQUEST"
+            });
             return;
         }
         try{
             albumRes = unqfy.addAlbum(data.artistId, data);
+            console.log("album", albumRes);
         }catch(err){
-            //hacer exception handler
+            if(err instanceof ExistAlbumOfArtist){
+                res.status(409);
+                res.json({
+                    status: 409,
+                    errorCode: "RESOURCE_ALREADY_EXISTS"
+                });
+            }
             return;
         }
     saveUNQfy(unqfy);
@@ -130,7 +174,13 @@ albums.route('/albums/:albumId')
     try{
         searchAlbum = unqfy.getAlbumById(albumId);
     }catch(err){
-        //hacer exception handler
+        if(err instanceof NoExistAlbumException){
+            res.status(404);
+            res.json({
+                status: 404,
+                errorCode: "RESOURCE_NOT_FOUND"
+            });
+        }
         return;
     }    
 
@@ -144,14 +194,24 @@ albums.route('/albums/:albumId')
     const albumId = parseInt(req.params.albumId);
     let albumRes;
         if(data.year === undefined){
-            //hacer exception handler
+            res.status(400);
+            res.json({
+                status: 400,
+                errorCode: "BAD_REQUEST"
+            });
             return;
         }
         try{
             unqfy.updateAlbumYear(albumId, data.year);
             albumRes = unqfy.getAlbumById(albumId);
         }catch(err){
-            //hacer exception handler
+            if(err instanceof NoExistAlbumException){
+                res.status(404);
+                res.json({
+                    status: 404,
+                    errorCode: "RESOURCE_NOT_FOUND"
+                });
+            }
             return;
         }
     saveUNQfy(unqfy);
@@ -177,7 +237,13 @@ users.route('/users/:userId')
     try{
         userRes = unqfy.getUserById(userId);
     }catch(err){
-        //hacer exception handler
+        if(err instanceof NoExistUserException){
+            res.status(404);
+            res.json({
+                status: 404,
+                errorCode: "RESOURCE_NOT_FOUND"
+            });
+        }
         return;
     }
 
@@ -189,14 +255,24 @@ users.route('/users/:userId')
     const userId = parseInt(req.params.userId);
     let userRes;
         if(data.name === undefined){
-            //hacer exception handler
+            res.status(400);
+            res.json({
+                status: 400,
+                errorCode: "BAD_REQUEST"
+            });
             return;
         }
         try{
             unqfy.updateUserName(userId, data.name);
             userRes = unqfy.getUserById(userId);
         }catch(err){
-            //hacer exception handler
+            if(err instanceof NoExistUserException){
+                res.status(404);
+                res.json({
+                    status: 404,
+                    errorCode: "RESOURCE_NOT_FOUND"
+                });
+            }
             return;
         }
     saveUNQfy(unqfy);
@@ -217,17 +293,15 @@ users.route('/users/:userId')
 users.route('/users')
 .post((req, res) => {
     const data = req.body;
-    let userRes;
         if(data.name === undefined){
-            //hacer exception handler
+            res.status(400);
+            res.json({
+                status: 400,
+                errorCode: "BAD_REQUEST"
+            });
             return;
         }
-        try{
-            userRes = unqfy.addUser(data.name);
-        }catch(err){
-            //hacer exception handler
-            return;
-        }
+    const userRes = unqfy.addUser(data.name);
     saveUNQfy(unqfy);
     unqfy = getUNQfy();
     res.status(201);
@@ -269,7 +343,7 @@ tracks.get('/tracks/:trackId/lyric',
     try {const searchTrack = unqfy.getLyrics(trackId);
    
     res.status(200);
-    res.json(searchTrack)
+    res.json(searchTrack);
     }    
     catch(err){
             if (err instanceof NoExistTrackException) {
@@ -292,14 +366,14 @@ playlists.get('/playlists/:playlistId',
     catch(err){
         if (err instanceof NoExistPlayListException) {
             res.status(404);
-            res.json({status: 404, errorCode: "RESOURCE_NOT_FOUND" })
+            res.json({status: 404, errorCode: "RESOURCE_NOT_FOUND" });
            }           
     }         
 })
 
 playlists.post('/playlists',
 (req, res) =>{
-    const unqfy = getUNQfy('data.json');
+    // const unqfy = getUNQfy();
     const body = req.body
 
     try{createNewPlaylist(req, unqfy, res);
@@ -321,11 +395,11 @@ playlists.post('/playlists',
 playlists.delete('/playlists/:playlistId',
 (req, res) =>{
     //const unqfy2 = getUNQfy('data.json');
-    const playlistId = req.params.playlistId
+    const playlistId = req.params.playlistId;
 
-     try { unqfy.deletePlaylist(playlistId)
-                 res.status(201);
-                 res.json({ status: 201 } )      
+     try { unqfy.deletePlaylist(playlistId);
+                 res.status(204);
+                 res.json({ status: 204 } );      
             }
     catch(err){ if (err instanceof NoExistPlayListException){
                 res.status(404);
@@ -356,6 +430,7 @@ function createNewPlaylist(req, unqfy, res) {
         const genres = req.body.genres;
         const newPlaylist = unqfy.createPlaylist(name, genres, duration);
         res.status(201);
-        res.json(newPlaylist.toJSON);}
+        res.json(newPlaylist);
+    }
 }
   

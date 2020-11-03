@@ -66,7 +66,7 @@ class Artist{
     deleteAlbum(idAlbum){
         for (let index = 0; index < this.albums.length; index++) {
             const album = this.albums[index];
-            if(album.id ==idAlbum){
+            if(album.id ===idAlbum){
                 this.albums.splice(index,1);
             }
         }

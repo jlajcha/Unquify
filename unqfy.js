@@ -16,11 +16,7 @@ const {ExistArtistException,
        NoExistUserException,
        NoFindArtistException} = require('./exceptions.js');
 const SpotifyManager = require('./Api/spotifyManager');
-const MusicXMatchManager = require('./Api/musixMatchManager')
-const requestPromise = require('request-promise');
-const { request } = require('http');
-const { SSL_OP_NETSCAPE_CA_DN_BUG } = require('constants');
-
+const MusicXMatchManager = require('./Api/musixMatchManager');
 
 
 class UNQfy {
@@ -127,12 +123,7 @@ class UNQfy {
   
 
   addAlbumToArtist(artistId,album){      
-    for (let i = 0; i < this._artists.length; i++) {
-      const art = this._artists[i];
-      if (art.id === artistId) {
-        art.addAlbum(album); 
-      }
-    }
+    this.getArtistById(artistId).addAlbum(album);     
   }
 
   addTrackToAlbum(idAlbum,track){    
@@ -280,7 +271,7 @@ class UNQfy {
    
     this._playLists.push(newPlayList);
     
-    return newPlayList
+    return newPlayList;
   }
 
   searchArtistsByName(name){
@@ -478,19 +469,17 @@ deleteArtistWithId(idArtist){
   }
 
   deletePlaylist(playlistId){ 
-    var validator = false 
-    console.log( "el id que llega " + playlistId)
-    console.log("la lista del mal " + this._playlists)
-    for (let index = 0; index < this._playLists.length; index++) {
+    try {for (let index = 0; index < this._playLists.length; index++) {
       const playlist = this._playLists[index];
-      if(playlist.id == playlistId){
-        
-        this._playlists.splice(index,1);
-        validator = true
-      }      
-    }
-    console.log("mierda que valida " + validator)
-    if(!validator){throw NoExistPlayListException}
+      if(playlist.id === playlistId){
+        console.log("el index es " + JSON.stringify(index ))
+        this._playlists.splice(index,1);}
+       // this._playlists.remove(index);
+
+          }
+  }catch(err){
+    throw NoExistPlayListException;
+  }
   }
 
 

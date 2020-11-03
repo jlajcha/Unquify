@@ -11,7 +11,7 @@ class MusixMatchManager{
     }    
     
 getArtists(artistName){
-    var options = {
+    let options = {
         uri: BASE_URL + '/artist.search',
         qs: {
             apikey:  this._authorizationToken,
@@ -24,13 +24,13 @@ getArtists(artistName){
     rp.get(
     options
     ).then((response) => {
-    var header = response.message.header;
-    var body = response.message.body;
+    let header = response.message.header;
+    let body = response.message.body;
     if (header.status_code !== 200){
        throw new Error('status code != 200');
    }
 
-   var artistNames = body.artist_list.map((artist => artist.artist.artist_name));
+   let artistNames = body.artist_list.map((artist => artist.artist.artist_name));
  
 }).catch((error) => {
    console.log('algo salio mal', error);
@@ -38,7 +38,7 @@ getArtists(artistName){
 }
 
 getLyrics(unquify,aTrack){
-    var options = {
+    let options = {
         uri: BASE_URL + '/track.search',
         qs: {
             apikey:  this._authorizationToken,
@@ -53,15 +53,15 @@ getLyrics(unquify,aTrack){
   if(aTrack.lyrics == '' || aTrack._lyrics == undefined || aTrack.lyrics == ""){
     rp.get( options )
         .then((response) => {
-                var header = response.message.header;
-                var body = response.message.body;
+                let header = response.message.header;
+                let body = response.message.body;
                 if (header.status_code !== 200){
                 throw new Error('status code != 200');
             }
                  return body.track_list[0].track.track_id
 
             }).then((trackIDFound)=>{
-                var lyrics_options = {
+                let lyrics_options = {
                     uri: BASE_URL + '/track.lyrics.get',
                     qs: {
                         apikey:  this._authorizationToken,
@@ -71,23 +71,23 @@ getLyrics(unquify,aTrack){
                     };
                 rp.get( lyrics_options).then((lyric)=>{
                         
-                        const newLyric = lyric.message.body.lyrics.lyrics_body
-                        unquify.updateTrackLyrics(aTrack.id,newLyric)
-                        const trackupdated = unquify.getTrackById(aTrack.id)
+                        const newLyric = lyric.message.body.lyrics.lyrics_body;
+                        unquify.updateTrackLyrics(aTrack.id,newLyric);
+                        const trackupdated = unquify.getTrackById(aTrack.id);
                         unquify.save('data.json')
                         
-                        return trackData(trackupdated,trackupdated.lyrics)  
+                        return this.trackData(trackupdated,trackupdated.lyrics);  
 
                     }).catch((err)=> {
-                        const dataEmpty = this.trackData(aTrack,"No se encuentra la Lyric en MusixMatch")
-                        unquify.updateTrackLyrics(aTrack.id,dataEmpty.lyrics)
-                        unquify.save('data.json')
-                    return dataEmpty
+                        const dataEmpty = this.trackData(aTrack,"No se encuentra la Lyric en MusixMatch");
+                        unquify.updateTrackLyrics(aTrack.id,dataEmpty.lyrics);
+                        unquify.save('data.json');
+                    return dataEmpty;
                     }) 
                 })
         }
 else{ 
-    return this.trackData(aTrack,aTrack.lyrics)
+    return this.trackData(aTrack,aTrack.lyrics);
       }
 }
 
