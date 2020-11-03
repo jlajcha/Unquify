@@ -86,9 +86,10 @@ playlists.get('/playlists/:playlistId',
     const trackId = parseInt(req.params.playlistId);
     const unqfy = getUNQfy('data.json');
     try {const searchPlaylist = unqfy.getPlaylistById(trackId);
+        console.log(JSON.stringify(searchPlaylist))
         res.status(200);
         res.json(
-            searchPlaylist.toJSON
+            searchPlaylist
         );}
     catch(err){
         if (err instanceof NoExistPlayListException) {
@@ -104,6 +105,7 @@ playlists.post('/playlists',
     const body = req.body
 
     try{createNewPlaylist(req, unqfy, res);
+        
          }
     catch(err){
         
@@ -116,7 +118,25 @@ playlists.post('/playlists',
         }
     });
 
-    
+//DELETE /api/playlists/<id>
+
+playlists.delete('/playlists/:playlistId',
+(req, res) =>{
+    //const unqfy2 = getUNQfy('data.json');
+    const playlistId = req.params.playlistId
+
+     try { unqfy1.deletePlaylist(playlistId)
+                 res.status(201);
+                 res.json({ status: 201 } )      
+            }
+    catch(err){ if (err instanceof NoExistPlayListException){
+                res.status(404);
+                res.json({ status: 404, errorCode: "RESOURCE_NOT_FOUND"  } )       
+                }
+            }
+    });
+  
+
 module.exports = {
     artists, tracks,playlists
 };  

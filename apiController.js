@@ -7,7 +7,7 @@ const {
     artists,tracks,playlists
 } = require('./Api/apiUnqfy');
 
-const port = process.env.Port || 8082;
+const port = process.env.Port || 8080;
 
 app.use(bodyParser.json());
 app.use('/api', artists,tracks,playlists);

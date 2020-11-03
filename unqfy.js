@@ -474,6 +474,24 @@ deleteArtistWithId(idArtist){
     }
   }
 
+  deletePlaylist(playlistId){ 
+    var validator = false 
+    console.log( "el id que llega " + playlistId)
+    console.log("la lista del mal " + this._playlists)
+    for (let index = 0; index < this._playLists.length; index++) {
+      const playlist = this._playLists[index];
+      if(playlist.id == playlistId){
+        console.log(artist)
+        this._playlists.splice(index,1);
+        validator = true
+      }      
+    }
+    console.log("mierda que valida " + validator)
+    if(!validator){throw NoExistPlayListException}
+  }
+
+
+
 deleteAlbumWithId(idAlbum){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
@@ -519,6 +537,11 @@ deleteTrackOnArtist(idTrack) {
       }
     }
   }
+
+
+
+
+
 ////////
   getAlbumsForArtist(artistName) {
     const artistFound = this.getArtistByName(artistName);
