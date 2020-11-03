@@ -10,6 +10,8 @@ get id(){return this._id;}
 
 get name(){return this._name;}
 
+changeName(name){this._name = name;}
+
 // eslint-disable-next-line no-undef
 get tracksListened(){return [...new Set(this._tracksListened)];}
 

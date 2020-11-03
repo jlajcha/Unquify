@@ -180,7 +180,7 @@ class UNQfy {
   }
 
   deleteArtist(idArtistData){    
-    this.deleteArtistWithId(idArtistData.id)
+    this.deleteArtistWithId(idArtistData.id);
   }
 
   getArtistByName(name) {
@@ -284,7 +284,7 @@ class UNQfy {
   }
 
   searchArtistsByName(name){
-    return this._artists.filter(artist => artist.name.includes(name));
+    return this._artists.filter(artist => artist.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   searchAlbumsByName(name){
@@ -292,17 +292,17 @@ class UNQfy {
     this._artists.forEach(
                           art => 
                             albums = albums.concat (art.albums.filter(
-                                          album => album.name.includes(name))));
+                                          album => album.name.toLowerCase().includes(name.toLowerCase()))));
     return albums;                                          
   }
 
   searchTracksByName(name){
     const allTracks = this.allTracksOnApp();
-    return allTracks.filter(track => track.name.includes(name));
+    return allTracks.filter(track => track.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   searchPlayListsByName(name){
-    return this._playLists.filter(playlist => playlist.name.includes(name));
+    return this._playLists.filter(playlist => playlist.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   searchByName(name){
@@ -320,7 +320,7 @@ class UNQfy {
     for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.id === id){
-          artist.changeName(newName)
+          artist.changeName(newName);
         }
       }
   }
@@ -329,7 +329,7 @@ updateArtistNationality(id, newCountry){
     for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.id === id){
-          artist.changeCountry(newCountry)
+          artist.changeCountry(newCountry);
         }
       }
   }
@@ -338,7 +338,7 @@ updateAlbumName(idAlbum, aName){
       for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.isAlbumRelatedTo(idAlbum)){
-          artist.updateAlbumName(idAlbum,aName)
+          artist.updateAlbumName(idAlbum,aName);
         }
         
       }
@@ -463,14 +463,17 @@ updateTrackLyricsOnUsers(aTrack, lyrics) {
 }
 
 /////
+updateUserName(userId, name){
+  const user = this.getUserById(userId);
+  user.changeName(name);
+}
+
 deleteArtistWithId(idArtist){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
-      if(artist.id == idArtist){
-        console.log(artist)
+      if(artist.id === idArtist){
         this.artists.splice(index,1);
-      }
-      
+      }      
     }
   }
 
@@ -481,7 +484,7 @@ deleteArtistWithId(idArtist){
     for (let index = 0; index < this._playLists.length; index++) {
       const playlist = this._playLists[index];
       if(playlist.id == playlistId){
-        console.log(artist)
+        
         this._playlists.splice(index,1);
         validator = true
       }      
@@ -496,11 +499,19 @@ deleteAlbumWithId(idAlbum){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.isAlbumRelatedTo(idAlbum)){
-        artist.deleteAlbum(idAlbum)
-      }
-      
+        artist.deleteAlbum(idAlbum);
+      }      
     }
   }
+
+deleteUserWithId(idUser){
+  for(let index = 0; index < this.users.length; index++){
+    const user = this.users[index];
+    if(user.id === idUser){
+      this.users.splice(index,1);
+    }
+  }
+}
 
 // hecho en commandHandler
 deleteTrack(idTrack){
@@ -561,7 +572,7 @@ deleteTrackOnArtist(idTrack) {
 
   save(filename) {
     const serializedData = picklify.picklify(this);
-    fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2),{encoding: 'utf-8'});
+    fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2));
   }
 
   static load(filename) {
