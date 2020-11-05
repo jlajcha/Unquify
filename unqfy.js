@@ -17,6 +17,7 @@ const {ExistArtistException,
        NoFindArtistException} = require('./exceptions.js');
 const SpotifyManager = require('./Api/spotifyManager');
 const MusicXMatchManager = require('./Api/musixMatchManager');
+const { saveUNQfy } = require('./persistenceUNQfy.js');
 
 
 class UNQfy {
@@ -209,11 +210,14 @@ class UNQfy {
   }
 
   getPlaylistById(id) {
-    const playlistFound = this._playLists.find(playlist => playlist.id === id);
+    const playlistFound = this._playLists.find(playlist => playlist.id == id);
+    
     if(playlistFound === undefined){
       throw new NoExistPlayListException(id);
     }
+    
     return playlistFound;
+
   }
 
   getArtistTracks(idArtist){
@@ -306,6 +310,31 @@ class UNQfy {
 
     return resultSearches;
   }
+
+
+  nameFilter(playlist,nameToSearch) {
+      return nameToSearch === undefined || playlist.name.toLowerCase().includes(nameToSearch.toLowerCase());
+    }
+
+  durationLTFilter(playlist,minDuration) {
+      return minDuration === undefined || playlist.duration < minDuration;
+    }
+
+  durationGTFilter(playlist,maxDuration) {
+      return maxDuration === undefined || playlist.duration > maxDuration;
+    }
+
+  searchCustomPlaylist(name,minDuration,maxDuration){
+
+   let playlist = this._playLists.filter(playlist => (this.nameFilter(playlist,name)
+         && this.durationLTFilter(playlist,minDuration) && this.durationGTFilter(playlist,maxDuration)));  
+  return playlist      
+}  
+    
+ 
+
+
+
 
   updateArtistName(id, newName){
     for (let index = 0; index < this.artists.length; index++) {
@@ -469,20 +498,11 @@ deleteArtistWithId(idArtist){
   }
 
   deletePlaylist(playlistId){ 
-    try {for (let index = 0; index < this._playLists.length; index++) {
-      const playlist = this._playLists[index];
-      if(playlist.id === playlistId){
-        console.log("el index es " + JSON.stringify(index ))
-        this._playlists.splice(index,1);}
-       // this._playlists.remove(index);
-
-          }
-  }catch(err){
-    throw NoExistPlayListException;
-  }
-  }
-
-
+    const playlist = this.getPlaylistById(playlistId);
+    const laplaylists = this._playLists.filter(playlist => playlist.id != playlistId)
+    this._playLists = laplaylists
+    this.save
+   }
 
 deleteAlbumWithId(idAlbum){
     for (let index = 0; index < this.artists.length; index++) {
@@ -537,9 +557,6 @@ deleteTrackOnArtist(idTrack) {
       }
     }
   }
-
-
-
 
 
 ////////

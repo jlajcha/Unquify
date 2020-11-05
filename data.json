@@ -13,24 +13,129 @@
       "_playLists": "__00005__",
       "_users": "__00006__",
       "_spotifyManager": "__00007__",
-      "_musicXMatchManager": "__00008__"
+      "_musicXMatchManager": "__00008__",
+      "_playlists": "__00009__"
     },
-    "__00002__": {},
+    "__00002__": {
+      "0": "__00010__"
+    },
     "__00003__": {
-      "_artistCounter": 0,
-      "_trackCounter": 0,
-      "_albumCounter": 1,
-      "_playListCounter": 0,
+      "_artistCounter": 1,
+      "_trackCounter": 3,
+      "_albumCounter": 3,
+      "_playListCounter": 8,
       "_userCounter": 0
     },
     "__00004__": {},
-    "__00005__": {},
+    "__00005__": {
+      "0": "__00011__",
+      "1": "__00012__"
+    },
     "__00006__": {},
     "__00007__": {
       "_authorizationToken": "BQCCqcKYhueMiKDNyzqTC5g6YK33Qb7c4nYQiiWBkPqIrMZseBkIvtgUq-ONz_CLBH5S3CuizWVyyAr2jhIvXlG81IZaIMaDRKwk7GG3v5SWaydM92HBo1neOj26dVIkx4ihIjdbozyDjhxvPMHE9li_jrEGzHEz2ZNb8EA3JY3Iw_HoUw"
     },
     "__00008__": {
       "_authorizationToken": "e628abb5a54c83628dc85f1784a07174"
+    },
+    "__00009__": {
+      "0": "__00013__",
+      "1": "__00014__",
+      "2": "__00015__",
+      "3": "__00016__"
+    },
+    "__00010__": {
+      "_id": 0,
+      "_name": "Guns and Roses",
+      "_country": "United States",
+      "_albums": "__00017__"
+    },
+    "__00011__": {
+      "_id": 6,
+      "_name": "Playlist new2",
+      "_maxDuration": 15666,
+      "_tracks": "__00018__"
+    },
+    "__00012__": {
+      "_id": 7,
+      "_name": "new1",
+      "_maxDuration": 15666,
+      "_tracks": "__00019__"
+    },
+    "__00013__": {
+      "_id": 0,
+      "_name": "Playlist de Juli4",
+      "_maxDuration": 400,
+      "_tracks": "__00020__"
+    },
+    "__00014__": {
+      "_id": 1,
+      "_name": "Playlist de Juli4",
+      "_maxDuration": 400,
+      "_tracks": "__00021__"
+    },
+    "__00015__": {
+      "_id": 2,
+      "_name": "Playlist de Juli4",
+      "_maxDuration": 400,
+      "_tracks": "__00022__"
+    },
+    "__00016__": {
+      "_id": 3,
+      "_name": "Playlist de Juli4",
+      "_maxDuration": 400,
+      "_tracks": "__00023__"
+    },
+    "__00017__": {
+      "0": "__00024__"
+    },
+    "__00018__": {
+      "0": "__00025__",
+      "1": "__00026__"
+    },
+    "__00019__": {
+      "0": "__00025__",
+      "1": "__00026__"
+    },
+    "__00020__": {
+      "0": "__00025__",
+      "1": "__00026__"
+    },
+    "__00021__": {
+      "0": "__00025__",
+      "1": "__00026__"
+    },
+    "__00022__": {
+      "0": "__00025__",
+      "1": "__00026__"
+    },
+    "__00023__": {
+      "0": "__00025__",
+      "1": "__00026__"
+    },
+    "__00024__": {
+      "_id": 2,
+      "_name": "Appetite For Destruction",
+      "_year": 2000,
+      "_tracks": "__00027__"
+    },
+    "__00025__": {
+      "_id": 0,
+      "_name": "Stairway to heaven",
+      "_duration": 200,
+      "_genres": "[rock,pop]",
+      "_lyrics": "There's a lady who's sure all that glitters is gold\nAnd she's buying a stairway to heaven\nWhen she gets there she knows, if the STORES\nAre all closed\nWith a word she can get what she came for\nOoh, ooh, and she's buying a stairway to heaven\n\nThere's a SIGN\nOn the wall but she WANTS TO\nBe sure\n'Cause you KNOW\nSometimes words have two meanings\nIn a tree by the brook, there's a songbird who sings\nSometimes all of our thoughts are misgiven\nOoh, it makes me wonder\nOoh, it makes me wonder\n\nThere's a feeling I get when I look to the west\n...\n\n******* This Lyrics is NOT for Commercial use *******\n(1409620759327)"
+    },
+    "__00026__": {
+      "_id": 1,
+      "_name": "Hey Jude",
+      "_duration": 200,
+      "_genres": "[pop]",
+      "_lyrics": ""
+    },
+    "__00027__": {
+      "0": "__00025__",
+      "1": "__00026__"
     }
   },
   "types": {
@@ -41,6 +146,25 @@
     "__00005__": "Array",
     "__00006__": "Array",
     "__00007__": "SpotifyManager",
-    "__00008__": "MusixMatchManager"
+    "__00008__": "MusixMatchManager",
+    "__00009__": "Array",
+    "__00010__": "Artist",
+    "__00011__": "PlayList",
+    "__00012__": "PlayList",
+    "__00013__": "PlayList",
+    "__00014__": "PlayList",
+    "__00015__": "PlayList",
+    "__00016__": "PlayList",
+    "__00017__": "Array",
+    "__00018__": "Array",
+    "__00019__": "Array",
+    "__00020__": "Array",
+    "__00021__": "Array",
+    "__00022__": "Array",
+    "__00023__": "Array",
+    "__00024__": "Album",
+    "__00025__": "Track",
+    "__00026__": "Track",
+    "__00027__": "Array"
   }
 }

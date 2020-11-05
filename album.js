@@ -60,7 +60,6 @@ class Album{
             }
         });
     }
-////////
 
 updateTrackLyrics(idTrack,lyrics){
     this._tracks.forEach(track => {
@@ -71,7 +70,6 @@ updateTrackLyrics(idTrack,lyrics){
     });
 }
 
-////////
     toJSON(){
         return {
             id: this.id,
