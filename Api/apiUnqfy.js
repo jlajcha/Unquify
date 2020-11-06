@@ -280,12 +280,13 @@ users.route('/users/:userId/listenings')
     }
 
     res.status(200);
-    res.json(tracksRes.map(track => track.toJSON()));
+    res.send(tracksRes.map(track => track.toJSON()));
 })
 .post((req, res) => {
     const unqfy = getUNQfy();
     const userId = parseInt(req.params.userId);
     const data = req.body;
+
     let tracksRes;
     if(data.trackId === undefined){
         const err = new BadRequestException();
@@ -298,10 +299,10 @@ users.route('/users/:userId/listenings')
         errorHandler(err, req, res);
         return;
     }
-
+    
     saveUNQfy(unqfy);
     res.status(201);
-    res.json(tracksRes.toJSON());
+    res.json({success: 'true'});
 });
 
 tracks.get('/tracks',
@@ -537,7 +538,6 @@ function createNewPlaylist(req, unqfy, res) {
         const newPlaylist = unqfy.createPlaylistWithTracksRelated(name,tracks );    
             
         saveUNQfy(unqfy);
-        // unqfy = getUNQfy();
         res.status(201);
         res.json(newPlaylist);
 
@@ -548,7 +548,6 @@ function createNewPlaylist(req, unqfy, res) {
         const newPlaylist = unqfy.createPlaylist(name, genres, duration);
             
         saveUNQfy(unqfy);
-        // unqfy = getUNQfy();
         res.status(201);
         res.json(newPlaylist);}
 }
