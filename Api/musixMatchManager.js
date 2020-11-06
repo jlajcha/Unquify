@@ -50,7 +50,7 @@ getLyrics(unquify,aTrack){
         };
   //primero buscar por el nombre el el track en la api
 
-  if(aTrack.lyrics == '' || aTrack._lyrics == undefined || aTrack.lyrics == ""){
+  if(aTrack.lyrics === '' || aTrack._lyrics === undefined || aTrack.lyrics === ""){
     rp.get( options )
         .then((response) => {
                 let header = response.message.header;

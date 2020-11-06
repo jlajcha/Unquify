@@ -8,15 +8,29 @@ const {
     tracks,
     playlists,    
     albums,
-    users
+    users,
+    errorHandler,
+    noRoute,
+    BadRequestException
 } = require('./Api/apiUnqfy');
 
 const port = process.env.Port || 8080;
 
-app.use(bodyParser.json());
+app.use((req, res, next) => {
+    bodyParser.json()(req, res, err => {
+        if(err){
+            const err = new BadRequestException();
+            errorHandler(err, req, res);
+            return;
+        }
+        next();
+    });
+});
 app.use('/api', artists,tracks,playlists,albums,users);
+app.use('*', noRoute);
+app.use(errorHandler);
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log("Server listen");
 });
 

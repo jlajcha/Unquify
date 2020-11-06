@@ -1,11 +1,11 @@
 class IdManager{
     constructor(){
 
-    this._artistCounter= 0;
-    this._trackCounter= 0;
-    this._albumCounter= 0;
-    this._playListCounter= 0;
-    this._userCounter= 0;
+    this._artistCounter= 1;
+    this._trackCounter= 1;
+    this._albumCounter= 1;
+    this._playListCounter= 1;
+    this._userCounter= 1;
     }
 
     nextIdForArtist(){

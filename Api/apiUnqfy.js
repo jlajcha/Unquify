@@ -1,7 +1,6 @@
 const {getUNQfy, saveUNQfy} = require('../persistenceUNQfy');
 const express = require('express');
 
-
 const { NoExistPlayListException,
     NoExistTrackException,
     ExistArtistException,
@@ -10,48 +9,37 @@ const { NoExistPlayListException,
     NoExistAlbumException,
     NoExistUserException
  } = require('../exceptions.js');
-// const unqfy = require('../unqfy');
 
 const artists = express.Router();
 const tracks = express.Router();
 const playlists = express.Router();
 const albums = express.Router();
 const users = express.Router();
-
-let unqfy = getUNQfy();
-
+const noRoute = express.Router();
 
 //endpoints artists
 artists.route('/artists')
 .post((req, res) => {
-        const data = req.body;
-        let artistRes;
+    const unqfy = getUNQfy();
+    const data = req.body;
+    let artistRes;
         if(data.name === undefined || data.country === undefined){
-            res.status(400);
-            res.json({
-                status: 400,
-                errorCode: "BAD_REQUEST"
-            });
+            const err = new BadRequestException();
+            errorHandler(err, req, res);
             return;
         }
         try{
             artistRes = unqfy.addArtist(data);
         }catch(err){
-            if(err instanceof ExistArtistException){
-                res.status(409);
-                res.json({
-                    status: 409,
-                    errorCode: "RESOURCE_ALREADY_EXISTS"
-                });
-            }
+            errorHandler(err, req, res);
             return;
         }
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(201);
     res.json(artistRes.toJSON());
 })
 .get((req, res) =>{
+    const unqfy = getUNQfy();
     let name = req.query.name;
     if(name === undefined){
         name = "";
@@ -64,18 +52,13 @@ artists.route('/artists')
 
 artists.route('/artists/:artistId')
 .get((req, res) => {
+    const unqfy = getUNQfy();
     const artistId = parseInt(req.params.artistId);
     let searchArtist;
     try{
         searchArtist = unqfy.getArtistById(artistId);
     }catch(err){
-        if(err instanceof NoExistArtistException){
-            res.status(404);
-            res.json({
-                status: 404,
-                errorCode: "RESOURCE_NOT_FOUND"
-            });
-        }
+        errorHandler(err, req, res);
         return;
     }    
 
@@ -84,16 +67,14 @@ artists.route('/artists/:artistId')
         searchArtist.toJSON()
     );
 })
-.patch((req, res) => {
+.put((req, res) => {
+    const unqfy = getUNQfy();
     const data = req.body;
     const artistId = parseInt(req.params.artistId);
     let artistRes;
         if(data.name === undefined || data.country === undefined){
-            res.status(400);
-            res.json({
-                status: 400,
-                errorCode: "BAD_REQUEST"
-            });
+            const err = new BadRequestException();
+            errorHandler(err, req, res);
             return;
         }
         try{
@@ -101,26 +82,24 @@ artists.route('/artists/:artistId')
             unqfy.updateArtistNationality(artistId, data.country);
             artistRes = unqfy.getArtistById(artistId);
         }catch(err){
-            if(err instanceof NoExistArtistException){
-                res.status(404);
-                res.json({
-                    status: 404,
-                    errorCode: "RESOURCE_NOT_FOUND"
-                });
-            }
+            errorHandler(err, req, res);
             return;
         }
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(200);
     res.json(artistRes.toJSON());
 })
 .delete((req, res) => {
+    const unqfy = getUNQfy();
     const artistId = parseInt(req.params.artistId);
-    unqfy.deleteArtistWithId(artistId);
+    try{
+        unqfy.deleteArtistWithId(artistId);
+    }catch(err){
+        errorHandler(err, req, res);
+        return;
+    }    
 
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(204);
     res.send({success: 'true'});
 });
@@ -128,35 +107,31 @@ artists.route('/artists/:artistId')
 //endpoints albums
 albums.route('/albums')
 .post((req, res) => {
-        const data = req.body;
-        let albumRes;
+    const unqfy = getUNQfy();
+    const data = req.body;
+    let albumRes;
         if(data.artistId === undefined || data.name === undefined || data.year === undefined){
-            res.status(400);
-            res.json({
-                status: 400,
-                errorCode: "BAD_REQUEST"
-            });
+            const err = new BadRequestException();
+            errorHandler(err, req, res);
             return;
         }
         try{
             albumRes = unqfy.addAlbum(data.artistId, data);
-            console.log("album", albumRes);
         }catch(err){
             if(err instanceof ExistAlbumOfArtist){
-                res.status(409);
-                res.json({
-                    status: 409,
-                    errorCode: "RESOURCE_ALREADY_EXISTS"
-                });
+                errorHandler(err, req, res);
+            }else{
+                const err = new ResourceNotFoundException();
+                errorHandler(err, req, res);
             }
             return;
         }
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(201);
     res.json(albumRes.toJSON());
 })
 .get((req, res) =>{
+    const unqfy = getUNQfy();
     let name = req.query.name;
     if(name === undefined){
         name = "";
@@ -165,22 +140,17 @@ albums.route('/albums')
 
     res.status(200);
     res.json(artistsSearch.map(artist => artist.toJSON()));    
-})
+});
 
 albums.route('/albums/:albumId')
 .get((req, res) => {
+    const unqfy = getUNQfy();
     const albumId = parseInt(req.params.albumId);
     let searchAlbum;
     try{
         searchAlbum = unqfy.getAlbumById(albumId);
     }catch(err){
-        if(err instanceof NoExistAlbumException){
-            res.status(404);
-            res.json({
-                status: 404,
-                errorCode: "RESOURCE_NOT_FOUND"
-            });
-        }
+        errorHandler(err, req, res);
         return;
     }    
 
@@ -190,60 +160,54 @@ albums.route('/albums/:albumId')
     );
 })
 .patch((req, res) => {
+    const unqfy = getUNQfy();
     const data = req.body;
     const albumId = parseInt(req.params.albumId);
     let albumRes;
         if(data.year === undefined){
-            res.status(400);
-            res.json({
-                status: 400,
-                errorCode: "BAD_REQUEST"
-            });
+            const err = new BadRequestException();
+            errorHandler(err, req, res);
             return;
         }
         try{
-            unqfy.updateAlbumYear(albumId, data.year);
             albumRes = unqfy.getAlbumById(albumId);
+            unqfy.updateAlbumYear(albumId, data.year);            
         }catch(err){
-            if(err instanceof NoExistAlbumException){
-                res.status(404);
-                res.json({
-                    status: 404,
-                    errorCode: "RESOURCE_NOT_FOUND"
-                });
-            }
+            errorHandler(err, req, res);
             return;
         }
+    albumRes = unqfy.getAlbumById(albumId);        
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(200);
     res.json(albumRes.toJSON());
 })
 .delete((req, res) => {
+    const unqfy = getUNQfy();
     const albumId = parseInt(req.params.albumId);
-    unqfy.deleteAlbumWithId(albumId);
+
+    try{
+        unqfy.getAlbumById(albumId);
+        unqfy.deleteAlbumWithId(albumId);
+    }catch(err){
+        errorHandler(err, req, res);
+        return;
+    }    
 
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(204);
     res.send({success: 'true'});
-})
+});
 
 //endpoints users
 users.route('/users/:userId')
 .get((req, res) => {
+    const unqfy = getUNQfy();
     const userId = parseInt(req.params.userId);
     let userRes;
     try{
         userRes = unqfy.getUserById(userId);
     }catch(err){
-        if(err instanceof NoExistUserException){
-            res.status(404);
-            res.json({
-                status: 404,
-                errorCode: "RESOURCE_NOT_FOUND"
-            });
-        }
+        errorHandler(err, req, res);
         return;
     }
 
@@ -251,63 +215,92 @@ users.route('/users/:userId')
     res.json(userRes.toJSON());
 })
 .patch((req, res) => {
+    const unqfy = getUNQfy();
     const data = req.body;
     const userId = parseInt(req.params.userId);
     let userRes;
         if(data.name === undefined){
-            res.status(400);
-            res.json({
-                status: 400,
-                errorCode: "BAD_REQUEST"
-            });
+            const err = new BadRequestException();
+            errorHandler(err, req, res);
             return;
         }
         try{
             unqfy.updateUserName(userId, data.name);
             userRes = unqfy.getUserById(userId);
         }catch(err){
-            if(err instanceof NoExistUserException){
-                res.status(404);
-                res.json({
-                    status: 404,
-                    errorCode: "RESOURCE_NOT_FOUND"
-                });
-            }
+            errorHandler(err, req, res);
             return;
         }
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(200);
     res.json(userRes.toJSON());
 })
 .delete((req, res) =>{
+    const unqfy = getUNQfy();
     const userId = parseInt(req.params.userId);
-    unqfy.deleteUserWithId(userId);
+    try{
+        unqfy.deleteUserWithId(userId);
+    }catch(err){
+        errorHandler(err, req, res);
+        return;
+    }    
 
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(204);
     res.send({success: 'true'});
-})
+});
 
 users.route('/users')
 .post((req, res) => {
+    const unqfy = getUNQfy();
     const data = req.body;
         if(data.name === undefined){
-            res.status(400);
-            res.json({
-                status: 400,
-                errorCode: "BAD_REQUEST"
-            });
+            const err = new BadRequestException();
+            errorHandler(err, req, res);
             return;
         }
     const userRes = unqfy.addUser(data.name);
     saveUNQfy(unqfy);
-    unqfy = getUNQfy();
     res.status(201);
     res.json(userRes.toJSON());
-})
+});
 
+users.route('/users/:userId/listenings')
+.get((req, res) => {
+    const unqfy = getUNQfy();
+    const userId = parseInt(req.params.userId);
+    let tracksRes;
+    try{
+        tracksRes = unqfy.getTracksListenByUser(userId);
+    }catch(err){
+        errorHandler(err, req, res);
+        return;
+    }
+
+    res.status(200);
+    res.json(tracksRes.map(track => track.toJSON()));
+})
+.post((req, res) => {
+    const unqfy = getUNQfy();
+    const userId = parseInt(req.params.userId);
+    const data = req.body;
+    let tracksRes;
+    if(data.trackId === undefined){
+        const err = new BadRequestException();
+            errorHandler(err, req, res);
+            return;
+    }
+    try{
+        tracksRes = unqfy.userListenTrack(userId, parseInt(data.trackId));
+    }catch(err){
+        errorHandler(err, req, res);
+        return;
+    }
+
+    saveUNQfy(unqfy);
+    res.status(201);
+    res.json(tracksRes.toJSON());
+});
 
 tracks.get('/tracks',
 (req, res) =>{
@@ -318,24 +311,29 @@ tracks.get('/tracks',
     res.status(200);
     res.json(searchTracks.map(track => track.toJSON()));
            
-})
+});
 
 tracks.get('/tracks/:trackId',
 (req, res) =>{
     
     const trackId = parseInt(req.params.trackId);
     const unqfy = getUNQfy();
-    const searchTrack = unqfy.getTrackById(trackId);
+    let searchTrack;
+    try{
+        searchTrack = unqfy.getTrackById(trackId);
+    }catch(err){
+        errorHandler(err, req, res);
+        return;
+    }    
     
     res.status(200);
     res.json(
         searchTrack.toJSON()
-    );
-           
-})
+    );           
+});
 
 
-tracks.get('/tracks/:trackId/lyric',
+tracks.get('/tracks/:trackId/lyrics',
 (req, res) =>{
     
     const trackId = parseInt(req.params.trackId);
@@ -346,19 +344,16 @@ tracks.get('/tracks/:trackId/lyric',
     res.json(searchTrack);
     }    
     catch(err){
-            if (err instanceof NoExistTrackException) {
-                res.status(404);
-                res.json({status: 404, errorCode: "RESOURCE_NOT_FOUND" })
-               }           
-            }         
-        })
+        errorHandler(err, req, res);
+        return;
+    }         
+});
 
 playlists.get('/playlists/:playlistId',
 (req, res) =>{
     const trackId = parseInt(req.params.playlistId);
     const unqfy = getUNQfy('data.json');
     try {const searchPlaylist = unqfy.getPlaylistById(trackId);
-        console.log(JSON.stringify(searchPlaylist))
         res.status(200);
         res.json(
             searchPlaylist
@@ -408,17 +403,110 @@ playlists.delete('/playlists/:playlistId',
             }
     });
   
+noRoute.route('*')
+.get((req, res) =>{
+    const err = new InvalidRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+.delete((req, res) =>{
+    const err = new InvalidRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+.post((req, res) =>{
+    const err = new InvalidRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+.patch((req, res) =>{
+    const err = new InvalidRouteException();
+    errorHandler(err, req, res);
+    return;
+});
+
+function errorHandler(err, req, res){
+    switch(true){
+        case(err instanceof NoExistArtistException ||
+            err instanceof NoExistAlbumException ||
+            err instanceof NoExistPlayListException ||
+            err instanceof NoExistUserException ||
+            err instanceof NoExistTrackException ||
+            err instanceof InvalidRouteException):
+        res.status(404);
+        res.json({
+            status: 404,
+            errorCode: "RESOURCE_NOT_FOUND"
+        });
+        break;
+        case(err instanceof ResourceNotFoundException):
+        res.status(err.status);
+        res.json({
+            status: err.status,
+            errorCode: err.errorCode
+        });
+        break;
+        case(err instanceof ExistAlbumOfArtist ||
+            err instanceof ExistArtistException):
+            res.status(409);
+            res.json({
+                status: 409,
+                errorCode: "RESOURCE_ALREADY_EXISTS"
+            });
+        break;
+        case(err instanceof BadRequestException):
+        res.status(err.status);
+        res.json({
+            status: err.status,
+            errorCode: err.errorCode
+        });
+        break;
+        default :
+        res.status(500);
+        res.json({
+            status: 500,
+            errorCode: "INTERNAL_SERVER_ERROR"
+        });
+    }
+}
+
+class ApiException extends Error{
+    constructor(name, statusCode, errorCode, message = null){
+        super(message || name);
+        this.name = name;
+        this.status = statusCode;
+        this.errorCode = errorCode;
+    }
+}
+
+class InvalidRouteException extends ApiException{
+    constructor(){
+        super('InvalidRouteException', 404, 'RESOURCE_NOT_FOUND');
+    }
+}
+
+class BadRequestException extends ApiException{
+    constructor(){
+        super('BadRequestException', 400, 'BAD_REQUEST');
+    }
+}
+
+class ResourceNotFoundException extends ApiException{
+    constructor(){
+        super('ResourceNotFoundException', 404, 'RELATED_RESOURCE_NOT_FOUND');
+    }
+}
 
 module.exports = {
-    artists, tracks,playlists,albums,users
+    artists, tracks,playlists,albums,users,errorHandler,noRoute,BadRequestException
 };  
 
 
 function createNewPlaylist(req, unqfy, res) {
-    if(req.body.tracks !=undefined ){
+    if(req.body.tracks !==undefined ){
         
         const name = req.body.name;
-        const dataTracks = req.body.tracks 
+        const dataTracks = req.body.tracks; 
         const tracks = dataTracks.map((track)=> unqfy.getTrackById(track.id) )
         const newPlaylist = unqfy.createPlaylistWithTracksRelated(name,tracks );    
         res.status(201);
