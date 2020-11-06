@@ -369,7 +369,7 @@ updateAlbumYear(idAlbum, year){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.isAlbumRelatedTo(idAlbum)){
-        artist.updateAlbumYear(idAlbum,year)
+        artist.updateAlbumYear(idAlbum,year);
       }
       
     }
@@ -489,12 +489,8 @@ updateUserName(userId, name){
 }
 
 deleteArtistWithId(idArtist){
-    for (let index = 0; index < this.artists.length; index++) {
-      const artist = this.artists[index];
-      if(artist.id === idArtist){
-        this.artists.splice(index,1);
-      }      
-    }
+    const artistToRemove = this.getArtistById(idArtist);
+    this._artists = this._artists.filter(art => art.id !== idArtist);
   }
 
   deletePlaylist(playlistId){ 
@@ -514,10 +510,12 @@ deleteAlbumWithId(idAlbum){
   }
 
 deleteUserWithId(idUser){
+  this.getUserById(idUser);
   for(let index = 0; index < this.users.length; index++){
     const user = this.users[index];
     if(user.id === idUser){
       this.users.splice(index,1);
+      break;
     }
   }
 }
@@ -570,8 +568,8 @@ deleteTrackOnArtist(idTrack) {
   }
 
   getLyrics(trackId) {
-     var track = this.getTrackById(trackId)
-      return this._musicXMatchManager.getLyrics(this,track)
+     const track = this.getTrackById(trackId);
+      return this._musicXMatchManager.getLyrics(this,track);
       
     
   }
