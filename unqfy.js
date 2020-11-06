@@ -15,7 +15,9 @@ const {ExistArtistException,
        NoExistPlayListException,
        NoExistUserException,
        NoFindArtistException} = require('./exceptions.js');
-
+const SpotifyManager = require('./Api/spotifyManager');
+const MusicXMatchManager = require('./Api/musixMatchManager');
+const { saveUNQfy } = require('./persistenceUNQfy.js');
 
 
 class UNQfy {
@@ -25,6 +27,8 @@ class UNQfy {
     this._playListGenerator = new PlayListGenerator();
     this._playLists = [];
     this._users = [];
+    this._spotifyManager = new SpotifyManager();
+    this._musicXMatchManager = new MusicXMatchManager();
      }
 
   get artists(){return this._artists;}
@@ -120,12 +124,7 @@ class UNQfy {
   
 
   addAlbumToArtist(artistId,album){      
-    for (let i = 0; i < this._artists.length; i++) {
-      const art = this._artists[i];
-      if (art.id === artistId) {
-        art.addAlbum(album); 
-      }
-    }
+    this.getArtistById(artistId).addAlbum(album);     
   }
 
   addTrackToAlbum(idAlbum,track){    
@@ -148,7 +147,6 @@ class UNQfy {
   */
     const id = this._idManager.nextIdForAlbum();
     const newAlbum = new Album(id,albumData.name,albumData.year);
-    // console.log('esto tiene id'+JSON.stringify(newAlbum))
     this.addAlbumToArtist(artistId,newAlbum);
     return newAlbum;
   }
@@ -174,7 +172,7 @@ class UNQfy {
   }
 
   deleteArtist(idArtistData){    
-    this.deleteArtistWithId(idArtistData.id)
+    this.deleteArtistWithId(idArtistData.id);
   }
 
   getArtistByName(name) {
@@ -203,7 +201,8 @@ class UNQfy {
 
   getTrackById(id) {                       
     const allTracks = this.allTracksOnApp();
-    const trackFound = allTracks.find(track =>track._id === id);
+
+    const trackFound = allTracks.find(track => track._id.toString() == id.toString());
     if(trackFound === undefined){
       throw new NoExistTrackException(id);
     }
@@ -211,11 +210,14 @@ class UNQfy {
   }
 
   getPlaylistById(id) {
-    const playlistFound = this._playLists.find(playlist => playlist.id === id);
+    const playlistFound = this._playLists.find(playlist => playlist.id == id);
+    
     if(playlistFound === undefined){
       throw new NoExistPlayListException(id);
     }
+    
     return playlistFound;
+
   }
 
   getArtistTracks(idArtist){
@@ -262,9 +264,22 @@ class UNQfy {
     this._playLists.push(newPlayList);
     return newPlayList;
   }
+  //constructor(id, name, maxDuration, tracks){
+
+  createPlaylistWithTracksRelated(aName,aListOfTracks){ 
+    const idPlayList = this._idManager.nextIdForPlayList();
+      
+    const durations = aListOfTracks.map((track)=> track.duration)
+    const maxDuration = durations.reduce((a,b)=>a+b) 
+    const newPlayList =new PlayList(idPlayList, aName, maxDuration,aListOfTracks);
+   
+    this._playLists.push(newPlayList);
+    
+    return newPlayList;
+  }
 
   searchArtistsByName(name){
-    return this._artists.filter(artist => artist.name.includes(name));
+    return this._artists.filter(artist => artist.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   searchAlbumsByName(name){
@@ -272,17 +287,17 @@ class UNQfy {
     this._artists.forEach(
                           art => 
                             albums = albums.concat (art.albums.filter(
-                                          album => album.name.includes(name))));
+                                          album => album.name.toLowerCase().includes(name.toLowerCase()))));
     return albums;                                          
   }
 
   searchTracksByName(name){
     const allTracks = this.allTracksOnApp();
-    return allTracks.filter(track => track.name.includes(name));
+    return allTracks.filter(track => track.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   searchPlayListsByName(name){
-    return this._playLists.filter(playlist => playlist.name.includes(name));
+    return this._playLists.filter(playlist => playlist.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   searchByName(name){
@@ -296,11 +311,36 @@ class UNQfy {
     return resultSearches;
   }
 
+
+  nameFilter(playlist,nameToSearch) {
+      return nameToSearch === undefined || playlist.name.toLowerCase().includes(nameToSearch.toLowerCase());
+    }
+
+  durationLTFilter(playlist,minDuration) {
+      return minDuration === undefined || playlist.duration < minDuration;
+    }
+
+  durationGTFilter(playlist,maxDuration) {
+      return maxDuration === undefined || playlist.duration > maxDuration;
+    }
+
+  searchCustomPlaylist(name,minDuration,maxDuration){
+
+   let playlist = this._playLists.filter(playlist => (this.nameFilter(playlist,name)
+         && this.durationLTFilter(playlist,minDuration) && this.durationGTFilter(playlist,maxDuration)));  
+  return playlist      
+}  
+    
+ 
+
+
+
+
   updateArtistName(id, newName){
     for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.id === id){
-          artist.changeName(newName)
+          artist.changeName(newName);
         }
       }
   }
@@ -309,7 +349,7 @@ updateArtistNationality(id, newCountry){
     for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.id === id){
-          artist.changeCountry(newCountry)
+          artist.changeCountry(newCountry);
         }
       }
   }
@@ -318,7 +358,7 @@ updateAlbumName(idAlbum, aName){
       for (let index = 0; index < this.artists.length; index++) {
         const artist = this.artists[index];
         if(artist.isAlbumRelatedTo(idAlbum)){
-          artist.updateAlbumName(idAlbum,aName)
+          artist.updateAlbumName(idAlbum,aName);
         }
         
       }
@@ -329,7 +369,7 @@ updateAlbumYear(idAlbum, year){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.isAlbumRelatedTo(idAlbum)){
-        artist.updateAlbumYear(idAlbum,year)
+        artist.updateAlbumYear(idAlbum,year);
       }
       
     }
@@ -406,29 +446,82 @@ updateTrackDurationOnPlaylist(idTrack, duration) {
   });     
 }
 
-deleteArtistWithId(idArtist){
-    for (let index = 0; index < this.artists.length; index++) {
-      const artist = this.artists[index];
-      if(artist.id == idArtist){
-        console.log(artist)
-        this.artists.splice(index,1);
-      }
-      
-    }
+///////
+updateTrackLyrics(idTrack, lyrics) {
+  
+  const track = this.getTrackById(idTrack)
+
+  this.updateTrackLyricsOnArtist(idTrack,lyrics);
+  this.updateTrackLyricsOnPlaylist(idTrack,lyrics);
+  this.updateTrackLyricsOnUsers(track,lyrics);
+  const track2 = this.getTrackById(idTrack)
+  
+}
+
+updateTrackLyricsOnArtist(idTrack, lyrics) {
+  this._artists.forEach(artist => {
+      if (artist.isOwnerOfTrack(idTrack)) {
+        artist.updateTrackLyrics(idTrack,lyrics);
+          }
+        });
   }
+
+updateTrackLyricsOnPlaylist(idTrack, lyrics) {
+  this._playLists.forEach(playlist => {
+    if (playlist.isTrackIncluded(idTrack)) {
+      playlist.updateTrackLyrics(idTrack,lyrics);
+    }
+  });     
+}
+
+updateTrackLyricsOnUsers(aTrack, lyrics) {
+  this._users.forEach(user => {
+    if (user.hasListenedTheTrackWith(aTrack)) {
+      user.updateTrackLyrics(aTrack,lyrics);
+    }  
+  });
+}
+
+/////
+updateUserName(userId, name){
+  const user = this.getUserById(userId);
+  user.changeName(name);
+}
+
+deleteArtistWithId(idArtist){
+    const artistToRemove = this.getArtistById(idArtist);
+    this._artists = this._artists.filter(art => art.id !== idArtist);
+  }
+
+  deletePlaylist(playlistId){ 
+    const playlist = this.getPlaylistById(playlistId);
+    const laplaylists = this._playLists.filter(playlist => playlist.id != playlistId)
+    this._playLists = laplaylists
+    this.save
+   }
 
 deleteAlbumWithId(idAlbum){
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if(artist.isAlbumRelatedTo(idAlbum)){
-        artist.deleteAlbum(idAlbum)
-      }
-      
+        artist.deleteAlbum(idAlbum);
+      }      
     }
   }
 
+deleteUserWithId(idUser){
+  this.getUserById(idUser);
+  for(let index = 0; index < this.users.length; index++){
+    const user = this.users[index];
+    if(user.id === idUser){
+      this.users.splice(index,1);
+      break;
+    }
+  }
+}
+
 // hecho en commandHandler
-  deleteTrack(idTrack){
+deleteTrack(idTrack){
     const track = this.getTrackById(idTrack);
 
     this.deleteTrackOnArtist(idTrack);
@@ -445,14 +538,14 @@ deleteAlbumWithId(idAlbum){
   }
 }
 
-  deleteTrackOnArtist(idTrack) {
+deleteTrackOnArtist(idTrack) {
     for (let index = 0; index < this.artists.length; index++) {
       const artist = this.artists[index];
       if (artist.isOwnerOfTrack(idTrack)) {
         artist.deleteTrack(idTrack);
       }
     }
-  }
+}
 
   deleteTrackOnPlaylist(idTrack) {
     for (let i = 0; i < this.playLists.length; i++) {
@@ -464,6 +557,23 @@ deleteAlbumWithId(idAlbum){
   }
 
 
+////////
+  getAlbumsForArtist(artistName) {
+    const artistFound = this.getArtistByName(artistName);
+    return artistFound.albums;
+  }
+
+  populateAlbumsForArtist(artistName) {
+    this._spotifyManager.populateAlbumsForArtist(this, this.getArtistByName(artistName));
+  }
+
+  getLyrics(trackId) {
+     const track = this.getTrackById(trackId);
+      return this._musicXMatchManager.getLyrics(this,track);
+      
+    
+  }
+
   save(filename) {
     const serializedData = picklify.picklify(this);
     fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2));
@@ -472,7 +582,7 @@ deleteAlbumWithId(idAlbum){
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayList,PlayListGenerator,User];
+    const classes = [UNQfy,Artist,IdManager,Album,Track,PlayList,PlayListGenerator,User,SpotifyManager,MusicXMatchManager];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 

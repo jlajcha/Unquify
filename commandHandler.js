@@ -11,12 +11,15 @@ class CommandHandler{
         this._printer = new Printer();
     }
 
-    execute(){
+    execute(){        
         try{
             this.insufficientArguments(this.stackOfCommands()[this.command].paramsRequired);
             const unq = getUNQfy();            
             this.stackOfCommands()[this.command].exec(unq);
-            saveUNQfy(unq);
+            if(this.command !== "populateAlbumsForArtist"){
+                saveUNQfy(unq);
+            }
+            
         }catch(exception){
             this._printer.printException(exception);
         }
@@ -283,9 +286,9 @@ class CommandHandler{
             updateArtistName: {
                 exec : function(unqfy){
                     try{
-                        const id = Number(functionParams[0])
-                        const newName = functionParams[1]
-                         unqfy.updateArtistName(id , newName) 
+                        const id = Number(functionParams[0]);
+                        const newName = functionParams[1];
+                         unqfy.updateArtistName(id , newName); 
                         printer.printMessage('Se ha modificado el nombre del artista con id ' + id + 'por el nombre ' + newName)
                     }catch(exception){
                         printer.printException(exception);
@@ -298,9 +301,9 @@ class CommandHandler{
            updateArtistNationality: {
                 exec : function(unqfy){
                     try{
-                        const id = Number(functionParams[0])
-                        const newCountry = functionParams[1]
-                         unqfy.updateArtistNationality(id , newCountry) 
+                        const id = Number(functionParams[0]);
+                        const newCountry = functionParams[1];
+                         unqfy.updateArtistNationality(id , newCountry); 
                         printer.printMessage(`Se ha modificado el nombre del artista con id ` + id  + ' con el nuevo pais  ' + newCountry)
                     }catch(exception){
                         printer.printException(exception);
@@ -312,9 +315,9 @@ class CommandHandler{
             updateAlbumName: {
             exec : function(unqfy){
                 try{
-                    const id = Number(functionParams[0])
-                    const newName = functionParams[1]
-                     unqfy.updateAlbumName(id , newName) 
+                    const id = Number(functionParams[0]);
+                    const newName = functionParams[1];
+                     unqfy.updateAlbumName(id , newName); 
                     printer.printMessage(`Se ha modificado el nombre del album con id ` + id  + ' con el nuevo nombre es ' + newName )
                 }catch(exception){
                     printer.printException(exception);
@@ -325,9 +328,9 @@ class CommandHandler{
         updateAlbumYear: {
             exec : function(unqfy){
                 try{
-                    const id = Number(functionParams[0])
-                    const newYear = functionParams[1]
-                     unqfy.updateAlbumYear(id , newYear) 
+                    const id = Number(functionParams[0]);
+                    const newYear = functionParams[1];
+                     unqfy.updateAlbumYear(id , newYear); 
                     printer.printMessage(`Se ha modificado el nombre del album con id ` + id  + ' con el nuevo año ' + newYear )
                 }catch(exception){
                     printer.printException(exception);
@@ -340,9 +343,9 @@ class CommandHandler{
         updateTrackName: {
             exec : function(unqfy){
                 try{
-                    const id = Number(functionParams[0])
-                    const newName = functionParams[1]
-                     unqfy.updateTrackName(id , newName) 
+                    const id = Number(functionParams[0]);
+                    const newName = functionParams[1];
+                     unqfy.updateTrackName(id , newName); 
                     printer.printMessage(`Se ha modificado la canción con id ` + id  + ' con el nuevo nombre ' + newName )
                 }catch(exception){
                     printer.printException(exception);
@@ -355,9 +358,9 @@ class CommandHandler{
         updateTrackDuration: {
             exec : function(unqfy){
                 try{
-                    const id = Number(functionParams[0])
-                    const duration = functionParams[1]
-                     unqfy.updateTrackDuration(id , duration) 
+                    const id = Number(functionParams[0]);
+                    const duration = functionParams[1];
+                     unqfy.updateTrackDuration(id , duration); 
                     printer.printMessage(`Se ha modificado la canción con id ` + id  + ' con la nueva duración ' + duration )
                 }catch(exception){
                     printer.printException(exception);
@@ -373,10 +376,40 @@ class CommandHandler{
                         printer.printMessage(`Se eliminó correctamente el album con id ${id}`);
             },
             paramsRequired: 1
-        }
+        },
+///////////
+        getAlbumsForArtist: {
+            exec : function(unqfy){
+                try{
+                    printer.printArray(`Albums del artista con nombre ${functionParams[0]}`, unqfy.getAlbumsForArtist(functionParams[0]));
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 1
+        },
 
+        populateAlbumsForArtist: {
+            exec : function(unqfy){
+                try{
+                    unqfy.populateAlbumsForArtist(functionParams[0]);
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 1
+        },
 
-
+        getLyrics: {
+            exec : function(unqfy){
+                try{
+                    unqfy.getLyrics(functionParams[0]);
+                }catch(exception){
+                    printer.printException(exception);
+                }
+            },
+            paramsRequired: 1
+        },
             
         };
 

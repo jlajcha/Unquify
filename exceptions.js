@@ -72,7 +72,7 @@ class NoExistUserException extends NoExistEntityException{
 
 class NoFindArtistException extends Error{
     constructor(artistName){
-        super('No se encontro el artista con el nombre ${artistName}');
+        super(`No se encontro el artista con el nombre ${artistName}`);
     }
 }
 

@@ -22,6 +22,7 @@ class PlayList{
     get tracks(){return this._tracks;}
 
     duration(){
+    
         const durationOfTracks = this.tracks.map(track => track.duration);
         const duration = durationOfTracks.reduce((a, b) => a + b, 0);
         return duration;
@@ -55,6 +56,24 @@ class PlayList{
                 track.changeDuration(duration);
             }
         });
+    }
+/////
+
+updateTrackLyrics(idTrack,lyrics){
+    this._tracks.forEach(track => {
+        if ( track.id === idTrack){
+            track.lyrics(lyrics);
+        }
+    });
+}
+/////////
+    toJSON(){
+        return {
+            id: this.id,
+            name: this.name,
+            duration: this.duration(),
+            tracks: this.tracks.map(track => track.toJSON())
+        };
     }
 }
 module.exports = PlayList;

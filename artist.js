@@ -56,38 +56,38 @@ class Artist{
         return !(newT.length===0)
     }
     getAlbumBy(id){
-         return this.albums.filter((album)=>album.id === id)
+         return this.albums.filter((album)=>album.id === id);
     }
 
     isAlbumRelatedTo(idAlbum){
-        return this.albums.some(album=>album.id ===idAlbum)
+        return this.albums.some(album=>album.id ===idAlbum);
     }
 
     deleteAlbum(idAlbum){
         for (let index = 0; index < this.albums.length; index++) {
-            const album = this.albums[index]
-            if(album.id ==idAlbum){
+            const album = this.albums[index];
+            if(album.id ===idAlbum){
                 this.albums.splice(index,1);
             }
         }
     }
     deleteTrack(idTrack){
         for (let index = 0; index < this.albums.length; index++) {
-            const album = this.albums[index]
+            const album = this.albums[index];
             if(album.isTrackIncluded(idTrack)){
-                album.deleteTrack(idTrack)
+                album.deleteTrack(idTrack);
             }
         }
     }
 
-    changeName(newName){this._name = newName}
+    changeName(newName){this._name = newName;}
 
-    changeCountry(newCountry){this._country = newCountry}
+    changeCountry(newCountry){this._country = newCountry;}
 
     updateAlbumName(idAlbum, aName){
         this._albums.forEach(album => {
             if(album.id ===idAlbum){
-                album.changeName(aName)
+                album.changeName(aName);
           }
         });
 
@@ -116,6 +116,27 @@ class Artist{
                 album.updateTrackDuration(idTrack,duration);
           }  
         });
+    }
+
+///////////////
+
+updateTrackLyrics(idTrack,lyrics){
+
+    this._albums.forEach(album => {
+        if(album.isTrackIncluded(idTrack)){
+            album.updateTrackLyrics(idTrack,lyrics);
+      }  
+    });
+}
+
+//////////////////
+    toJSON(){
+        return {
+            id: this.id,
+            name: this.name,
+            country: this.country,
+            albums: this.albums.map(album => album.toJSON())
+        };
     }
 }
 

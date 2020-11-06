@@ -60,5 +60,23 @@ class Album{
             }
         });
     }
+
+updateTrackLyrics(idTrack,lyrics){
+    this._tracks.forEach(track => {
+        
+        if(track.id == idTrack){
+            track.changeLyrics(lyrics)
+        }
+    });
+}
+
+    toJSON(){
+        return {
+            id: this.id,
+            name: this.name,
+            year: this.year,
+            tracks: this.tracks.map(track => track.toJSON())
+        };
+    }
 }
 module.exports=Album;
