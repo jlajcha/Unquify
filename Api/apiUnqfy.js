@@ -7,7 +7,8 @@ const { NoExistPlayListException,
     NoExistArtistException,
     ExistAlbumOfArtist,
     NoExistAlbumException,
-    NoExistUserException
+    NoExistUserException,
+    MissingArguments
  } = require('../exceptions.js');
 
 const artists = express.Router();
@@ -333,96 +334,86 @@ tracks.get('/tracks/:trackId',
     );           
 });
 
-
 tracks.get('/tracks/:trackId/lyrics',
 (req, res) =>{
-    
+    const unqfy = getUNQfy();
     const trackId = parseInt(req.params.trackId);
-    const unqfy = getUNQfy('data.json');
-    try {const searchTrack = unqfy.getLyrics(trackId);
-   
+    try {const searchTrack = unqfy.getLyrics(trackId);   
     res.status(200);
-    res.json(searchTrack)
+    res.json(searchTrack);
     }    
     catch(err){
         errorHandler(err, req, res);
         return;
     }           
-})
+});
 
 playlists.route('/playlists')
     .get((req, res) => {
         const unqfy = getUNQfy();
-        const name = req.query.name
-        const durationLT = req.query.durationLT
-        const durationGT = req.query.durationGT
+        const name = req.query.name;
+        const durationLT = req.query.durationLT;
+        const durationGT = req.query.durationGT;
       try {
-        const playlists = filterAccordingTo(unqfy,name,durationLT,durationGT)
+        const playlists = filterAccordingTo(unqfy,name,durationLT,durationGT);
         res.status(200);
-        res.json(playlists)    
-
-         } catch (error) {
-           res.status(404);
-           res.json({ status: 404, errorCode: "RESOURCE_NOT_FOUND" } )       
-            }              
+        res.json(playlists);
+        }catch (err) {
+            errorHandler(err, req, res);
+            return;  
+        }              
 });
 
 playlists.get('/playlists/:playlistId',
 (req, res) =>{
     const trackId = parseInt(req.params.playlistId);
     const unqfy = getUNQfy('data.json');
-    try {const searchPlaylist = unqfy.getPlaylistById(trackId);
+    try {
+        const searchPlaylist = unqfy.getPlaylistById(trackId);
         res.status(200);
         res.json(
-            searchPlaylist
+        searchPlaylist
         );}
     catch(err){
-        if (err instanceof NoExistPlayListException) {
-            res.status(404);
-            res.json({status: 404, errorCode: "RESOURCE_NOT_FOUND" })
-           }           
+        errorHandler(err, req, res);
+        return;            
     }         
-})
+});
 
 playlists.post('/playlists',
 (req, res) =>{
     const unqfy = getUNQfy('data.json');
-    const body = req.body
+    const body = req.body;
 
-    try{createNewPlaylist(req, unqfy, res);
-        
-         }
-    catch(err){
-        
-        if (req.body.name == undefined|| req.body.name ===""||req.body.duration===undefined
+    try{
+        createNewPlaylist(req, unqfy, res);
+    }
+    catch(err){        
+        if (req.body.name === undefined|| req.body.name ===""||req.body.duration===undefined
             ||req.body.duration===""
             || req.body.listGenres.length ===0) {
-            res.status(400);
-            res.json({status: 400, errorCode: "BAD_REQUEST" })             
+                const err = new BadRequestException();
+                errorHandler(err, req, res);
+                return;           
            }
         }
     });
 
 playlists.delete('/playlists/:playlistId',
 (req, res) =>{
-
-    const playlistId = req.params.playlistId
+    const unqfy = getUNQfy('data.json');
+    const playlistId = req.params.playlistId;
      try { 
-         unqfy.deletePlaylist(playlistId)
+         unqfy.deletePlaylist(playlistId);
                 saveUNQfy(unqfy);
-                unqfy = getUNQfy(); 
                 res.status(204);
-                res.json({ status: 204 } )      
-            }
-    catch(err){ if (err instanceof NoExistPlayListException){ 
-                res.status(404);
-                res.json({ status: 404, errorCode: "RESOURCE_NOT_FOUND" } )       
-                }else{
-                    res.status(404);
-                    
-                }
-            }
-    });
+                res.json({ status: 204 } );      
+    }
+    catch(err){
+        errorHandler(err, req, res);
+        return;
+    }
+});
   
 noRoute.route('*')
 .get((req, res) =>{
@@ -453,6 +444,8 @@ function errorHandler(err, req, res){
             err instanceof NoExistPlayListException ||
             err instanceof NoExistUserException ||
             err instanceof NoExistTrackException ||
+            err instanceof MissingArguments ||
+            err instanceof NoExistPlayListException ||
             err instanceof InvalidRouteException):
         res.status(404);
         res.json({
@@ -524,13 +517,13 @@ module.exports = {
 
 
 function filterAccordingTo(unquify,name,minDuration,maxDuration){
-    if(name==undefined&&minDuration==undefined&&maxDuration==undefined){
-        throw MissingArguments 
+    if(name===undefined&&minDuration===undefined&&maxDuration===undefined){
+        throw MissingArguments; 
     }
-    else{let playlistsFound = unquify.searchCustomPlaylist(name,minDuration,maxDuration)
-        if(playlistsFound.length==0){
-            throw NoExistPlayListException
-        }else{return playlistsFound[0] }
+    else{const playlistsFound = unquify.searchCustomPlaylist(name,minDuration,maxDuration);
+        if(playlistsFound.length===0){
+            throw NoExistPlayListException;
+        }else{return playlistsFound[0]; }
         
    }
 }
@@ -540,11 +533,11 @@ function createNewPlaylist(req, unqfy, res) {
         
         const name = req.body.name;
         const dataTracks = req.body.tracks; 
-        const tracks = dataTracks.map((track)=> unqfy.getTrackById(track.id) )
+        const tracks = dataTracks.map((track)=> unqfy.getTrackById(track.id) );
         const newPlaylist = unqfy.createPlaylistWithTracksRelated(name,tracks );    
             
         saveUNQfy(unqfy);
-        unqfy = getUNQfy();
+        // unqfy = getUNQfy();
         res.status(201);
         res.json(newPlaylist);
 
@@ -555,7 +548,7 @@ function createNewPlaylist(req, unqfy, res) {
         const newPlaylist = unqfy.createPlaylist(name, genres, duration);
             
         saveUNQfy(unqfy);
-        unqfy = getUNQfy();
+        // unqfy = getUNQfy();
         res.status(201);
         res.json(newPlaylist);}
 }
