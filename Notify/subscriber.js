@@ -23,14 +23,14 @@ class Subscribers{
       }
     subscribe(artistId, anEmail) {
         let subscriber = new Subscriber(artistId, anEmail);
-        if (!this.includesObject(subscriber)){
+        if (this.includesObject(subscriber)){
             this._subscribers.push(subscriber);
         }
     }
     includesObject(subs){
         return this._subscribers.filter(subscriber => {
-            return (subscriber.artistId === subs.artistId && subscriber.email === subs.email);
-        }).length > 0
+             (subscriber.artistId === subs.artistId && subscriber.email === subs.email);
+        }).length == 0
     }
     save(filename) {
         console.log("Write starting..");

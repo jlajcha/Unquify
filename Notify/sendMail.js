@@ -3,7 +3,7 @@ const gmailClient = new GMailAPIClient();
 
 
 function sendMessage(anEmail, aSubject, aMessage){
-  const mail = 'juliana.a.lajcha@gmail.com'
+  
   
   gmailClient.send_mail(aSubject, aMessage,
     {

@@ -51,8 +51,8 @@ notifications.route('/notify')
         })
         try {        
             emails.forEach(email => {
-                
-                sendMail.sendMessage(email, data.subject, data.message);});
+                if (!email === undefined){
+                sendMail.sendMessage(email, data.subject, data.message)};});
             res.status(200);
             res.send({
                 Body: ""

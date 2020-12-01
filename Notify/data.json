@@ -10,22 +10,21 @@
       "_subscribers": "__00002__"
     },
     "__00002__": {
-      "0": "__00003__",
-      "1": "__00004__"
+      "0": "__00003__"
     },
     "__00003__": {
-      "_artistId": 4,
-      "_email": "juliana.a.lajcha@gmail.com"
+      "_artistId": 3,
+      "_email": "__00004__"
     },
     "__00004__": {
-      "_artistId": 1,
-      "_email": "juliana.a.lajcha@gmail.com"
+      "name": "el receiver",
+      "email": "juliana.a.lajcha@gmail.com"
     }
   },
   "types": {
     "__00001__": "Subscribers",
     "__00002__": "Array",
     "__00003__": "Subscriber",
-    "__00004__": "Subscriber"
+    "__00004__": "Object"
   }
 }
