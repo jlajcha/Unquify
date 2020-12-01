@@ -7,6 +7,7 @@ const notifications = express.Router();
 const app  = express();
 const { getNotify, saveNotify } = require('./persistenceNotifier.js');
 let notifier   = getNotify();
+const sendMail      = require('./sendMail.js');
 
 
 //subscribirse a las notificaciones
@@ -34,8 +35,41 @@ notifications.route('/subscribe')
 
 });
 
+notifications.route('/notify')
+.post((req, res, next) => {
+    const data = req.body;
+    if (data.artistId === undefined || data.subject === undefined || data.message === undefined){
+        next(new BadRequestException());
+        return;
+    }
+    unqfyConnector.existArtist(data.artistId)
+    .then(result => {
+        let emails = notifier.subscribers.map(subs => { 
+            if (subs.artistId === data.artistId) {
+                return subs.email;
+            }
+        })
+        try {        
+            emails.forEach(email => {
+                
+                sendMail.sendMessage(email, data.subject, data.message);});
+            res.status(200);
+            res.send({
+                Body: ""
+            })
+        } catch(err){
+            next(new NotificationFailureException());
+        }
+    })
+    .catch(err => (
+        next(new NoFindArtistException()))
+    );
+})
 
-const port = 8082;  // set our port
+
+
+
+const port = 8083;  // set our port
 
 app.use((req, res, next) => {
     bodyParser.json()(req, res, err => {

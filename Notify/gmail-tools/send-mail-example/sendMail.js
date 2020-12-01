@@ -11,11 +11,11 @@ gmailClient.send_mail(
   ],
   {
     "name": "Lautaro Woites",
-    "email": "lautaro.woites@gmail.com",
+    "email": "juliana.a.lajcha@gmail.com",
   },
   {
     "name": "UNQfy newsletter",
-    "email": "unqfy@gmail.com",
+    "email": "juliana.a.lajcha@gmail.com",
   }
 ).then( (gmailResponse) => {
   console.log("Mail enviado!");
