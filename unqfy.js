@@ -147,7 +147,7 @@ class UNQfy {
     const subject = 'Nuevo album '+albumData.name;
     const message = 'Tu artista '+tempArtist.name+' publicó su nuevo album '+albumData.name+'!!!';
     notifier.notifySubscribers(artistId, subject, message);
-    
+     
     return newAlbum;
   }
 

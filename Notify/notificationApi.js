@@ -49,9 +49,10 @@ notifications.route('/notify')
                 return subs.email;
             }
         })
+        let filteredEmails = emails.filter(email=> emails != undefined)
         try {        
-            emails.forEach(email => {
-                if (!email === undefined){
+            filteredEmails.forEach(email => {
+                if (!(email === undefined)){
                 sendMail.sendMessage(email, data.subject, data.message)};});
             res.status(200);
             res.send({
@@ -65,9 +66,6 @@ notifications.route('/notify')
         next(new NoFindArtistException()))
     );
 })
-
-
-
 
 const port = 8083;  // set our port
 

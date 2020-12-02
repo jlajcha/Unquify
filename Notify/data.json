@@ -10,13 +10,49 @@
       "_subscribers": "__00002__"
     },
     "__00002__": {
-      "0": "__00003__"
+      "0": "__00003__",
+      "1": "__00004__",
+      "2": "__00005__",
+      "3": "__00006__",
+      "4": "__00007__"
     },
     "__00003__": {
       "_artistId": 3,
-      "_email": "__00004__"
+      "_email": "__00008__"
     },
     "__00004__": {
+      "_artistId": 3,
+      "_email": "__00009__"
+    },
+    "__00005__": {
+      "_artistId": 5,
+      "_email": "__00010__"
+    },
+    "__00006__": {
+      "_artistId": 5,
+      "_email": "__00011__"
+    },
+    "__00007__": {
+      "_artistId": 6,
+      "_email": "__00012__"
+    },
+    "__00008__": {
+      "name": "el receiver",
+      "email": "juliana.a.lajcha@gmail.com"
+    },
+    "__00009__": {
+      "name": "el receiver",
+      "email": "juliana.a.lajcha@gmail.com"
+    },
+    "__00010__": {
+      "name": "el receiver",
+      "email": "juliana.a.lajcha@gmail.com"
+    },
+    "__00011__": {
+      "name": "el receiver",
+      "email": "juliana.a.lajcha@gmail.com"
+    },
+    "__00012__": {
       "name": "el receiver",
       "email": "juliana.a.lajcha@gmail.com"
     }
@@ -25,6 +61,14 @@
     "__00001__": "Subscribers",
     "__00002__": "Array",
     "__00003__": "Subscriber",
-    "__00004__": "Object"
+    "__00004__": "Subscriber",
+    "__00005__": "Subscriber",
+    "__00006__": "Subscriber",
+    "__00007__": "Subscriber",
+    "__00008__": "Object",
+    "__00009__": "Object",
+    "__00010__": "Object",
+    "__00011__": "Object",
+    "__00012__": "Object"
   }
 }

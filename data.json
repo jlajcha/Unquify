@@ -19,12 +19,14 @@
       "0": "__00009__",
       "1": "__00010__",
       "2": "__00011__",
-      "3": "__00012__"
+      "3": "__00012__",
+      "4": "__00013__",
+      "5": "__00014__"
     },
     "__00003__": {
-      "_artistCounter": 6,
+      "_artistCounter": 8,
       "_trackCounter": 1,
-      "_albumCounter": 21,
+      "_albumCounter": 27,
       "_playListCounter": 1,
       "_userCounter": 1
     },
@@ -41,177 +43,224 @@
       "_id": 1,
       "_name": "Guns n' Roses",
       "_country": "USA",
-      "_albums": "__00013__"
+      "_albums": "__00015__"
     },
     "__00010__": {
       "_id": 3,
       "_name": "Guns and Roses",
       "_country": "United States",
-      "_albums": "__00014__"
+      "_albums": "__00016__"
     },
     "__00011__": {
       "_id": 4,
       "_name": "juli y su banda",
       "_country": "United States",
-      "_albums": "__00015__"
+      "_albums": "__00017__"
     },
     "__00012__": {
       "_id": 5,
       "_name": "Muse",
       "_country": "UK",
-      "_albums": "__00016__"
+      "_albums": "__00018__"
     },
     "__00013__": {
-      "0": "__00017__",
-      "1": "__00018__",
-      "2": "__00019__",
-      "3": "__00020__",
-      "4": "__00021__"
+      "_id": 6,
+      "_name": "la banda que no le va a llegar mails",
+      "_country": "United States",
+      "_albums": "__00019__"
     },
     "__00014__": {
-      "0": "__00022__",
-      "1": "__00023__",
-      "2": "__00024__",
-      "3": "__00025__",
-      "4": "__00026__",
-      "5": "__00027__"
+      "_id": 7,
+      "_name": "no se tiene que subscribir nadie ",
+      "_country": "United States",
+      "_albums": "__00020__"
     },
     "__00015__": {
-      "0": "__00028__",
-      "1": "__00029__"
+      "0": "__00021__",
+      "1": "__00022__",
+      "2": "__00023__",
+      "3": "__00024__",
+      "4": "__00025__"
     },
     "__00016__": {
-      "0": "__00030__",
-      "1": "__00031__",
-      "2": "__00032__",
-      "3": "__00033__",
-      "4": "__00034__",
-      "5": "__00035__"
+      "0": "__00026__",
+      "1": "__00027__",
+      "2": "__00028__",
+      "3": "__00029__",
+      "4": "__00030__",
+      "5": "__00031__"
     },
     "__00017__": {
+      "0": "__00032__",
+      "1": "__00033__"
+    },
+    "__00018__": {
+      "0": "__00034__",
+      "1": "__00035__",
+      "2": "__00036__",
+      "3": "__00037__",
+      "4": "__00038__",
+      "5": "__00039__",
+      "6": "__00040__",
+      "7": "__00041__",
+      "8": "__00042__",
+      "9": "__00043__",
+      "10": "__00044__"
+    },
+    "__00019__": {},
+    "__00020__": {
+      "0": "__00045__"
+    },
+    "__00021__": {
       "_id": 2,
       "_name": "Use Your Illusion 1",
       "_year": 1992,
-      "_tracks": "__00036__"
-    },
-    "__00018__": {
-      "_id": 4,
-      "_name": "Appetite For Destruction",
-      "_year": 2000,
-      "_tracks": "__00037__"
-    },
-    "__00019__": {
-      "_id": 5,
-      "_name": "el album nuevo",
-      "_year": 2000,
-      "_tracks": "__00038__"
-    },
-    "__00020__": {
-      "_id": 6,
-      "_name": "el album nuev34",
-      "_year": 2000,
-      "_tracks": "__00039__"
-    },
-    "__00021__": {
-      "_id": 7,
-      "_name": "el album nuyty",
-      "_year": 2000,
-      "_tracks": "__00040__"
-    },
-    "__00022__": {
-      "_id": 9,
-      "_name": "Use Your Illusion 1",
-      "_year": 1992,
-      "_tracks": "__00041__"
-    },
-    "__00023__": {
-      "_id": 16,
-      "_name": "El album que le llega por que esta subscipto al 3",
-      "_year": 1992,
-      "_tracks": "__00042__"
-    },
-    "__00024__": {
-      "_id": 17,
-      "_name": "El album que le llega por que esta subscipto al 3 de nuevo",
-      "_year": 1992,
-      "_tracks": "__00043__"
-    },
-    "__00025__": {
-      "_id": 18,
-      "_name": "El album que le llega por que esta subscipto al 3 de nuevo2",
-      "_year": 1992,
-      "_tracks": "__00044__"
-    },
-    "__00026__": {
-      "_id": 19,
-      "_name": "El album nuevo amigo!",
-      "_year": 1992,
-      "_tracks": "__00045__"
-    },
-    "__00027__": {
-      "_id": 20,
-      "_name": "El album nuevo amigo2!",
-      "_year": 1992,
       "_tracks": "__00046__"
     },
-    "__00028__": {
-      "_id": 3,
+    "__00022__": {
+      "_id": 4,
       "_name": "Appetite For Destruction",
       "_year": 2000,
       "_tracks": "__00047__"
     },
-    "__00029__": {
-      "_id": 8,
-      "_name": "Use Your Illusion 1",
-      "_year": 1992,
+    "__00023__": {
+      "_id": 5,
+      "_name": "el album nuevo",
+      "_year": 2000,
       "_tracks": "__00048__"
     },
-    "__00030__": {
-      "_id": 10,
-      "_name": "Este album no tendría que llegar a nadie",
-      "_year": 1992,
+    "__00024__": {
+      "_id": 6,
+      "_name": "el album nuev34",
+      "_year": 2000,
       "_tracks": "__00049__"
     },
-    "__00031__": {
-      "_id": 11,
-      "_name": "Otro album que no le va a llegar a nadie",
-      "_year": 1992,
+    "__00025__": {
+      "_id": 7,
+      "_name": "el album nuyty",
+      "_year": 2000,
       "_tracks": "__00050__"
     },
-    "__00032__": {
-      "_id": 12,
-      "_name": "Otro album que no le va a llegar a nadie2",
+    "__00026__": {
+      "_id": 9,
+      "_name": "Use Your Illusion 1",
       "_year": 1992,
       "_tracks": "__00051__"
     },
-    "__00033__": {
-      "_id": 13,
-      "_name": "Otro album que no le va a llegar a nadie3",
+    "__00027__": {
+      "_id": 16,
+      "_name": "El album que le llega por que esta subscipto al 3",
       "_year": 1992,
       "_tracks": "__00052__"
     },
-    "__00034__": {
-      "_id": 14,
-      "_name": "Otro album que no le va a llegar a nadie5",
+    "__00028__": {
+      "_id": 17,
+      "_name": "El album que le llega por que esta subscipto al 3 de nuevo",
       "_year": 1992,
       "_tracks": "__00053__"
     },
-    "__00035__": {
-      "_id": 15,
-      "_name": "Otro album que no le va a llegar a nadie8",
+    "__00029__": {
+      "_id": 18,
+      "_name": "El album que le llega por que esta subscipto al 3 de nuevo2",
       "_year": 1992,
       "_tracks": "__00054__"
     },
-    "__00036__": {},
-    "__00037__": {},
-    "__00038__": {},
-    "__00039__": {},
-    "__00040__": {},
-    "__00041__": {},
-    "__00042__": {},
-    "__00043__": {},
-    "__00044__": {},
-    "__00045__": {},
+    "__00030__": {
+      "_id": 19,
+      "_name": "El album nuevo amigo!",
+      "_year": 1992,
+      "_tracks": "__00055__"
+    },
+    "__00031__": {
+      "_id": 20,
+      "_name": "El album nuevo amigo2!",
+      "_year": 1992,
+      "_tracks": "__00056__"
+    },
+    "__00032__": {
+      "_id": 3,
+      "_name": "Appetite For Destruction",
+      "_year": 2000,
+      "_tracks": "__00057__"
+    },
+    "__00033__": {
+      "_id": 8,
+      "_name": "Use Your Illusion 1",
+      "_year": 1992,
+      "_tracks": "__00058__"
+    },
+    "__00034__": {
+      "_id": 10,
+      "_name": "Este album no tendría que llegar a nadie",
+      "_year": 1992,
+      "_tracks": "__00059__"
+    },
+    "__00035__": {
+      "_id": 11,
+      "_name": "Otro album que no le va a llegar a nadie",
+      "_year": 1992,
+      "_tracks": "__00060__"
+    },
+    "__00036__": {
+      "_id": 12,
+      "_name": "Otro album que no le va a llegar a nadie2",
+      "_year": 1992,
+      "_tracks": "__00061__"
+    },
+    "__00037__": {
+      "_id": 13,
+      "_name": "Otro album que no le va a llegar a nadie3",
+      "_year": 1992,
+      "_tracks": "__00062__"
+    },
+    "__00038__": {
+      "_id": 14,
+      "_name": "Otro album que no le va a llegar a nadie5",
+      "_year": 1992,
+      "_tracks": "__00063__"
+    },
+    "__00039__": {
+      "_id": 15,
+      "_name": "Otro album que no le va a llegar a nadie8",
+      "_year": 1992,
+      "_tracks": "__00064__"
+    },
+    "__00040__": {
+      "_id": 21,
+      "_name": "Este album album si",
+      "_year": 1992,
+      "_tracks": "__00065__"
+    },
+    "__00041__": {
+      "_id": 22,
+      "_name": "Este album album si2",
+      "_year": 1992,
+      "_tracks": "__00066__"
+    },
+    "__00042__": {
+      "_id": 23,
+      "_name": "Este album album si3",
+      "_year": 1992,
+      "_tracks": "__00067__"
+    },
+    "__00043__": {
+      "_id": 24,
+      "_name": "Este album album si4",
+      "_year": 1992,
+      "_tracks": "__00068__"
+    },
+    "__00044__": {
+      "_id": 25,
+      "_name": "bueno ahora no tiene que mandarse ",
+      "_year": 2000,
+      "_tracks": "__00069__"
+    },
+    "__00045__": {
+      "_id": 26,
+      "_name": "ahora si este no llega  ",
+      "_year": 2000,
+      "_tracks": "__00070__"
+    },
     "__00046__": {},
     "__00047__": {},
     "__00048__": {},
@@ -220,7 +269,23 @@
     "__00051__": {},
     "__00052__": {},
     "__00053__": {},
-    "__00054__": {}
+    "__00054__": {},
+    "__00055__": {},
+    "__00056__": {},
+    "__00057__": {},
+    "__00058__": {},
+    "__00059__": {},
+    "__00060__": {},
+    "__00061__": {},
+    "__00062__": {},
+    "__00063__": {},
+    "__00064__": {},
+    "__00065__": {},
+    "__00066__": {},
+    "__00067__": {},
+    "__00068__": {},
+    "__00069__": {},
+    "__00070__": {}
   },
   "types": {
     "__00001__": "UNQfy",
@@ -235,14 +300,14 @@
     "__00010__": "Artist",
     "__00011__": "Artist",
     "__00012__": "Artist",
-    "__00013__": "Array",
-    "__00014__": "Array",
+    "__00013__": "Artist",
+    "__00014__": "Artist",
     "__00015__": "Array",
     "__00016__": "Array",
-    "__00017__": "Album",
-    "__00018__": "Album",
-    "__00019__": "Album",
-    "__00020__": "Album",
+    "__00017__": "Array",
+    "__00018__": "Array",
+    "__00019__": "Array",
+    "__00020__": "Array",
     "__00021__": "Album",
     "__00022__": "Album",
     "__00023__": "Album",
@@ -258,16 +323,16 @@
     "__00033__": "Album",
     "__00034__": "Album",
     "__00035__": "Album",
-    "__00036__": "Array",
-    "__00037__": "Array",
-    "__00038__": "Array",
-    "__00039__": "Array",
-    "__00040__": "Array",
-    "__00041__": "Array",
-    "__00042__": "Array",
-    "__00043__": "Array",
-    "__00044__": "Array",
-    "__00045__": "Array",
+    "__00036__": "Album",
+    "__00037__": "Album",
+    "__00038__": "Album",
+    "__00039__": "Album",
+    "__00040__": "Album",
+    "__00041__": "Album",
+    "__00042__": "Album",
+    "__00043__": "Album",
+    "__00044__": "Album",
+    "__00045__": "Album",
     "__00046__": "Array",
     "__00047__": "Array",
     "__00048__": "Array",
@@ -276,6 +341,22 @@
     "__00051__": "Array",
     "__00052__": "Array",
     "__00053__": "Array",
-    "__00054__": "Array"
+    "__00054__": "Array",
+    "__00055__": "Array",
+    "__00056__": "Array",
+    "__00057__": "Array",
+    "__00058__": "Array",
+    "__00059__": "Array",
+    "__00060__": "Array",
+    "__00061__": "Array",
+    "__00062__": "Array",
+    "__00063__": "Array",
+    "__00064__": "Array",
+    "__00065__": "Array",
+    "__00066__": "Array",
+    "__00067__": "Array",
+    "__00068__": "Array",
+    "__00069__": "Array",
+    "__00070__": "Array"
   }
 }
