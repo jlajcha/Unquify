@@ -35,6 +35,58 @@ notifications.route('/subscribe')
 
 });
 
+
+//ENDPOINT GET /api/subscriptions?artistId=<artistID>
+notifications.route('/subscriptions')
+.get((req, res, next) => {
+    let id = parseInt(req.query.artistId);if (id === undefined){
+        next(new BadRequestException());
+    }
+    unqfyConnector.existArtist(id)
+    .then(result => {
+        let emails = notifier.subscribers.map(subs => { 
+            if (subs.artistId === id) {
+                return subs.email;
+            }
+        })
+        let filteredMails = emails.filter(mail=>mail!=undefined)
+        res.status(200);
+        res.send({
+            Body: {"artistId": id,"subscriptors": filteredMails}  
+        })
+    })
+    .catch(err => (
+        next(new NoFindArtistException()))
+    );  
+})
+
+
+
+notifications.route('/unsubscribe')
+.post((req, res, next) => {
+    const data = req.body;
+    if (data.artistId === undefined || data.email === undefined){
+        next(new BadRequestException());
+        return;
+    }
+    unqfyConnector.existArtist(data.artistId)
+    .then(result => {
+        notifier.unSubscribe(data.artistId, data.email);
+        saveNotify(subscribers);
+        subscribers = getNotify();
+        res.status(200);
+        res.send({
+            Body: ""
+        })
+    })
+    .catch(err => (
+        next(new NoFindArtistException()))
+    );   
+})
+
+
+
+
 notifications.route('/notify')
 .post((req, res, next) => {
     const data = req.body;

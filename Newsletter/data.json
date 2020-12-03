@@ -14,31 +14,32 @@
       "1": "__00004__",
       "2": "__00005__",
       "3": "__00006__",
-      "4": "__00007__"
+      "4": "__00007__",
+      "5": "__00008__"
     },
     "__00003__": {
       "_artistId": 3,
-      "_email": "__00008__"
+      "_email": "__00009__"
     },
     "__00004__": {
       "_artistId": 3,
-      "_email": "__00009__"
+      "_email": "__00010__"
     },
     "__00005__": {
       "_artistId": 5,
-      "_email": "__00010__"
+      "_email": "__00011__"
     },
     "__00006__": {
       "_artistId": 5,
-      "_email": "__00011__"
+      "_email": "__00012__"
     },
     "__00007__": {
       "_artistId": 6,
-      "_email": "__00012__"
+      "_email": "__00013__"
     },
     "__00008__": {
-      "name": "el receiver",
-      "email": "juliana.a.lajcha@gmail.com"
+      "_artistId": 7,
+      "_email": "__00014__"
     },
     "__00009__": {
       "name": "el receiver",
@@ -55,6 +56,14 @@
     "__00012__": {
       "name": "el receiver",
       "email": "juliana.a.lajcha@gmail.com"
+    },
+    "__00013__": {
+      "name": "el receiver",
+      "email": "juliana.a.lajcha@gmail.com"
+    },
+    "__00014__": {
+      "name": "el receiver",
+      "email": "juliana.a.lajcha@gmail.com"
     }
   },
   "types": {
@@ -65,10 +74,12 @@
     "__00005__": "Subscriber",
     "__00006__": "Subscriber",
     "__00007__": "Subscriber",
-    "__00008__": "Object",
+    "__00008__": "Subscriber",
     "__00009__": "Object",
     "__00010__": "Object",
     "__00011__": "Object",
-    "__00012__": "Object"
+    "__00012__": "Object",
+    "__00013__": "Object",
+    "__00014__": "Object"
   }
 }

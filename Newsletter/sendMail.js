@@ -10,5 +10,5 @@ function sendMessage(anEmail, aSubject, aMessage){
     "name": "UNQfy newsletter",
     "email": "unquify.newsletter@gmail.com",
   }) 
-  }
+  } 
 module.exports.sendMessage = sendMessage;

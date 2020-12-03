@@ -26,7 +26,7 @@
     "__00003__": {
       "_artistCounter": 8,
       "_trackCounter": 1,
-      "_albumCounter": 27,
+      "_albumCounter": 28,
       "_playListCounter": 1,
       "_userCounter": 1
     },
@@ -109,159 +109,165 @@
     },
     "__00019__": {},
     "__00020__": {
-      "0": "__00045__"
+      "0": "__00045__",
+      "1": "__00046__"
     },
     "__00021__": {
       "_id": 2,
       "_name": "Use Your Illusion 1",
       "_year": 1992,
-      "_tracks": "__00046__"
+      "_tracks": "__00047__"
     },
     "__00022__": {
       "_id": 4,
       "_name": "Appetite For Destruction",
       "_year": 2000,
-      "_tracks": "__00047__"
+      "_tracks": "__00048__"
     },
     "__00023__": {
       "_id": 5,
       "_name": "el album nuevo",
       "_year": 2000,
-      "_tracks": "__00048__"
+      "_tracks": "__00049__"
     },
     "__00024__": {
       "_id": 6,
       "_name": "el album nuev34",
       "_year": 2000,
-      "_tracks": "__00049__"
+      "_tracks": "__00050__"
     },
     "__00025__": {
       "_id": 7,
       "_name": "el album nuyty",
       "_year": 2000,
-      "_tracks": "__00050__"
+      "_tracks": "__00051__"
     },
     "__00026__": {
       "_id": 9,
       "_name": "Use Your Illusion 1",
       "_year": 1992,
-      "_tracks": "__00051__"
+      "_tracks": "__00052__"
     },
     "__00027__": {
       "_id": 16,
       "_name": "El album que le llega por que esta subscipto al 3",
       "_year": 1992,
-      "_tracks": "__00052__"
+      "_tracks": "__00053__"
     },
     "__00028__": {
       "_id": 17,
       "_name": "El album que le llega por que esta subscipto al 3 de nuevo",
       "_year": 1992,
-      "_tracks": "__00053__"
+      "_tracks": "__00054__"
     },
     "__00029__": {
       "_id": 18,
       "_name": "El album que le llega por que esta subscipto al 3 de nuevo2",
       "_year": 1992,
-      "_tracks": "__00054__"
+      "_tracks": "__00055__"
     },
     "__00030__": {
       "_id": 19,
       "_name": "El album nuevo amigo!",
       "_year": 1992,
-      "_tracks": "__00055__"
+      "_tracks": "__00056__"
     },
     "__00031__": {
       "_id": 20,
       "_name": "El album nuevo amigo2!",
       "_year": 1992,
-      "_tracks": "__00056__"
+      "_tracks": "__00057__"
     },
     "__00032__": {
       "_id": 3,
       "_name": "Appetite For Destruction",
       "_year": 2000,
-      "_tracks": "__00057__"
+      "_tracks": "__00058__"
     },
     "__00033__": {
       "_id": 8,
       "_name": "Use Your Illusion 1",
       "_year": 1992,
-      "_tracks": "__00058__"
+      "_tracks": "__00059__"
     },
     "__00034__": {
       "_id": 10,
       "_name": "Este album no tendría que llegar a nadie",
       "_year": 1992,
-      "_tracks": "__00059__"
+      "_tracks": "__00060__"
     },
     "__00035__": {
       "_id": 11,
       "_name": "Otro album que no le va a llegar a nadie",
       "_year": 1992,
-      "_tracks": "__00060__"
+      "_tracks": "__00061__"
     },
     "__00036__": {
       "_id": 12,
       "_name": "Otro album que no le va a llegar a nadie2",
       "_year": 1992,
-      "_tracks": "__00061__"
+      "_tracks": "__00062__"
     },
     "__00037__": {
       "_id": 13,
       "_name": "Otro album que no le va a llegar a nadie3",
       "_year": 1992,
-      "_tracks": "__00062__"
+      "_tracks": "__00063__"
     },
     "__00038__": {
       "_id": 14,
       "_name": "Otro album que no le va a llegar a nadie5",
       "_year": 1992,
-      "_tracks": "__00063__"
+      "_tracks": "__00064__"
     },
     "__00039__": {
       "_id": 15,
       "_name": "Otro album que no le va a llegar a nadie8",
       "_year": 1992,
-      "_tracks": "__00064__"
+      "_tracks": "__00065__"
     },
     "__00040__": {
       "_id": 21,
       "_name": "Este album album si",
       "_year": 1992,
-      "_tracks": "__00065__"
+      "_tracks": "__00066__"
     },
     "__00041__": {
       "_id": 22,
       "_name": "Este album album si2",
       "_year": 1992,
-      "_tracks": "__00066__"
+      "_tracks": "__00067__"
     },
     "__00042__": {
       "_id": 23,
       "_name": "Este album album si3",
       "_year": 1992,
-      "_tracks": "__00067__"
+      "_tracks": "__00068__"
     },
     "__00043__": {
       "_id": 24,
       "_name": "Este album album si4",
       "_year": 1992,
-      "_tracks": "__00068__"
+      "_tracks": "__00069__"
     },
     "__00044__": {
       "_id": 25,
       "_name": "bueno ahora no tiene que mandarse ",
       "_year": 2000,
-      "_tracks": "__00069__"
+      "_tracks": "__00070__"
     },
     "__00045__": {
       "_id": 26,
       "_name": "ahora si este no llega  ",
       "_year": 2000,
-      "_tracks": "__00070__"
+      "_tracks": "__00071__"
     },
-    "__00046__": {},
+    "__00046__": {
+      "_id": 27,
+      "_name": "El album de 7 que tiene que llegar ",
+      "_year": 1992,
+      "_tracks": "__00072__"
+    },
     "__00047__": {},
     "__00048__": {},
     "__00049__": {},
@@ -285,7 +291,9 @@
     "__00067__": {},
     "__00068__": {},
     "__00069__": {},
-    "__00070__": {}
+    "__00070__": {},
+    "__00071__": {},
+    "__00072__": {}
   },
   "types": {
     "__00001__": "UNQfy",
@@ -333,7 +341,7 @@
     "__00043__": "Album",
     "__00044__": "Album",
     "__00045__": "Album",
-    "__00046__": "Array",
+    "__00046__": "Album",
     "__00047__": "Array",
     "__00048__": "Array",
     "__00049__": "Array",
@@ -357,6 +365,8 @@
     "__00067__": "Array",
     "__00068__": "Array",
     "__00069__": "Array",
-    "__00070__": "Array"
+    "__00070__": "Array",
+    "__00071__": "Array",
+    "__00072__": "Array"
   }
 }

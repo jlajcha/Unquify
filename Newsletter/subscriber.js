@@ -32,6 +32,12 @@ class Subscribers{
              (subscriber.artistId === subs.artistId && subscriber.email === subs.email);
         }).length == 0
     }
+
+    unSubscribe(artistId, anEmail){
+        this._subscribers = this._subscribers.filter(subscriber => (
+            !(subscriber.artistId === artistId && subscriber.email === anEmail)
+        ))
+    }
     save(filename) {
         console.log("Write starting..");
     
