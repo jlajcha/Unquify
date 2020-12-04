@@ -1,5 +1,8 @@
 const Album = require('./album.js');
 const {ExistAlbumOfArtist} = require('./exceptions.js');
+const {ObserverManager} = require('./unquifyPublisher')
+const observer = new ObserverManager()
+
 
 class Artist{
     
@@ -29,7 +32,10 @@ class Artist{
         if(this.hasTheAlbum(anAlbum)){
             throw new ExistAlbumOfArtist(anAlbum.name, this._id);
         }
+        
+        observer.notifyAll({album:anAlbum.name,artist:this.name,artistId:this._id})     
         this.albums.push(anAlbum);
+        return anAlbum
     }
 
     addTrackToAlbum(idAlbum,track){

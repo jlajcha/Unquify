@@ -72,8 +72,8 @@ notifications.route('/unsubscribe')
     unqfyConnector.existArtist(data.artistId)
     .then(result => {
         notifier.unSubscribe(data.artistId, data.email);
-        saveNotify(subscribers);
-        subscribers = getNotify();
+        saveNotify(notifier);
+        notifier = getNotify();
         res.status(200);
         res.send({
             Body: ""

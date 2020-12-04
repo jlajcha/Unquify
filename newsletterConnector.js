@@ -1,6 +1,6 @@
 let rp = require('request-promise');
 
-class NotifyConnector {
+class NewsletterConnector {
   constructor() {
     this._BASE_URL = 'http://localhost:8083/api';
   }
@@ -21,5 +21,5 @@ class NotifyConnector {
 }
 
 module.exports = {
-  NotifyConnector
+  NewsletterConnector
 };

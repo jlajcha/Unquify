@@ -19,9 +19,6 @@ const SpotifyManager = require('./Api/spotifyManager');
 const MusicXMatchManager = require('./Api/musixMatchManager');
 const { saveUNQfy } = require('./persistenceUNQfy.js');
 
-const {NotifyConnector} = require('./notifierConnector.js');
-const notifier  = new NotifyConnector();
-
 
 class UNQfy {
   constructor(){
@@ -142,12 +139,6 @@ class UNQfy {
     const id = this._idManager.nextIdForAlbum();
     const newAlbum = new Album(id,albumData.name,albumData.year);
     this.addAlbumToArtist(artistId,newAlbum);
-    //notifica 
-    const tempArtist = this.getArtistById(artistId)
-    const subject = 'Nuevo album '+albumData.name;
-    const message = 'Tu artista '+tempArtist.name+' publicó su nuevo album '+albumData.name+'!!!';
-    notifier.notifySubscribers(artistId, subject, message);
-     
     return newAlbum;
   }
 
