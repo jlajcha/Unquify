@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser    = require('body-parser');
 const { UnqfyConnector } = require('./unquifyConnector');
-const { NoFindArtistException } = require('../exceptions');
+const { NoFindArtistException, MissingArguments } = require('../exceptions');
 const unqfyConnector   = new UnqfyConnector();
 const notifications = express.Router();
 const app  = express();
@@ -15,7 +15,7 @@ notifications.route('/subscribe')
 .post((req, res,next) => {
     const data = req.body;
         if(data.artistId === undefined || data.email==undefined){
-            const err = new BadRequestException();
+            const err = new MissingArguments();
             errorHandler(err, req, res);
             return;
         }           
@@ -40,11 +40,14 @@ notifications.route('/subscribe')
 notifications.route('/subscriptions')
 .get((req, res, next) => {
     let id = parseInt(req.query.artistId);if (id === undefined){
-        next(new BadRequestException());
+        next(new NoExistArtistException());
     }
     unqfyConnector.existArtist(id)
     .then(result => {
-        let emails = notifier.subscribers.map(subs => { 
+        
+        let notifier2   = getNotify();
+        
+        let emails = notifier2.subscribers.map(subs => { 
             if (subs.artistId === id) {
                 return subs.email;
             }
@@ -66,14 +69,15 @@ notifications.route('/unsubscribe')
 .post((req, res, next) => {
     const data = req.body;
     if (data.artistId === undefined || data.email === undefined){
-        next(new BadRequestException());
+        next(new NoExistArtistException());
         return;
     }
     unqfyConnector.existArtist(data.artistId)
     .then(result => {
+        notifier = getNotify();
         notifier.unSubscribe(data.artistId, data.email);
         saveNotify(notifier);
-        notifier = getNotify();
+        
         res.status(200);
         res.send({
             Body: ""
@@ -101,7 +105,7 @@ notifications.route('/notify')
                 return subs.email;
             }
         })
-        let filteredEmails = emails.filter(email=> emails != undefined)
+        let filteredEmails = emails.filter(email=> email != undefined)
         try {        
             filteredEmails.forEach(email => {
                 if (!(email === undefined)){

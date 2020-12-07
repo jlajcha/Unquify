@@ -10,68 +10,24 @@
       "_subscribers": "__00002__"
     },
     "__00002__": {
-      "0": "__00003__",
-      "1": "__00004__",
-      "2": "__00005__",
-      "3": "__00006__",
-      "4": "__00007__",
-      "5": "__00008__",
-      "6": "__00009__"
+      "0": "__00001__",
+      "1": "__00003__",
+      "2": "__00004__"
     },
     "__00003__": {
-      "_artistId": 3,
-      "_email": "__00010__"
+      "_artistId": 9,
+      "_email": "__00005__"
     },
     "__00004__": {
-      "_artistId": 3,
-      "_email": "__00011__"
+      "_artistId": 9,
+      "_email": "__00006__"
     },
     "__00005__": {
-      "_artistId": 5,
-      "_email": "__00012__"
+      "name": "fan del 9 2",
+      "email": "juliana.a.lajcha@gmail.com"
     },
     "__00006__": {
-      "_artistId": 5,
-      "_email": "__00013__"
-    },
-    "__00007__": {
-      "_artistId": 6,
-      "_email": "__00014__"
-    },
-    "__00008__": {
-      "_artistId": 7,
-      "_email": "__00015__"
-    },
-    "__00009__": {
-      "_artistId": 8,
-      "_email": "__00016__"
-    },
-    "__00010__": {
-      "name": "el receiver",
-      "email": "juliana.a.lajcha@gmail.com"
-    },
-    "__00011__": {
-      "name": "el receiver",
-      "email": "juliana.a.lajcha@gmail.com"
-    },
-    "__00012__": {
-      "name": "el receiver",
-      "email": "juliana.a.lajcha@gmail.com"
-    },
-    "__00013__": {
-      "name": "el receiver",
-      "email": "juliana.a.lajcha@gmail.com"
-    },
-    "__00014__": {
-      "name": "el receiver",
-      "email": "juliana.a.lajcha@gmail.com"
-    },
-    "__00015__": {
-      "name": "el receiver",
-      "email": "juliana.a.lajcha@gmail.com"
-    },
-    "__00016__": {
-      "name": "fan del 8 ",
+      "name": "fan del 9 2",
       "email": "juliana.a.lajcha@gmail.com"
     }
   },
@@ -80,17 +36,7 @@
     "__00002__": "Array",
     "__00003__": "Subscriber",
     "__00004__": "Subscriber",
-    "__00005__": "Subscriber",
-    "__00006__": "Subscriber",
-    "__00007__": "Subscriber",
-    "__00008__": "Subscriber",
-    "__00009__": "Subscriber",
-    "__00010__": "Object",
-    "__00011__": "Object",
-    "__00012__": "Object",
-    "__00013__": "Object",
-    "__00014__": "Object",
-    "__00015__": "Object",
-    "__00016__": "Object"
+    "__00005__": "Object",
+    "__00006__": "Object"
   }
 }

@@ -1,5 +1,6 @@
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
+const { runInThisContext } = require('vm');
 
 class Subscriber {
     constructor(artistId, anEmail){
@@ -29,14 +30,15 @@ class Subscribers{
     }
     includesObject(subs){
         return this._subscribers.filter(subscriber => {
-             (subscriber.artistId === subs.artistId && subscriber.email === subs.email);
+             (subscriber.artistId === subs.artistId && subscriber.email.email === subs.email);
         }).length == 0
     }
 
     unSubscribe(artistId, anEmail){
         this._subscribers = this._subscribers.filter(subscriber => (
-            !(subscriber.artistId === artistId && subscriber.email === anEmail)
+            !(subscriber.artistId === artistId && subscriber.email.email === anEmail.email)
         ))
+        return this._subscribers
     }
     save(filename) {
         console.log("Write starting..");

@@ -7,7 +7,9 @@ class ObserverManager{
     constructor(){
 
         this._observers = [];
-        this._observers.push(new NewsletterObserver())
+       // this._observers.push(new NewsletterObserver())
+        this.subscribe(new NewsletterObserver())
+        
     }
 
     get observers(){ return this._observers; }
