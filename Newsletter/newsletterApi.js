@@ -88,9 +88,6 @@ notifications.route('/unsubscribe')
     );   
 })
 
-
-
-
 notifications.route('/notify')
 .post((req, res, next) => {
     const data = req.body;
@@ -122,6 +119,26 @@ notifications.route('/notify')
         next(new NoFindArtistException()))
     );
 })
+
+//ENDPOINT DELETE /api/subscriptions
+notifications.route('/subscriptions')
+.delete((req, res, next) => {
+    const data = req.body;
+    if (data.artistId === undefined){
+        next(new NotificationFailureException());
+        return;
+    }    
+    
+    notifier.deleteSubscribers(data.artistId);
+    saveNotify(notifier);
+    notifier = getNotify();
+    res.status(200);
+    res.send({
+        Body: ""
+    })    
+})
+
+
 
 const port = 8083;  // set our port
 

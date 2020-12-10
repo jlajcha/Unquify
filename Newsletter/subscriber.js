@@ -40,6 +40,12 @@ class Subscribers{
         ))
         return this._subscribers
     }
+    
+    deleteSubscribers(artistId){
+        this._subscribers = this._subscribers.filter(subscriber => (
+            subscriber.artistId !== artistId)
+        );
+    }
     save(filename) {
         console.log("Write starting..");
     
