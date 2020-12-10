@@ -1,6 +1,6 @@
 const express = require('express');
 const discord = express.Router();
-
+const rp    = require('request-promise');
 
 
 class DiscordConnector {
@@ -12,11 +12,15 @@ class DiscordConnector {
     set hookUrl(newHookUrl) { return this._hookUrl = newHookUrl; }
 
     postMessage(message) {
-        discord.post(this.hookUrl,{
-            content: message
-        })
+        const options = {
+            uri: this.hookUrl,
+            body:{content: message},
+            json: true
+            
+        };
+        rp.post(options)
         .then(res => {
-            console.log("Respuesta de discord: ", res.data);
+            console.log("Respuesta de discord: ", res);
         })
         .catch(err => {
             console.error("Fallo el post a discord: ", err);
