@@ -38,7 +38,6 @@ common.route('/monitor/')
     res.json({currentStatus: (monitor.isOnline ? "online" : "offline")});
 })
 
-//Estos deberian quedar abajo de todo.
 
 other.route('*')
 .get((req, res) => {
@@ -68,7 +67,7 @@ other.route('*')
 })
 
 function errorHandler(err, req, res) {
-    // Chequeamos que tipo de error es y actuamos en consecuencia
+    // Chequeamos que tipo de error 
     switch(true){
         case (err instanceof NoRouteException):
             res.status(404);
