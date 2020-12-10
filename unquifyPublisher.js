@@ -1,4 +1,4 @@
-const {NewsletterObserver} = require('./NewsletterObserver')
+//const {NewsletterObserver} = require('./NewsletterObserver')
 
 
 
@@ -8,8 +8,8 @@ class ObserverManager{
 
         this._observers = [];
        // this._observers.push(new NewsletterObserver())
-        this.subscribe(new NewsletterObserver())
-        
+//        this.subscribe(new NewsletterObserver())
+//        
     }
 
     get observers(){ return this._observers; }

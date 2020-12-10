@@ -2,6 +2,12 @@ const Album = require('./album.js');
 const {ExistAlbumOfArtist} = require('./exceptions.js');
 const {ObserverManager} = require('./unquifyPublisher')
 const observer = new ObserverManager()
+const {NewsletterObserver} = require('./NewsletterObserver')
+
+const nw  = new NewsletterObserver()
+
+observer.subscribe(nw)
+
 
 
 class Artist{

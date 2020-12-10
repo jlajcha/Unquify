@@ -9,7 +9,6 @@ const notifier  = new NewsletterConnector();
 //clase concreta 
 class NewsletterObserver{
     constructor(){}
-
     updateState(json){
         
     const subject = 'Nuevo album '+json.album;
@@ -19,4 +18,4 @@ class NewsletterObserver{
 
 }
 module.exports = {
-    NewsletterObserver: NewsletterObserver}
+    NewsletterObserver}
