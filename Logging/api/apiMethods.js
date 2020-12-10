@@ -1,0 +1,134 @@
+const express = require('express');
+// const { errorHandler } = require('../../Api/apiUnqfy');
+const logger = require('../logger');
+const common = express.Router();
+const other = express.Router();
+
+common.route('/logging/')
+.post((req, res) => {
+    const data = req.body;
+    logger.log(data)
+
+    if(logger.silent) {
+        res.status(503);
+        res.json({logged: ""});
+    }else {
+        res.status(200);
+        res.json({logged: data});
+    }
+})
+.put((req, res) => {
+    const data = req.body;
+    if(data.hasOwnProperty('setStatus')) {
+        switch (data.setStatus) {
+            case "on":
+                logger.silent = false;
+                break;
+            case "off":
+                logger.silent = true;
+                break;            
+        }
+    }
+    res.status(200);
+    res.json({currentStatus: (logger.silent ? "offline" : "online")})
+})
+
+other.route('*')
+.get((req, res) => {
+    const err = new NoRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+.post((req, res) => {
+    const err = new NoRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+.delete((req, res) => {
+    const err = new NoRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+.patch((req, res) => {
+    const err = new NoRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+.put((req, res) => {
+    const err = new NoRouteException();
+    errorHandler(err, req, res);
+    return;
+})
+
+function errorHandler(err, req, res) {
+    switch(true){
+        case(err instanceof NoRouteException):
+        res.status(err.status);
+        res.json({
+            status: err.status,
+            errorCode: err.errorCode
+        });
+        break;
+        case(err instanceof BadRequestException):
+        res.status(err.status);
+        res.json({
+            status: err.status,
+            errorCode: err.errorCode
+        });
+        break;
+        case(err instanceof InvalidInputError):
+        res.status(err.status);
+        res.json({
+            status: err.status,
+            errorCode: err.errorCode
+        });
+        break;
+        case(err !== undefined && err.type === 'entity.parse.failed' || err instanceof SyntaxError):
+        res.status(err.status);
+        res.json({
+            status: err.status,
+            errorCode: 'INVALID_JSON'
+        });
+        break;
+        default:
+            res.status(500);
+            res.json({
+                status: 500,
+                errorCode: 'INTERNAL_SERVER_ERROR'
+            });
+    }
+}
+
+class APIError extends Error {
+    constructor(name, statusCode, errorCode, message = null) {
+        super(message || name);
+        this.name = name;
+        this.status = statusCode;
+        this.errorCode = errorCode;
+    }
+}
+
+class BadRequestException extends APIError {
+    constructor(){
+        super('BadRequestException', 400, 'BAD_REQUEST');
+    }
+}
+
+class InvalidInputError extends APIError {
+    constructor(){
+        super('InvalidInputError', 400, 'INVALID_INPUT_DATA');
+    }
+}
+
+class NoRouteException extends APIError {
+    constructor(){
+        super('NoRouteException', 404, 'RESOURCE_NOT_FOUND');
+    }
+}
+
+module.exports = {
+    common,
+    other,
+    errorHandler,
+    BadRequestException
+}

@@ -18,6 +18,8 @@ const {ExistArtistException,
 const SpotifyManager = require('./Api/spotifyManager');
 const MusicXMatchManager = require('./Api/musixMatchManager');
 const { saveUNQfy } = require('./persistenceUNQfy.js');
+const loggingConnector = require('./loggingConnector.js');
+const logging = new loggingConnector.LoggingConnector();
 
 
 class UNQfy {
@@ -115,6 +117,8 @@ class UNQfy {
     const country = artistData.country;
     const newArtist = new Artist(id,name,country);
     this._artists.push(newArtist);
+    const message = 'Artista creado en UNQfy -Codigo:'+this.id+'Nombre:'+name;
+    logging.logEventPost(message,'info');
     return newArtist;
   }
 
