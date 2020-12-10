@@ -1,7 +1,7 @@
 const Album = require('./album.js');
 const {ExistAlbumOfArtist} = require('./exceptions.js');
 const {ObserverManager} = require('./unquifyPublisher')
-const observerARtist = new ObserverManager()
+const observer = new ObserverManager()
 
 
 class Artist{

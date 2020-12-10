@@ -110,7 +110,7 @@ notifications.route('/notify')
             filteredEmails.forEach(email => {
                 if (!(email === undefined)){
                 sendMail.sendMessage(email, data.subject, data.message)};});
-            res.status(200);
+              res.status(200);
             res.send({
                 Body: ""
             })
