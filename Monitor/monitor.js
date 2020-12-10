@@ -54,7 +54,6 @@ class Monitor {
             };
             rp.get(options)
             .then(res => {
-                console.log('entro aca ' + res )
                 const currentDatetime = new Date();
                 const currentTime = formatTime(currentDatetime);
                 wentOnlineHandler(service, currentTime);
@@ -62,12 +61,6 @@ class Monitor {
             .catch(err => {
                 const currentDatetime = new Date();
                 const currentTime = formatTime(currentDatetime);
-                // if (service.isOnline) {
-                //     const wentDownMsg = `[${currentTime}] El servicio ${service.name} ha dejado de funcionar`;
-                //     console.log(wentDownMsg);
-                //     this.discordConnector.postMessage(wentDownMsg);
-                // }
-                // //caso que este levantado el servicio pero de 400 por que la ruta no existe
                 if (err.response!=undefined && err.response.status !== 500) {
                     wentOnlineHandler(service, currentTime);
                 
@@ -75,16 +68,10 @@ class Monitor {
                     
                     if (( err.cause != undefined) && err.cause.code === "ECONNREFUSED") {
                         if (service.isOnline) {
-                            service.isOnline = false;
+                            service.isOnline = false;}
                             const wentDownMsg = `[${currentTime}] El servicio ${service.name} ha dejado de funcionar`;
                             console.log(wentDownMsg);
-                            this.discordConnector.postMessage(wentDownMsg);
-                        }
-                     else { const wentDownMsg = `[${currentTime}] El servicio ${service.name} ha dejado de funcionar`;
-                            console.log(wentDownMsg);
-                            this.discordConnector.postMessage(wentDownMsg);
-                            //console.error(`Fallo de forma inesperada la api del servicio ${service.name}`);
-                     }
+                            this.discordConnector.postMessage(wentDownMsg);                     
                     }
                 }
             });
