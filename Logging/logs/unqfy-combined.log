@@ -1,24 +1,18 @@
-[11-12-2020 10:20:02] (info): Artista creado en UNQfy - Codigo: 1 Nombre: canserbero
-[11-12-2020 10:20:19] (info): Album creado en UNQfy - Codigo: 1 Nombre: rey
-[11-12-2020 10:20:29] (info): Track creado en UNQfy - Codigo: 1 Nombre: jeremias
-[11-12-2020 10:20:44] (error): Track inexistente en UNQfy - Codigo: 2 Nombre: undefined
-[11-12-2020 10:21:03] (info): Track borrado en UNQfy - Codigo: 1 Nombre: jeremias
-[11-12-2020 10:21:08] (error): Track inexistente en UNQfy - Codigo: 1 Nombre: undefined
-[11-12-2020 10:23:39] (info): Album borrado en UNQfy - Codigo: 1 Nombre: rey
-[11-12-2020 10:24:21] (error): Artista inexistente en UNQfy - Codigo: 2 Nombre: undefined
-[11-12-2020 10:24:27] (info): Artista borrado en UNQfy - Codigo: 1 Nombre: canserbero
-[11-12-2020 10:24:31] (error): Artista inexistente en UNQfy - Codigo: 1 Nombre: undefined
-[11-12-2020 10:34:18] (error): Album inexistente en UNQfy - Codigo: 1 Nombre: undefined
-[11-12-2020 10:35:06] (info): Artista creado en UNQfy - Codigo: 2 Nombre: canserbero
-[11-12-2020 10:35:13] (error): Artista inexistente en UNQfy - Codigo: 1 Nombre: undefined
-[11-12-2020 10:35:22] (info): Album creado en UNQfy - Codigo: 3 Nombre: rey
-[11-12-2020 10:35:40] (error): Album inexistente en UNQfy - Codigo: 1 Nombre: undefined
-[11-12-2020 10:41:38] (error): Album inexistente en UNQfy - Codigo: 11 Nombre: undefined
-[11-12-2020 10:55:32] (error): Artista existente en UNQfy - Codigo: undefined Nombre: canserbero
-[11-12-2020 10:55:57] (info): Artista creado en UNQfy - Codigo: 3 Nombre: can
-[11-12-2020 10:56:51] (error): Artista existente en UNQfy - Codigo: undefined Nombre: cans
-[11-12-2020 17:07:33] (error): Artista inexistente en UNQfy - Codigo: 1 Nombre: undefined
-[11-12-2020 17:07:44] (info): Artista creado en UNQfy - Codigo: 1 Nombre: half moon baby
-[11-12-2020 17:07:49] (info): Album creado en UNQfy - Codigo: 1 Nombre: este si tiene que llegar54556
-[11-12-2020 17:10:18] (info): Album creado en UNQfy - Codigo: 2 Nombre: este si tiene que llegar
-[11-12-2020 17:13:37] (error): Track inexistente en UNQfy - Codigo: 0 Nombre: undefined
+[11-12-2020 17:49:01] (error): Artista inexistente en UNQfy - Codigo: 9999 Nombre: undefined
+[11-12-2020 17:49:01] (error): Album inexistente en UNQfy - Codigo: 99999 Nombre: undefined
+[11-12-2020 17:49:02] (error): Album inexistente en UNQfy - Codigo: 9999 Nombre: undefined
+[11-12-2020 17:49:05] (error): Artista inexistente en UNQfy - Codigo: 9999 Nombre: undefined
+[11-12-2020 17:49:05] (error): Artista inexistente en UNQfy - Codigo: 9999 Nombre: undefined
+[11-12-2020 17:49:09] (error): Artista inexistente en UNQfy - Codigo: 1 Nombre: undefined
+[11-12-2020 17:49:10] (info): Artista creado en UNQfy - Codigo: 1 Nombre: Guns and Roses
+[11-12-2020 17:49:10] (error): Artista inexistente en UNQfy - Codigo: 5 Nombre: undefined
+[11-12-2020 17:49:11] (error): Artista existente en UNQfy - Codigo: undefined Nombre: Guns and Roses
+[11-12-2020 17:49:12] (info): Artista creado en UNQfy - Codigo: 2 Nombre: Muse
+[11-12-2020 17:49:17] (error): Album inexistente en UNQfy - Codigo: 4 Nombre: undefined
+[11-12-2020 17:49:18] (error): Album inexistente en UNQfy - Codigo: 4 Nombre: undefined
+[11-12-2020 17:49:18] (info): Album creado en UNQfy - Codigo: 1 Nombre: Appetite For Destruction
+[11-12-2020 17:49:19] (error): Album inexistente en UNQfy - Codigo: 4 Nombre: undefined
+[11-12-2020 17:49:19] (info): Album creado en UNQfy - Codigo: 2 Nombre: Use Your Illusion 1
+[11-12-2020 17:49:20] (error): Album existente en UNQfy - Codigo: undefined Nombre: Appetite For Destruction
+[11-12-2020 17:49:21] (error): Track inexistente en UNQfy - Codigo: 0 Nombre: undefined
+[11-12-2020 17:49:22] (error): Track inexistente en UNQfy - Codigo: 0 Nombre: undefined
