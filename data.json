@@ -16,14 +16,12 @@
       "_musicXMatchManager": "__00008__"
     },
     "__00002__": {
-      "0": "__00009__",
-      "1": "__00010__",
-      "2": "__00011__"
+      "0": "__00009__"
     },
     "__00003__": {
-      "_artistCounter": 5,
-      "_trackCounter": 2,
-      "_albumCounter": 4,
+      "_artistCounter": 2,
+      "_trackCounter": 1,
+      "_albumCounter": 3,
       "_playListCounter": 1,
       "_userCounter": 1
     },
@@ -37,35 +35,29 @@
       "_authorizationToken": "e628abb5a54c83628dc85f1784a07174"
     },
     "__00009__": {
-      "_id": 2,
-      "_name": "canserbero",
-      "_country": "Venezuela",
-      "_albums": "__00012__"
+      "_id": 1,
+      "_name": "half moon baby",
+      "_country": "nz",
+      "_albums": "__00010__"
     },
     "__00010__": {
-      "_id": 3,
-      "_name": "can",
-      "_country": "Venezuela",
-      "_albums": "__00013__"
+      "0": "__00011__",
+      "1": "__00012__"
     },
     "__00011__": {
-      "_id": 4,
-      "_name": "cans",
-      "_country": "Venezuela",
-      "_albums": "__00014__"
+      "_id": 1,
+      "_name": "este si tiene que llegar54556",
+      "_year": 1992,
+      "_tracks": "__00013__"
     },
     "__00012__": {
-      "0": "__00015__"
+      "_id": 2,
+      "_name": "este si tiene que llegar",
+      "_year": 1992,
+      "_tracks": "__00014__"
     },
     "__00013__": {},
-    "__00014__": {},
-    "__00015__": {
-      "_id": 3,
-      "_name": "rey",
-      "_year": 2020,
-      "_tracks": "__00016__"
-    },
-    "__00016__": {}
+    "__00014__": {}
   },
   "types": {
     "__00001__": "UNQfy",
@@ -77,12 +69,10 @@
     "__00007__": "SpotifyManager",
     "__00008__": "MusixMatchManager",
     "__00009__": "Artist",
-    "__00010__": "Artist",
-    "__00011__": "Artist",
-    "__00012__": "Array",
+    "__00010__": "Array",
+    "__00011__": "Album",
+    "__00012__": "Album",
     "__00013__": "Array",
-    "__00014__": "Array",
-    "__00015__": "Album",
-    "__00016__": "Array"
+    "__00014__": "Array"
   }
 }

@@ -5,12 +5,12 @@ const DiscordConnector = require('./discordConnector');
 const discordConnector = new DiscordConnector()
 const monitor = express.Router();
 const rp    = require('request-promise');
-//const monitor = require('axios');
+
 
 const localhostURL = 'http://localhost';
 const unqfyPort = '8080';
 const newsletterPort = '8083';
-//const loggingPort = '8083';
+const loggingPort = '8082';
 
 class Monitor {
     constructor() {
@@ -18,8 +18,8 @@ class Monitor {
         this._intervalId = null;
         this._services = [
             new Service(`${localhostURL}:${unqfyPort}/api`, "UNQfy"),
-            new Service(`${localhostURL}:${newsletterPort}/api`, "Newsletter")
-           // new Service(`${localhostURL}:${loggingPort}/api`, "Logging")
+            new Service(`${localhostURL}:${newsletterPort}/api`, "Newsletter"),
+            new Service(`${localhostURL}:${loggingPort}/api`, "Logging")
         ];
         this._discordConnector = discordConnector;
         this.turnOn();

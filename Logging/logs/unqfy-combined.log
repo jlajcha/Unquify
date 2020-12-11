@@ -17,3 +17,8 @@
 [11-12-2020 10:55:32] (error): Artista existente en UNQfy - Codigo: undefined Nombre: canserbero
 [11-12-2020 10:55:57] (info): Artista creado en UNQfy - Codigo: 3 Nombre: can
 [11-12-2020 10:56:51] (error): Artista existente en UNQfy - Codigo: undefined Nombre: cans
+[11-12-2020 17:07:33] (error): Artista inexistente en UNQfy - Codigo: 1 Nombre: undefined
+[11-12-2020 17:07:44] (info): Artista creado en UNQfy - Codigo: 1 Nombre: half moon baby
+[11-12-2020 17:07:49] (info): Album creado en UNQfy - Codigo: 1 Nombre: este si tiene que llegar54556
+[11-12-2020 17:10:18] (info): Album creado en UNQfy - Codigo: 2 Nombre: este si tiene que llegar
+[11-12-2020 17:13:37] (error): Track inexistente en UNQfy - Codigo: 0 Nombre: undefined
