@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser    = require('body-parser');
-const { UnqfyConnector } = require('./unquifyConnector');
-const { NoFindArtistException, MissingArguments } = require('../exceptions');
+const { UnqfyConnector } = require('./unquifyConnector.js');
+const { NoFindArtistException, MissingArguments } = require('./exceptions');
 const unqfyConnector   = new UnqfyConnector();
 const notifications = express.Router();
 const app  = express();
@@ -169,7 +169,8 @@ function errorHandler(err, req, res, next) {
                 res.status(404);
                 res.json({
                     status: 404,
-                    errorCode: "RESOURCE_NOT_FOUND"});
+                    errorCode: "RESOURCE_NOT_FOUND",
+                error: JSON.stringify(err)});
     } else {
         res.status(500);
         res.json({status: 500, errorCode: 'INTERNAL_SERVER_ERROR'});

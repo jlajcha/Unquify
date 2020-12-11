@@ -14,6 +14,17 @@
             ],
             "type": "pwa-node"
         },
+        {
+            "name": "Docker: Attach to Node", // Un nombre cualquiera
+            "type": "node",
+            "request": "attach",
+            "remoteRoot": "/usr/httpServer", // Ruta dentro del Docker Container
+            "localRoot": "${workspaceFolder}", // Ruta local
+            "address": "localhost", // Para hacer testing local
+            "port": 9229, // Puerto default del debugger
+            "protocol": "inspector", // Tipo de protocolo
+            "restart": true // Cada que hagamos cambio al servidor nodemon va hacer perder la conexón al debugger por eso hay que reiniciar automáticamente.
+          },
 
     {
         "name": "Attach by Process ID",
