@@ -7,7 +7,7 @@ const nw  = new NewsletterObserver();
 const {LoggingObserver} = require('./LoggingObserver');
 const lg = new LoggingObserver();
 
-// observer.subscribe(nw);
+ observer.subscribe(nw);
 observer.subscribe(lg)
 
 class Artist{
