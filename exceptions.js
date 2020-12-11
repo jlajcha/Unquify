@@ -1,3 +1,10 @@
+const {ObserverManager} = require('./unquifyPublisher');
+const observer = new ObserverManager();
+const {LoggingObserver} = require('./LoggingObserver');
+const lg = new LoggingObserver();
+
+observer.subscribe(lg)
+
 class ExistException extends Error{
     constructor(name, ...entity){
         if(entity.length === 1){
@@ -12,6 +19,7 @@ class ExistArtistException extends ExistException{
     constructor(artistName){
         super(artistName, 'artista');
         this.name = 'ExistArtistException';
+        observer.notifyAll({entityName:artistName,accion:'Artista existente',level:'error'})        
     }
 }
 
@@ -19,6 +27,7 @@ class ExistAlbumOfArtist extends ExistException{
     constructor(albumName, idArtist){
         super(albumName, 'album', 'artista', idArtist);
         this.name = 'ExistAlbumOfArtist';
+        observer.notifyAll({entityName:albumName,accion:'Album existente',level:'error'})        
     }
 }
 
@@ -26,6 +35,7 @@ class ExistTrackInAlbumException extends ExistException{
     constructor(trackName, idAlbum){
         super(trackName, 'track', 'album', idAlbum);
         this.name = 'ExistTrackInAlbumException';
+        observer.notifyAll({entityName:trackName,accion:'Track existente',level:'error'})        
     }
 }
 
@@ -39,6 +49,7 @@ class NoExistArtistException extends NoExistEntityException{
     constructor(idArtist){
         super(idArtist, 'artista');
         this.name = 'NoExistArtistException';
+        observer.notifyAll({entityId:idArtist,accion:'Artista inexistente',level:'error'})        
     }
 }
 
@@ -46,6 +57,7 @@ class NoExistAlbumException extends NoExistEntityException{
     constructor(idAlbum){
         super(idAlbum, 'album');
         this.name = 'NoExistAlbumException';
+        observer.notifyAll({entityId:idAlbum,accion:'Album inexistente',level:'error'})        
     }
 }
 
@@ -53,6 +65,7 @@ class NoExistTrackException extends NoExistEntityException{
     constructor(idTrack){
         super(idTrack, 'track');
         this.name = 'NoExistTrackException';
+        observer.notifyAll({entityId:idTrack,accion:'Track inexistente',level:'error'})        
     }
 }
 

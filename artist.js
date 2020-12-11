@@ -1,14 +1,14 @@
 const Album = require('./album.js');
 const {ExistAlbumOfArtist} = require('./exceptions.js');
-const {ObserverManager} = require('./unquifyPublisher')
-const observer = new ObserverManager()
-const {NewsletterObserver} = require('./NewsletterObserver')
+const {ObserverManager} = require('./unquifyPublisher');
+const observer = new ObserverManager();
+const {NewsletterObserver} = require('./NewsletterObserver');
+const nw  = new NewsletterObserver();
+const {LoggingObserver} = require('./LoggingObserver');
+const lg = new LoggingObserver();
 
-const nw  = new NewsletterObserver()
-
-observer.subscribe(nw)
-
-
+// observer.subscribe(nw);
+observer.subscribe(lg)
 
 class Artist{
     
@@ -39,7 +39,7 @@ class Artist{
             throw new ExistAlbumOfArtist(anAlbum.name, this._id);
         }
         
-        observer.notifyAll({album:anAlbum.name,artist:this.name,artistId:this._id})     
+        observer.notifyAll({entityName:anAlbum.name,artist:this.name,artistId:this._id,accion:'Album creado',entityId:anAlbum.id,level:'info',typeOfAccion:'addAlbum'})     
         this.albums.push(anAlbum);
         return anAlbum
     }
@@ -80,6 +80,7 @@ class Artist{
             const album = this.albums[index];
             if(album.id ===idAlbum){
                 this.albums.splice(index,1);
+                observer.notifyAll({entityName:album.name,accion:'Album borrado',entityId:album.id,level:'info'})     
             }
         }
     }

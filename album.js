@@ -1,4 +1,10 @@
 const {ExistTrackInAlbumException} = require('./exceptions.js');
+const {ObserverManager} = require('./unquifyPublisher');
+const observer = new ObserverManager();
+const {LoggingObserver} = require('./LoggingObserver');
+const lg = new LoggingObserver();
+
+observer.subscribe(lg)
 
 class Album{
 
@@ -24,7 +30,8 @@ class Album{
        if(this.hasTheTrack(newTrack)){
            throw new ExistTrackInAlbumException(newTrack.name, this._id);
        } 
-       this.tracks.push(newTrack);    
+       this.tracks.push(newTrack); 
+       observer.notifyAll({entityName:newTrack.name,accion:'Track creado',entityId:newTrack.id,level:'info'})        
     }
 
     isTrackIncluded(idTrack){
@@ -35,7 +42,8 @@ class Album{
         for (let index = 0; index < this.tracks.length; index++) {
             const track = this.tracks[index]
             if(track.id == idTrack){
-                this.tracks.splice(index,1);   
+                this.tracks.splice(index,1);  
+                observer.notifyAll({entityName:track.name,accion:'Track borrado',entityId:track.id,level:'info'})         
             }
         }
     }

@@ -1,5 +1,4 @@
 const express = require('express');
-// const { errorHandler } = require('../../Api/apiUnqfy');
 const logger = require('../logger');
 const common = express.Router();
 const other = express.Router();
@@ -7,8 +6,23 @@ const other = express.Router();
 common.route('/logging/')
 .post((req, res) => {
     const data = req.body;
-    logger.log(data)
-
+    if(data.level === undefined || data.message === undefined){
+        const err = new BadRequestException();
+        errorHandler(err, req, res);
+        return
+    }
+    switch(data.level){
+        case "error":
+        case "warn":
+        case "info":
+        case "debug":
+            logger.log(data);
+            break;
+        default:
+            const err = new InvalidInputError();
+            errorHandler(err, req, res);
+            return;
+    }    
     if(logger.silent) {
         res.status(503);
         res.json({logged: ""});
@@ -26,8 +40,16 @@ common.route('/logging/')
                 break;
             case "off":
                 logger.silent = true;
-                break;            
+                break;   
+            default:
+                const err = new InvalidInputError();
+                errorHandler(err, req, res);
+                return;         
         }
+    }else {
+        const err = new BadRequestException();
+        errorHandler(err, req, res);
+        return;
     }
     res.status(200);
     res.json({currentStatus: (logger.silent ? "offline" : "online")})

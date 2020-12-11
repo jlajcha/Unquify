@@ -1,0 +1,88 @@
+{
+  "rootObjects": [
+    {
+      "id": "__00001__",
+      "name": null
+    }
+  ],
+  "objects": {
+    "__00001__": {
+      "_artists": "__00002__",
+      "_idManager": "__00003__",
+      "_playListGenerator": "__00004__",
+      "_playLists": "__00005__",
+      "_users": "__00006__",
+      "_spotifyManager": "__00007__",
+      "_musicXMatchManager": "__00008__"
+    },
+    "__00002__": {
+      "0": "__00009__",
+      "1": "__00010__",
+      "2": "__00011__"
+    },
+    "__00003__": {
+      "_artistCounter": 5,
+      "_trackCounter": 2,
+      "_albumCounter": 4,
+      "_playListCounter": 1,
+      "_userCounter": 1
+    },
+    "__00004__": {},
+    "__00005__": {},
+    "__00006__": {},
+    "__00007__": {
+      "_authorizationToken": "BQCCqcKYhueMiKDNyzqTC5g6YK33Qb7c4nYQiiWBkPqIrMZseBkIvtgUq-ONz_CLBH5S3CuizWVyyAr2jhIvXlG81IZaIMaDRKwk7GG3v5SWaydM92HBo1neOj26dVIkx4ihIjdbozyDjhxvPMHE9li_jrEGzHEz2ZNb8EA3JY3Iw_HoUw"
+    },
+    "__00008__": {
+      "_authorizationToken": "e628abb5a54c83628dc85f1784a07174"
+    },
+    "__00009__": {
+      "_id": 2,
+      "_name": "canserbero",
+      "_country": "Venezuela",
+      "_albums": "__00012__"
+    },
+    "__00010__": {
+      "_id": 3,
+      "_name": "can",
+      "_country": "Venezuela",
+      "_albums": "__00013__"
+    },
+    "__00011__": {
+      "_id": 4,
+      "_name": "cans",
+      "_country": "Venezuela",
+      "_albums": "__00014__"
+    },
+    "__00012__": {
+      "0": "__00015__"
+    },
+    "__00013__": {},
+    "__00014__": {},
+    "__00015__": {
+      "_id": 3,
+      "_name": "rey",
+      "_year": 2020,
+      "_tracks": "__00016__"
+    },
+    "__00016__": {}
+  },
+  "types": {
+    "__00001__": "UNQfy",
+    "__00002__": "Array",
+    "__00003__": "IdManager",
+    "__00004__": "PlayListGenerator",
+    "__00005__": "Array",
+    "__00006__": "Array",
+    "__00007__": "SpotifyManager",
+    "__00008__": "MusixMatchManager",
+    "__00009__": "Artist",
+    "__00010__": "Artist",
+    "__00011__": "Artist",
+    "__00012__": "Array",
+    "__00013__": "Array",
+    "__00014__": "Array",
+    "__00015__": "Album",
+    "__00016__": "Array"
+  }
+}

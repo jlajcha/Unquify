@@ -8,7 +8,7 @@ const {
     BadRequestException,
 } = require('../api/apiMethods')
 
-const port = 8082; //ver si hay q cambiarlo
+const port = 8082; 
 
 app.use((req, res,next) => {
     bodyParser.json()(req, res, err =>{
